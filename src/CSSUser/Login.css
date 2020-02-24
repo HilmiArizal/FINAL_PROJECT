@@ -1,0 +1,19 @@
+.login-block{
+background: -webkit-linear-gradient(to bottom, rgb(235, 232, 231)   , rgb(46, 43, 43));  
+background: linear-gradient(to bottom,  rgb(235, 232, 231), rgb(46, 43, 43)); 
+float:left;
+width:100%;
+padding : 100px 0;
+font-family: 'Hammersmith One', sans-serif;
+}
+.banner-sec{ background-size:cover; min-height:500px; border-radius: 0 10px 10px 0; padding:0;}
+.container{background:#fff; border-radius: 10px; }
+.carousel-inner{border-radius:0 10px 10px 0;}
+.carousel-caption{text-align:left; left:5%;}
+.login-sec{padding: 15px 30px; position:relative;}
+.login-sec .copy-text{position:absolute; width:80%; bottom:20px; font-size:13px; text-align:center; }
+.login-sec .copy-text i{color:#FEB58A;}
+.login-sec .copy-text a{color:#E36262;}
+.login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: #DE6262;}
+.login-sec h2:after{content:" "; width:100px; height:5px; background:#FEB58A; display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
+.btn-login{background: #DE6262; color:#fff; font-weight:600;}

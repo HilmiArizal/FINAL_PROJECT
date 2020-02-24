@@ -1,0 +1,32 @@
+.home{
+    text-align: center;
+    margin-top: 1%;
+    font-family: 'Righteous', cursive;
+    font-size: 40px;
+    color: black;
+    font-family: 'Hammersmith One', sans-serif;
+}
+.menu{
+    margin: 4%;
+    background-color: whitesmoke;
+    height: 300px;
+    max-width: 300px;
+    justify-content: center;
+    border-radius: 20px;
+}
+.gambarmenu{
+    padding: 30px;
+    height: 70%; 
+}
+.isigambar{
+    height: 100%;
+    width: 100%;
+    margin-top: 25px;
+}
+.detailmenu{
+    margin-top: 20px;
+    font-family: 'Righteous', cursive;
+    font-size: 25px;
+    color: black;
+    text-align: center;
+}

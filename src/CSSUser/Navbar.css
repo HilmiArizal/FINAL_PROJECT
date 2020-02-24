@@ -1,0 +1,37 @@
+.Navbar-Main{
+    min-height: 106px;
+    padding: 0 15px 0 15px;
+    background-color: white
+}
+
+.brandLogo{
+    height: 70px;
+    width: 100px;
+    max-height: 700px;
+    max-width: 100px;
+}
+
+#centerNav{
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 5px;
+}
+
+#paddingCenterNav{
+    padding: 10px;
+}
+
+.dropdownCustom{
+    /* background-color: transparent !important; */
+    font-size: 20px;
+    font-family: 'Hammersmith One', sans-serif;
+    padding: 10px 30px 10px 30px;
+    border-radius: 50px;
+}
+  
+
+/* .Nav-center{
+    padding: ;
+} */
+

@@ -1,0 +1,58 @@
+.press__container .btn {
+    margin-top: 3.125em;
+}
+btn--center {
+    display: table;
+    margin: 0 auto;
+}
+.btn--border-lightgrey {
+    border: 1px solid #e1eaec;
+}
+.btn--border {
+    border: 1px solid #174233;
+    color: #174233;
+}
+.btn {
+    position: relative;
+    font-family: "Canela Web",serif;
+    font-size: .125em;
+    text-align: center;
+    padding: 20px 40px;
+}
+.btn--border-lightgrey:before {
+    background-color: #192b3c;
+}
+.btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.9s cubic-bezier(0.6,0.05,0.01,0.99);
+    backface-visibility: hidden;
+}
+.btn:hover:before {
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.9s cubic-bezier(0.6, 0.05, 0.01, 0.99);
+}
+.btn--border-lightgrey:hover .btn-text {
+    color: #fff;
+}
+.btn--border-lightgrey:hover .btn-text {
+    color: #fff;
+}
+.btn .btn-text {
+    position: relative;
+    z-index: 999;
+}
+.btn-arrow {
+    position: relative;
+    top: -3px;
+    left: 5px;
+    z-index: 99;
+}
