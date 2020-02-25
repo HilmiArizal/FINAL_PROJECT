@@ -18,7 +18,7 @@ class Product extends Component {
     }
 
     getListProducts = () => {
-        Axios.get(API_URL_1 + `products/getProducts`)
+        Axios.get(API_URL_1 + `products/getProduct`)
             .then((res) => {
                 this.setState({ product: res.data })
                 // console.log(res.data)
@@ -29,13 +29,13 @@ class Product extends Component {
     }
 
     getListCategory = () => {
-        Axios.get(API_URL_1 + `categories/getAllCategory`)
+        Axios.get(API_URL_1 + `products/getCategory`)
             .then((res) => {
                 this.setState({ category: res.data })
                 // console.log(res.data)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
     }
 
@@ -57,12 +57,12 @@ class Product extends Component {
 
     renderProduct = () => {
         return this.state.product.map((item, index) => {
-            if (this.state.idCat === item.idcategory) {
+            if (this.state.idCat === item.productcategoryId) {
                 return (
                     <MDBCol md="4" key={index}>
                         <MDBNavLink to={`/productdetail?id=${item.id}`}>
                             <center>
-                                <img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' />
+                                <img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='200px' />
                                 <MDBCardBody>
                                     <div style={{ fontFamily: 'Hammersmith One, sans-serif', color: 'black' }}>{item.productname.toUpperCase()}</div>
                                 </MDBCardBody>
@@ -75,7 +75,7 @@ class Product extends Component {
                     <MDBCol md="4" key={index}>
                         <MDBNavLink to={`productdetail?id=${item.id}`}>
                             <center>
-                                <img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' />
+                                <img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='200px' />
                                 <MDBCardBody>
                                     <div style={{ fontFamily: 'Hammersmith One, sans-serif', color: 'black' }}>{item.productname.toUpperCase()}</div>
                                 </MDBCardBody>

@@ -9,27 +9,26 @@ import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
 class Home extends Component {
     state = {
-        data: []
+        category: []
     }
 
     componentDidMount() {
-        Axios.get(API_URL_1 + `categories/getAllCategory`)
+        Axios.get(API_URL_1 + `products/getCategory`)
             .then((res) => {
-                this.setState({ data: res.data })
-                console.log(res.data)
+                this.setState({ category: res.data })
+                // console.log(res.data)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
     }
 
     renderGetCategory = () => {
-        let { data } = this.state;
-        return data.map((item, index) => {
+        let { category } = this.state;
+        return category.map((item, index) => {
             return (
                 <MDBCol md='4' key={index}>
                     <center>
-
                         <div className='menu'>
                             <div className='gambarmenu'>
                                 <img src={item.imagecategory} alt='categoryproduct' className='isigambar' />

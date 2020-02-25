@@ -6,13 +6,11 @@ import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact';
 
 class SeeProduct extends Component {
     state = {
-        product: [],
-        category: []
+        product: []
     }
 
     componentDidMount() {
         this.getProducts()
-        this.getCategory()
     }
 
     getProducts = () => {
@@ -26,27 +24,6 @@ class SeeProduct extends Component {
             })
     }
 
-    getCategory = () => {
-        Axios.get(API_URL_1 + `categories/getProductCategory`)
-            .then((res) => {
-                this.setState({ category: res.data })
-                // console.log(res)
-            })
-            .catch((err) => {
-                // console.log(err)
-            })
-    }
-
-    renderGetCategory = () => {
-        return this.state.category.map((val, index) => {
-            return (
-                <div>
-                    {val.category}
-                </div>
-            )
-        })
-    }
-
     renderGetProduct = () => {
         return this.state.product.map((item, index) => {
             return (
@@ -55,7 +32,7 @@ class SeeProduct extends Component {
                     <td>{item.productname}</td>
                     <td>{item.category}</td>
                     <td>{item.size} gr</td>
-                    <td>{item.price.toLocaleString()}</td>
+                    <td>{item.price}</td>
                     <td>{item.description}</td>
                     <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
                 </tr>
@@ -64,8 +41,6 @@ class SeeProduct extends Component {
     }
 
     render() {
-        console.table(this.state.category)
-        console.table(this.state.product)
         return (
             <div>
                 <main className="s-layout__content">
