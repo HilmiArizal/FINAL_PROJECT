@@ -5,6 +5,7 @@ import { API_URL_1 } from '../Helpers/API_URL';
 import CarouselHome from '../Component/CarouselHome';
 import NavbarUser from '../Component/NavbarUser';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
+import Footer from '../Component/Footer';
 
 
 class Home extends Component {
@@ -51,13 +52,17 @@ class Home extends Component {
                 <div className='home'>
                     OUR MENUS
                 </div>
-                <div className='d-flex justify-content-center'>
+                <div className='d-flex justify-content-center' style={{minHeight:'80vh'}}>
                     <MDBContainer>
                         <MDBRow>
                             {this.renderGetCategory()}
                         </MDBRow>
                     </MDBContainer>
                 </div>
+                <br/>
+                <br/>
+                <br/>
+                <Footer/>
             </div>
         );
     }

@@ -15,7 +15,8 @@ import EditDelete from './AdminPages/EditDelete';
 import SeeProduct from './AdminPages/SeeProduct';
 import AddProduct from './AdminPages/AddProduct';
 import DetailProduct from './UserPages/DetailProduct';
-import AddStock from './AdminPages/AddStock';
+import EditProduct from './AdminPages/EditProduct';
+import ProfileCart from './UserPages/ProfileCartUser';
 
 class App extends Component {
 
@@ -35,8 +36,8 @@ class App extends Component {
           <Route path='/profile' component={Profile} />
           <Route path='/addproduct' component={AddProduct} />
           <Route path='/editdelete' component={EditDelete} />
+          <Route path='/editproduct' component={EditProduct} />
           <Route path='/seeproduct' component={SeeProduct} />
-          <Route path='/addstock' component={AddStock} />
           <Route path='/histransaction' component={HisTransaction} />
         </div>
       )
@@ -49,6 +50,7 @@ class App extends Component {
           <Route path='/search' component={Search} />
           <Route path='/product' component={Product} />
           <Route path='/productdetail' component={DetailProduct} />
+          <Route path='/profilecart' component={ProfileCart} />
         </div>
       )
     } else {
@@ -60,6 +62,7 @@ class App extends Component {
           <Route path='/search' component={Search} />
           <Route path='/product' component={Product} />
           <Route path='/productdetail' component={DetailProduct} />
+          <Route path='/profilecart' component={ProfileCart} />
         </div>
       )
     }

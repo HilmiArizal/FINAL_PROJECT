@@ -12,7 +12,7 @@ class Homepage extends Component {
                         <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
                             WELCOME ADMIN SARENONE!
                     </div>
-                        <img src={LogoSarenOne} alt='LogoSarenOne' style={{ width: '50%' }} />
+                        <img src={LogoSarenOne} alt='LogoSarenOne' style={{ width: '55%' }} />
                     </center>
                 </main>
             </div>

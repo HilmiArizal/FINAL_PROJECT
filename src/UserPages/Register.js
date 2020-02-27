@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../CSSUser/Login.css';
 import form1 from '../Image/FORM-1.png';
 import form2 from '../Image/FORM-2.png';
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink } from "mdbreact";
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink, MDBBtn } from "mdbreact";
 import { Button } from 'reactstrap';
 import { Register } from '../Redux/Action';
 import { connect } from 'react-redux';
@@ -81,7 +81,7 @@ class RegisterPage extends Component {
                                     <input type="password" className="form-control" ref='confirmPassword' />
                                 </div>
                                 <div>
-                                    <Button color="black" className="float-right" style={{ padding: '13px 30px 13px 30px', borderRadius: '5px', fontSize: ' 13px' }} onClick={this.RegisterUser}>SUBMIT</Button>
+                                    <MDBBtn color="elegant" className="float-right" style={{ padding: '13px 30px 13px 30px', borderRadius: '5px', fontSize: ' 13px' }} onClick={this.RegisterUser}>SUBMIT</MDBBtn>
                                 </div>
                             </form>
                             <div style={{ fontSize: '15px' }}>Are you Member? <MDBNavLink to="/login">Login here!</MDBNavLink></div>

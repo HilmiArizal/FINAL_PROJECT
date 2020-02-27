@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import '../CSSAdmin/Homepage.css';
+import '../CSSAdmin/ButtonSidebar.css';
 import LogoSarenOne from '../Image/LogoSarenOne.png';
 import { Logout } from '../Redux/Action';
 import { connect } from 'react-redux';
-import { MDBModal, MDBModalBody, MDBModalHeader, MDBNavLink } from 'mdbreact';
-import '../CSSAdmin/ButtonSidebar.css';
+import { MDBNavLink, MDBIcon } from 'mdbreact';
+import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
+// import HomeIcon from '@material-ui/icons/Home';
 
 class Sidebar extends Component {
     state = {
@@ -35,26 +37,49 @@ class Sidebar extends Component {
                     </a>
                     <nav className="s-sidebar__nav"  >
                         <ul >
-                            <li >
-                                <center>
+                            <center>
+                                <li >
                                     <i><em><img src={LogoSarenOne} alt='LogoSarenOne' style={{ width: '100px', borderRadius: '50px', marginBottom: '20px' }} /></em></i>
-                                </center>
-                            </li>
-                            <li>
-                                <a className="s-sidebar__nav-link" href="/">
-                                    <i className="fa fa-home" style={{ color: 'white' }}></i><em>Home</em>
-                                </a>
-                            </li>
-                            <li>
-                                <a className="s-sidebar__nav-link" href="/profile">
-                                    <i className="fa fa-user" style={{ color: 'white' }}></i><em>My Profile</em>
-                                </a>
-                            </li>
-                            <li>
-                                <center>
-                                    {/* <MDBBtn onClick={this.toggle(8)}>MANAGE PRODUCT</MDBBtn> */}
-                                    <input type="button" value="Manage Product" onClick={this.toggle(8)} style={{ padding: '20px 65px 20px 65px' }} />
-                                    <MDBModal isOpen={this.state.modal8} toggle={this.toggle(8)} fullHeight position="left">
+                                </li>
+                                <li>
+                                    <MDBNavLink to="/">
+                                        <div style={{ color: 'white' }}>
+                                            <MDBIcon icon="home" /> HOME
+                                    </div>
+                                    </MDBNavLink>
+                                </li>
+                                <li>
+                                    <MDBNavLink to="/">
+                                        <div style={{ color: 'white' }}>
+                                            <MDBIcon icon="user" /> PROFILE
+                                    </div>
+                                    </MDBNavLink>
+                                </li>
+                                <li>
+                                    <MDBNavLink to="/historytransact">
+                                        <div style={{ color: 'white' }}>
+                                            <MDBIcon icon="dollar-sign" /> HISTORY TRANSACTION
+                                        </div>
+                                    </MDBNavLink>
+                                </li>
+                                <li>
+                                    <MDBDropdown>
+                                        <MDBDropdownToggle caret color="white">
+                                            <MDBIcon icon="bars" /> Manage product
+                                        </MDBDropdownToggle>
+                                        <MDBDropdownMenu basic>
+                                            <MDBNavLink to="seeproduct">
+                                                <MDBDropdownItem>See product</MDBDropdownItem>
+                                            </MDBNavLink>
+                                            <MDBNavLink to="addproduct">
+                                                <MDBDropdownItem>Add product</MDBDropdownItem>
+                                            </MDBNavLink>
+                                            <MDBNavLink to="editdelete">
+                                                <MDBDropdownItem>Edit &amp; Delete</MDBDropdownItem>
+                                            </MDBNavLink>
+                                        </MDBDropdownMenu>
+                                    </MDBDropdown>
+                                    {/* <MDBModal isOpen={this.state.modal8} toggle={this.toggle(8)} fullHeight position="left">
                                         <MDBNavLink to="/">
                                             <MDBModalHeader toggle={this.toggle(8)}></MDBModalHeader>
                                         </MDBNavLink>
@@ -75,20 +100,16 @@ class Sidebar extends Component {
                                                 </div>
                                             </div>
                                         </MDBModalBody>
-                                    </MDBModal>
-                                </center>
-                            </li>
-                            <li>
-                                <a className="s-sidebar__nav-link" href="/histransaction">
-                                    <em>History Transaction</em>
-                                </a>
-                            </li>
-                            <li>
-                                <a className="s-sidebar__nav-link" href="/" onClick={this.onBtnLogout} >
-                                    <em>Logout</em>
-                                </a>
-                            </li>
-
+                                    </MDBModal> */}
+                                </li>
+                                <li>
+                                    <MDBNavLink to="/">
+                                        <div onClick={this.onBtnLogout} style={{ color: 'white' }}>
+                                            <MDBIcon icon="sign-out-alt" /> LOGOUT
+                                        </div>
+                                    </MDBNavLink>
+                                </li>
+                            </center>
                         </ul>
                     </nav>
                 </div>

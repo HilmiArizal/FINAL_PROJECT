@@ -31,9 +31,9 @@ class SeeProduct extends Component {
                     <td>{index + 1}</td>
                     <td>{item.productname}</td>
                     <td>{item.category}</td>
-                    <td>{item.size} gr</td>
+                    <td>{item.size}gr</td>
                     <td>{item.price}</td>
-                    <td>{item.description}</td>
+                    <td style={{fontSize:'13px'}}>{item.description}</td>
                     <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
                 </tr>
             )
@@ -46,7 +46,7 @@ class SeeProduct extends Component {
                 <main className="s-layout__content">
                     <center>
                         <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            ALL PRODUCT
+                            ALL PRODUCT SARENONE
                         </div>
                     </center>
                 </main>
@@ -54,15 +54,15 @@ class SeeProduct extends Component {
                     <center>
                         <MDBContainer>
                             <MDBTable bordered >
-                                <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: 'black', color: 'white' }}>
-                                    <tr className="text-center font-weight-bold text-uppercase">
+                                <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: '#192b3c', color: 'white' }}>
+                                    <tr style={{fontSize:'10px', textAlign:'center'}}>
                                         <th>No. </th>
-                                        <th>Product Name</th>
-                                        <th>Product Category</th>
-                                        <th>Product Size</th>
-                                        <th>Product Price</th>
-                                        <th>Product About</th>
-                                        <th>Product Image</th>
+                                        <th>Product</th>
+                                        <th>Category</th>
+                                        <th>Weight</th>
+                                        <th>Price</th>
+                                        <th>Description</th>
+                                        <th>Image</th>
                                     </tr>
                                 </MDBTableHead>
                                 <MDBTableBody >

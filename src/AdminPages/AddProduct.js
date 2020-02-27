@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../CSSAdmin/Homepage.css';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
-import { MDBInput, MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBCol, MDBRow } from 'mdbreact';
+import { MDBInput, MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBCol, MDBRow, MDBJumbotron } from 'mdbreact';
 import '../CSSAdmin/InputNumber.css';
 
 
@@ -18,7 +18,8 @@ class AddProduct extends Component {
         addSize: 0,
         addPrice: 0,
         modal14: false,
-        value: 0
+        value: 0,
+        ClearInput: ''
     }
 
     toggle = nr => () => {
@@ -118,37 +119,39 @@ class AddProduct extends Component {
 
     uploadProduct = async () => {
         try {
-            const { addImageFile } = this.state;
-            // console.log(addImageFile)
-            if (addImageFile) {
-                var formData = new FormData()
-                var productname = this.productName.value;
-                var productcategoryId = this.state.addCategory;
-                var description = this.refs.productDescription.value;
-                var jumlahstock = this.state.stock
-                var dataproduct = {
-                    productname,
-                    productcategoryId: parseInt(productcategoryId),
-                    description
-                }
-                var data = {
-                    dataproduct,
-                    jumlahstock
-                }
-                if (productname && productcategoryId && description && jumlahstock && addImageFile) {
-                    formData.append('data', JSON.stringify(data))
-                    formData.append('image', addImageFile)
-                    console.log(formData)
-                    if (window.confirm(`Anda yakin ingin menambahkan produk?`)) {
-                        let res = await Axios.post(API_URL_1 + `products/AddProducts`, formData)
-                        console.log(res.data)
-                        alert('Produk sudah ditambahkan silahkan cek')
+            if (this.state.ClearInput) {
+                const { addImageFile } = this.state;
+                // console.log(addImageFile)
+                if (addImageFile) {
+                    var formData = new FormData()
+                    var productname = this.productName.value;
+                    var productcategoryId = this.state.addCategory;
+                    var description = this.refs.productDescription.value;
+                    var jumlahstock = this.state.stock
+                    var dataproduct = {
+                        productname,
+                        productcategoryId: parseInt(productcategoryId),
+                        description
+                    }
+                    var data = {
+                        dataproduct,
+                        jumlahstock
+                    }
+                    if (productname && productcategoryId && description && jumlahstock && addImageFile) {
+                        formData.append('data', JSON.stringify(data))
+                        formData.append('image', addImageFile)
+                        console.log(formData)
+                        if (window.confirm(`Anda yakin ingin menambahkan produk?`)) {
+                            let res = await Axios.post(API_URL_1 + `products/AddProducts`, formData)
+                            console.log(res.data)
+                            alert('Produk sudah ditambahkan silahkan cek')
+                        }
+                    } else {
+                        alert('Please, isi dengan lengkap!')
                     }
                 } else {
-                    alert('Please, isi dengan lengkap!')
+                    alert('Please, isi gambarnya!')
                 }
-            } else {
-                alert('Please, isi gambarnya!')
             }
         } catch (err) {
             // console.log(err)
@@ -157,67 +160,67 @@ class AddProduct extends Component {
 
     renderInputProduct = () => {
         return (
-            <div style={{ border: '1px solid black', backgroundColor: 'white', borderRadius: '20px', padding: '5%' }}>
-                <MDBContainer>
+            <MDBContainer>
+                <MDBJumbotron>
                     <MDBInput label="Product Name" inputRef={(productName) => this.productName = productName} />
-                </MDBContainer>
-                <select className="form-control" onChange={this.onChangeSelectCategory}>
-                    <option value={this.state.addCategory}>Pilih Category</option>
-                    {this.renderListCategory()}
-                </select>
-                <br />
-                <MDBContainer>
-                    <MDBBtn color="success" onClick={this.toggle(14)}>ADD STOCK</MDBBtn>
-                    <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
-                        <MDBModalHeader toggle={this.toggle(14)}></MDBModalHeader>
-                        <MDBModalBody>
-                            <MDBRow>
-                                <MDBCol md="6">
-                                    <select className="form-control" onChange={this.onChangeSelectSize}>
-                                        <option value={this.state.addSize}>Pilih Size</option>
-                                        {this.renderListSize()}
-                                    </select>
-                                </MDBCol>
-                                <MDBCol md="6">
-                                    <select className="form-control" onChange={this.onChangeSelectPrice}>
-                                        <option value={this.state.addPrice}>Pilih Price</option>
-                                        {this.renderListPrice()}
-                                    </select>
-                                </MDBCol>
-                            </MDBRow>
-                            <br />
-                            <br />
-                            <h4>JUMLAH STOCK</h4>
-                            <div className="def-number-input number-input">
-                                <center>
-                                    <button onClick={this.decrease} className="minus"></button>
-                                    <input className="quantity" name="quantity" value={this.state.value} onChange={() => console.log('change')}
-                                        type="number" />
-                                    <button onClick={this.increase} className="plus"></button>
-                                </center>
-                            </div>
-                            <button onClick={this.btnSaveAddStock}>Save</button>
-                        </MDBModalBody>
-                    </MDBModal>
-                </MDBContainer>
-                <br />
-                <div className="form-group">
-                    <label htmlFor="exampleFormControlTextarea1">
-                        Description
+                    <select className="form-control" onChange={this.onChangeSelectCategory}>
+                        <option value={this.state.addCategory}>Pilih Category</option>
+                        {this.renderListCategory()}
+                    </select>
+                    <br />
+                    <MDBContainer>
+                        <MDBBtn color="elegant" size="sm" onClick={this.toggle(14)}>ADD STOCK</MDBBtn>
+                        <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
+                            <MDBModalHeader toggle={this.toggle(14)}></MDBModalHeader>
+                            <MDBModalBody>
+                                <MDBRow>
+                                    <MDBCol md="6">
+                                        <select className="form-control" onChange={this.onChangeSelectSize}>
+                                            <option value={this.state.addSize}>Pilih Size</option>
+                                            {this.renderListSize()}
+                                        </select>
+                                    </MDBCol>
+                                    <MDBCol md="6">
+                                        <select className="form-control" onChange={this.onChangeSelectPrice}>
+                                            <option value={this.state.addPrice}>Pilih Price</option>
+                                            {this.renderListPrice()}
+                                        </select>
+                                    </MDBCol>
+                                </MDBRow>
+                                <br />
+                                <br />
+                                <h4>JUMLAH STOCK</h4>
+                                <div className="def-number-input number-input">
+                                    <center>
+                                        <button onClick={this.decrease} className="minus"></button>
+                                        <input className="quantity" name="quantity" value={this.state.value} onChange={() => console.log('change')}
+                                            type="number" />
+                                        <button onClick={this.increase} className="plus"></button>
+                                    </center>
+                                </div>
+                                <button onClick={this.btnSaveAddStock}>Save</button>
+                            </MDBModalBody>
+                        </MDBModal>
+                    </MDBContainer>
+                    <br />
+                    <div className="form-group">
+                        <label htmlFor="exampleFormControlTextarea1">
+                            Description
                     </label>
-                    <textarea
-                        className="form-control"
-                        id="exampleFormControlTextarea1"
-                        rows="5"
-                        ref="productDescription"
-                    />
-                </div>
-                <div><input accept='image/*' onChange={this.btnUploadImageProduct} type='file' /></div>
-                <br />
-                <center>
-                    <div> <MDBBtn color="primary" onClick={this.uploadProduct}>Save changes</MDBBtn></div>
-                </center>
-            </div>
+                        <textarea
+                            className="form-control"
+                            id="exampleFormControlTextarea1"
+                            rows="5"
+                            ref="productDescription"
+                        />
+                    </div>
+                    <div><input accept='image/*' onChange={this.btnUploadImageProduct} type='file' /></div>
+                    <br />
+                    <center>
+                        <div> <MDBBtn color="elegant" onClick={this.uploadProduct}>Save changes</MDBBtn></div>
+                    </center>
+                </MDBJumbotron>
+            </MDBContainer>
         )
     }
 

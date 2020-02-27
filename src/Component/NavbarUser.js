@@ -59,11 +59,11 @@ class NavbarUser extends Component {
                                         </MDBNavLink>
                                     </MDBNavItem>
                                     <MDBNavItem>
-                                        <MDBNavLink to="#!" >
+                                        <MDBNavLink to="/profilecart" >
                                             <ShoppingCartOutlinedIcon fontSize='large' style={{ color: 'black' }} />
                                         </MDBNavLink>
                                     </MDBNavItem>
-                                    <div className="dropdown" id="centerNav" style={{ cursor: 'pointer' }}>
+                                    <div className="dropdown" style={{ cursor: 'pointer' }}>
                                         <div className="dropdown-toggle dropdownCustom" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Hallo, {this.props.username.toUpperCase()}
                                         </div>
@@ -78,12 +78,12 @@ class NavbarUser extends Component {
                                 :
                                 <div id='centerNav'>
                                     <MDBNavItem>
-                                        <MDBNavLink to="#!">
+                                        <MDBNavLink to="/search">
                                             <SearchIcon fontSize='large' style={{ color: 'black' }} />
                                         </MDBNavLink>
                                     </MDBNavItem>
                                     <MDBNavItem>
-                                        <MDBNavLink to="#!" >
+                                        <MDBNavLink to="profilecart" >
                                             <ShoppingCartOutlinedIcon fontSize='large' style={{ color: 'black' }} />
                                         </MDBNavLink>
                                     </MDBNavItem>
@@ -93,7 +93,7 @@ class NavbarUser extends Component {
                                         </MDBNavLink>
                                     </MDBNavItem>
                                     <MDBNavItem id='centerNav'>
-                                        <MDBNavLink to="/register" style={{ backgroundColor: 'black', color: 'white', fontSize: '15px', fontFamily: 'Hammersmith One, sans-serif', borderRadius: '50px', padding: '10px 25px 10px 25px' }}>
+                                        <MDBNavLink to="/register" style={{ backgroundColor: '#424242', color: 'white', fontSize: '15px', fontFamily: 'Hammersmith One, sans-serif', borderRadius: '50px', padding: '10px 25px 10px 25px' }}>
                                             SIGN UP
                                         </MDBNavLink>
                                     </MDBNavItem>

@@ -22,9 +22,9 @@ class DetailProduct extends Component {
     }
 
     AddClick = () => {
-        if(this.state.showPrice){
+        if (this.state.showPrice) {
             this.setState({ value: this.state.value + 1 });
-        }else{
+        } else {
             alert('PILIH SIZE DULU!')
         }
     }
@@ -70,7 +70,7 @@ class DetailProduct extends Component {
         return this.state.size.map((item, index) => {
             // console.log(this.state.newPrice)
             return (
-                <MDBBtn key={index} color='primary' size='sm' onClick={() => this.setState({ idSiz: item.idprice, newPrice: item.price, showPrice: true })} style={{ cursor: 'pointer' }}>
+                <MDBBtn color="elegant" key={index} size='sm' onClick={() => this.setState({ idSiz: item.idprice, newPrice: item.price, showPrice: true })} style={{ cursor: 'pointer' }}>
                     {item.size} gr
                 </MDBBtn>
             )
@@ -103,12 +103,11 @@ class DetailProduct extends Component {
         const { product } = this.state;
         return (
             <MDBContainer className="mt-5 " style={{ fontFamily: 'Segoe UI Symbol' }}>
-                <MDBJumbotron className="p-0" style={{ height: "69vh" }}>
+                <MDBJumbotron className="p-0" style={{ height: "66vh" }}>
                     <MDBContainer>
                         <MDBRow>
                             <MDBCol sm="6">
                                 <center>
-
                                     <img
                                         src={API_URL_1 + product.imagePath}
                                         alt='ImgProduct'
@@ -157,16 +156,14 @@ class DetailProduct extends Component {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
-                    <MDBContainer>
-                        <MDBRow>
-                            <MDBCol sm="10">
-                                <div className='d-flex container' style={{ backgroundColor: '#192b3c', height: '13vh', color: 'white', alignItems: 'center', fontSize: '40px', fontFamily: 'Hammersmith One, sans- serif' }}>TOTAL Rp. {this.state.value * this.state.newPrice},- </div>
-                            </MDBCol>
-                            <MDBCol sm="2">
-                                <div className='d-flex justify-content-center container' style={{ backgroundColor: '#192b3c', height: '13vh', color: 'white', alignItems: 'center', fontSize: '20px', fontFamily: 'Hammersmith One, sans- serif', cursor: 'pointer' }}>ADD TO CART </div>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBContainer>
+                    <MDBRow>
+                        <MDBCol sm="10">
+                            <div className='d-flex' style={{ paddingLeft: '5%', backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '30px', fontFamily: 'Hammersmith One, sans- serif' }}>Total Price Rp. {this.state.value * this.state.newPrice},- </div>
+                        </MDBCol>
+                        <MDBCol sm="2">
+                            <div className='d-flex justify-content-center' style={{ backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '20px', fontFamily: 'Hammersmith One, sans- serif', cursor: 'pointer' }}>ADD TO CART </div>
+                        </MDBCol>
+                    </MDBRow>
                 </MDBJumbotron>
             </MDBContainer >
         )

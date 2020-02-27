@@ -5,7 +5,7 @@ import '../CSSUser/Login.css';
 import form1 from '../Image/FORM-1.png'
 import form2 from '../Image/FORM-2.png';
 import { Login } from '../Redux/Action';
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink } from "mdbreact";
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink, MDBBtn } from "mdbreact";
 import { Button } from 'reactstrap';
 
 
@@ -45,7 +45,7 @@ class LoginPage extends Component {
                                         <input type="password" className="form-control" ref='password' />
                                     </div>
                                     <div>
-                                        <Button color="black" className="float-right" style={{ padding: '13px 30px 13px 30px', borderRadius: '5px', fontSize: ' 13px' }} onClick={this.LoginUser}>SUBMIT</Button>
+                                        <MDBBtn color="elegant" className="float-right" style={{ padding: '13px 30px 13px 30px', borderRadius: '5px', fontSize: ' 13px' }} onClick={this.LoginUser}>SUBMIT</MDBBtn>
                                     </div>
                                 </form>
                             </div>
