@@ -70,7 +70,7 @@ class DetailProduct extends Component {
         return this.state.size.map((item, index) => {
             // console.log(this.state.newPrice)
             return (
-                <MDBBtn color="elegant" key={index} size='sm' onClick={() => this.setState({ idSiz: item.idprice, newPrice: item.price, showPrice: true })} style={{ cursor: 'pointer' }}>
+                <MDBBtn color="elegant" key={index} size='md' onClick={() => this.setState({ idSiz: item.idprice, newPrice: item.price, showPrice: true })} style={{ cursor: 'pointer' }}>
                     {item.size} gr
                 </MDBBtn>
             )

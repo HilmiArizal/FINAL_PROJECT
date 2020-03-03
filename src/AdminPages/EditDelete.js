@@ -144,130 +144,21 @@ class EditDelete extends Component {
             // console.log(err)
         }
     }
-    // try {
-    //     const { addImageFile } = this.state
-    //     // console.log(addImageFile)
-    //     if (addImageFile) {
-    //         var formData = new FormData()
-    //         var productname = this.refs.productName.value
-    //         var category = this.refs.productCategory.value
-    //         var size = this.refs.productSize.value
-    //         var price = this.refs.productPrice.value
-    //         var description = this.refs.productDescription.value
-    //         var obj = {
-    //             productname,
-    //             category,
-    //             size,
-    //             price,
-    //             description
-    //         }
-    //         if (productname && category && size && price && description && addImageFile) {
-    //             formData.append('data', JSON.stringify(obj))
-    //             formData.append('image', addImageFile)
-    //             // console.log(formData)
-    //             if (window.confirm(`Anda yakin mengubah produknya?`)) {
-    //                 await Axios.patch(API_URL_1 + `products/EditProducts/${this.state.selectID}`, formData)
-    //                 alert('Produk yang anda pilih sudah terganti')
-    //                 window.location.reload()
-    //             }
-    //         } else {
-    //             alert('Please, isi dengan lengkap!')
-    //         }
-    //     } else {
-    //         alert('Please, isi gambarnya!')
-    //     }
-    // }
-    // catch (err) {
-    //     // console.log(err)
-    // }
-
 
     renderGetProduct = () => {
         return this.state.product.map((item, index) => {
-            // if (item.id === this.state.selectID) {
-            //     return (
-            //         <tr key={index} className="text-center">
-            //             <td><input accept='image/*' onChange={this.btnUploadImageProduct} type='file' style={{ width: '100px' }} /></td>
-            //             <td><input type='text' defaultValue={item.productname} ref="productName" style={{ width: '100px' }} /></td>
-            //             <td>
-            //                 <select className="form-control" onChange={this.onChangeSelectCategory} >
-            //                     <option value={this.state.editCategory}>Pilih</option>
-            //                     {this.renderListCategory()}
-            //                 </select>
-            //             </td>
-            //             <td>
-            //                 <div className="form-group">
-            //                     <textarea
-            //                         className="form-control"
-            //                         id="exampleFormControlTextarea1"
-            //                         rows="5"
-            //                         ref="productDescription"
-            //                         defaultValue={item.description}
-            //                     />
-            //                 </div>
-            //             </td>
-            //             <td>
-            //                 <MDBContainer>
-            //                     <MDBBtn color="success" onClick={this.toggle(14)}>EDIT STOCK</MDBBtn>
-            //                     <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
-            //                         <MDBModalHeader toggle={this.toggle(14)}></MDBModalHeader>
-            //                         <MDBModalBody>
-            //                             <MDBRow>
-            //                                 <MDBCol md="6">
-            //                                     <select className="form-control" onChange={this.onChangeSelectCategory}>
-            //                                         <option value={this.state.editSize}>Pilih Size</option>
-            //                                         {this.renderListSize()}
-            //                                     </select>
-            //                                 </MDBCol>
-            //                                 <MDBCol md="6">
-            //                                     <select className="form-control" onChange={this.onChangeSelectCategory}>
-            //                                         <option value={this.state.editPrice}>Pilih Price</option>
-            //                                         {this.renderListPrice()}
-            //                                     </select>
-            //                                 </MDBCol>
-            //                             </MDBRow>
-            //                             <br />
-            //                             <br />
-            //                             <h4>JUMLAH STOCK</h4>
-            //                             <center>
-            //                                 <div className="def-number-input number-input">
-            //                                     <button onClick={this.decrease} className="minus"></button>
-            //                                     <input className="quantity" name="quantity" value={this.state.value} onChange={() => console.log('change')}
-            //                                         type="number" />
-            //                                     <button onClick={this.increase} className="plus"></button>
-            //                                 </div>
-            //                             </center>
-            //                             <button>Save</button>
-            //                         </MDBModalBody>
-            //                     </MDBModal>
-            //                 </MDBContainer>
-            //             </td>
-            //             <td>
-            //                 <div>
-            //                     <button style={{ borderRadius: '10px' }} onClick={this.btnConfirmEdit}>Confirm</button>
-            //                 </div>
-            //                 <div style={{ marginTop: '10%' }}>
-            //                     <button style={{ borderRadius: '10px', padding: '10px' }} onClick={() => this.setState({ selectID: 0 })}>Cancel</button>
-            //                 </div>
-            //             </td>
-            //         </tr>
-            //     )
-            // }
             return (
                 <tr key={index} className="text-center">
                     <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
                     <td>{item.productname}</td>
-
                     <td><div>
                         <MDBBtn size="sm" color="elegant" onClick={() => this.btnDeleteProduct(item.id, item.imagePath)}>DELETE</MDBBtn>
-                        {/* <div style={{ marginTop: '10%' }}> */}
                         <Link to={`/editproduct?id=${item.id}`}>
                             <MDBBtn size="sm" color="elegant">EDIT</MDBBtn>
                         </Link>
                     </div>
                     </td>
                 </tr>
-
             )
         })
     }
@@ -303,7 +194,6 @@ class EditDelete extends Component {
     }
 
     render() {
-        console.table(this.state.product)
         return (
             <div>
                 <main className="s-layout__content">

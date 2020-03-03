@@ -6,7 +6,6 @@ import { Logout } from '../Redux/Action';
 import { connect } from 'react-redux';
 import { MDBNavLink, MDBIcon } from 'mdbreact';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
-// import HomeIcon from '@material-ui/icons/Home';
 
 class Sidebar extends Component {
     state = {

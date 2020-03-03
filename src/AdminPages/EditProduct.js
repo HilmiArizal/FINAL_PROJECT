@@ -96,16 +96,13 @@ class EditProduct extends Component {
     }
 
     onChangeSelectSize = (e, index) => {
-        // console.log(e.target.value)
         let { stock } = this.state;
         stock[index].sizeId = parseInt(e.target.value)
-        console.table(stock)
     }
 
     onChangeSelectPrice = (e, index) => {
         let { stock } = this.state;
         stock[index].priceId = parseInt(e.target.value)
-        console.table(stock)
     }
 
     onChangeStock = (e, index) => {
@@ -128,11 +125,22 @@ class EditProduct extends Component {
         }
         stock.push(newId)
         this.setState({ stock: stock })
-        console.table(stock)
+    }
+
+    btnDeleteStock = async (id) => {
+        try {
+            if (window.confirm('ARE YOU SURE TO DELETE ?')) {
+                await Axios.delete(API_URL_1 + `products/DeleteStocks?id=${id}`)
+                window.location.reload()
+                alert('Delete Successful!')
+            }
+        }
+        catch (err) {
+            // console.log(err)
+        }
     }
 
     btnUploadImageProduct = (e) => {
-        // console.log(e.target.files[0])
         if (e.target.files) {
             this.setState({ editImageFile: e.target.files[0] })
         } else {
@@ -227,7 +235,7 @@ class EditProduct extends Component {
                             />
                         </td>
                         <td>
-                            <button onClick={() => this.setState({ editInput: null })}>Cancel</button>
+                            <button onClick={() => this.setState({ editInput: null })}>OK</button>
                         </td>
                     </tr>
                 )
@@ -246,6 +254,7 @@ class EditProduct extends Component {
                     <td>
                         <center>
                             <button onClick={() => this.setState({ editInput: index })}>Edit</button>
+                            <button onClick={() => this.btnDeleteStock(item.id)}>Delete</button>
                         </center>
                     </td>
                 </tr>
@@ -319,11 +328,6 @@ class EditProduct extends Component {
     }
 
     render() {
-        // console.log(this.state.newSize)
-        // console.log(this.state.newPrice)
-        // console.log(this.state.newStock)
-        console.table(this.state.stock)
-
         return (
             <div>
                 <main className="s-layout__content">
