@@ -33,6 +33,7 @@ class SeeProduct extends Component {
                     <td>{item.category}</td>
                     <td>{item.size}gr</td>
                     <td>{item.price}</td>
+                    <td>{item.jumlahstock}</td>
                     <td style={{fontSize:'13px'}}>{item.description}</td>
                     <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
                 </tr>
@@ -61,6 +62,7 @@ class SeeProduct extends Component {
                                         <th>Category</th>
                                         <th>Weight</th>
                                         <th>Price</th>
+                                        <th>Stock</th>
                                         <th>Description</th>
                                         <th>Image</th>
                                     </tr>

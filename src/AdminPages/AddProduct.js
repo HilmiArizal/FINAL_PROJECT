@@ -18,8 +18,7 @@ class AddProduct extends Component {
         addSize: 0,
         addPrice: 0,
         modal14: false,
-        value: 0,
-        ClearInput: ''
+        value: 0
     }
 
     toggle = nr => () => {
@@ -105,7 +104,9 @@ class AddProduct extends Component {
         var price = this.state.addPrice;
         var jumlahstock = this.state.value
         this.state.stock.push([parseInt(size), parseInt(price), jumlahstock])
-        console.log(this.state.stock)
+        this.setState({ modal14: true})
+        // console.log(this.state.stock)
+        // window.location.reload()
     }
 
     btnUploadImageProduct = (e) => {
@@ -119,39 +120,38 @@ class AddProduct extends Component {
 
     uploadProduct = async () => {
         try {
-            if (this.state.ClearInput) {
-                const { addImageFile } = this.state;
-                // console.log(addImageFile)
-                if (addImageFile) {
-                    var formData = new FormData()
-                    var productname = this.productName.value;
-                    var productcategoryId = this.state.addCategory;
-                    var description = this.refs.productDescription.value;
-                    var jumlahstock = this.state.stock
-                    var dataproduct = {
-                        productname,
-                        productcategoryId: parseInt(productcategoryId),
-                        description
-                    }
-                    var data = {
-                        dataproduct,
-                        jumlahstock
-                    }
-                    if (productname && productcategoryId && description && jumlahstock && addImageFile) {
-                        formData.append('data', JSON.stringify(data))
-                        formData.append('image', addImageFile)
-                        console.log(formData)
-                        if (window.confirm(`Anda yakin ingin menambahkan produk?`)) {
-                            let res = await Axios.post(API_URL_1 + `products/AddProducts`, formData)
-                            console.log(res.data)
-                            alert('Produk sudah ditambahkan silahkan cek')
-                        }
-                    } else {
-                        alert('Please, isi dengan lengkap!')
+
+            const { addImageFile } = this.state;
+            // console.log(addImageFile)
+            if (addImageFile) {
+                var formData = new FormData()
+                var productname = this.productName.value;
+                var productcategoryId = this.state.addCategory;
+                var description = this.refs.productDescription.value;
+                var jumlahstock = this.state.stock
+                var dataproduct = {
+                    productname,
+                    productcategoryId: parseInt(productcategoryId),
+                    description
+                }
+                var data = {
+                    dataproduct,
+                    jumlahstock
+                }
+                if (productname && productcategoryId && description && jumlahstock && addImageFile) {
+                    formData.append('data', JSON.stringify(data))
+                    formData.append('image', addImageFile)
+                    console.log(formData)
+                    if (window.confirm(`Anda yakin ingin menambahkan produk?`)) {
+                        let res = await Axios.post(API_URL_1 + `products/AddProducts`, formData)
+                        console.log(res.data)
+                        alert('Produk sudah ditambahkan silahkan cek')
                     }
                 } else {
-                    alert('Please, isi gambarnya!')
+                    alert('Please, isi dengan lengkap!')
                 }
+            } else {
+                alert('Please, isi gambarnya!')
             }
         } catch (err) {
             // console.log(err)
@@ -168,6 +168,9 @@ class AddProduct extends Component {
                         {this.renderListCategory()}
                     </select>
                     <br />
+                    {/* {this.state.addSize}
+                    {this.state.addPrice}
+                    {this.state.value} */}
                     <MDBContainer>
                         <MDBBtn color="elegant" size="sm" onClick={this.toggle(14)}>ADD STOCK</MDBBtn>
                         <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
@@ -198,7 +201,7 @@ class AddProduct extends Component {
                                         <button onClick={this.increase} className="plus"></button>
                                     </center>
                                 </div>
-                                <button onClick={this.btnSaveAddStock}>Save</button>
+                                <button onClick={this.btnSaveAddStock} >Save</button>
                             </MDBModalBody>
                         </MDBModal>
                     </MDBContainer>

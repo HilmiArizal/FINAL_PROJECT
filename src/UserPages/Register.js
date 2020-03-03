@@ -3,7 +3,6 @@ import '../CSSUser/Login.css';
 import form1 from '../Image/FORM-1.png';
 import form2 from '../Image/FORM-2.png';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink, MDBBtn } from "mdbreact";
-import { Button } from 'reactstrap';
 import { Register } from '../Redux/Action';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
