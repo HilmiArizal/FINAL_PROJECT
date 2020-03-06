@@ -10,7 +10,7 @@ export const Login = (username, password) => {
             .then((res) => {
                 if (res.data.length !== 0) {
                     localStorage.setItem('token', res.data.token)
-                    console.log(res.data)
+                    console.log('id adalahhhh',res.data)
                     alert('LOGIN SUCCESS!')
                     dispatch({
                         type: 'LOGIN',

@@ -12,6 +12,7 @@
     "bootstrap": "^4.4.1",
     "mdbreact": "^4.25.1",
     "pure-react-carousel": "^1.25.1",
+    "query-string": "^6.11.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",

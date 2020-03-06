@@ -13,17 +13,16 @@ class EditProduct extends Component {
         price: [],
 
         productId: 0,
+        newSizeId: 0,
         newSize: 0,
+        newPriceId: 0,
         newPrice: 0,
         newStock: 0,
         editCategory: 0,
         editDescription: '',
         editImageFile: undefined,
 
-
         editInput: null,
-
-        // value
     }
 
     componentDidMount() {
@@ -97,12 +96,19 @@ class EditProduct extends Component {
 
     onChangeSelectSize = (e, index) => {
         let { stock } = this.state;
-        stock[index].sizeId = parseInt(e.target.value)
+        console.log('old', stock[index].sizeId)
+        // stock[index].sizeId = parseInt(e.target.value)
+        stock[index].size = e.target[e.target.selectedIndex].text
+        // console.log('new', stock[index].sizeId)
+        // console.table(e.target.value)
     }
 
     onChangeSelectPrice = (e, index) => {
         let { stock } = this.state;
         stock[index].priceId = parseInt(e.target.value)
+        stock[index].price = e.target[e.target.selectedIndex].text // index dari select optionnya
+        console.log('id', e.target.value)
+        console.log('price', e.target[e.target.selectedIndex].text)
     }
 
     onChangeStock = (e, index) => {
@@ -113,18 +119,23 @@ class EditProduct extends Component {
     newStock = () => {
         let productId = this.props.location.search.split('=')[1]
         let { stock } = this.state
+        let sizeId = this.state.newSizeId
         let size = this.state.newSize
+        let priceId = this.state.newPriceId
         let price = this.state.newPrice
         let jumlahstock = this.state.newStock
         let newId = {
             id: null,
-            sizeId: parseInt(size),
-            priceId: parseInt(price),
+            sizeId: parseInt(sizeId),
+            size: parseInt(size),
+            priceId: parseInt(priceId),
+            price: parseInt(price),
             jumlahstock: parseInt(jumlahstock),
             productId: parseInt(productId)
         }
         stock.push(newId)
         this.setState({ stock: stock })
+        console.table(stock)
     }
 
     btnDeleteStock = async (id) => {
@@ -154,7 +165,7 @@ class EditProduct extends Component {
             if (editImageFile) {
                 let formData = new FormData()
                 let dataproduct = {
-                    productname: this.productName.value,
+                    productname: this.refs.productName.value,
                     productcategoryId: parseInt(editCategory),
                     description: this.refs.productDescription.value
                 }
@@ -169,7 +180,8 @@ class EditProduct extends Component {
                 if (window.confirm(`Anda yakin ingin mengubah produk?`)) {
                     let res = await Axios.patch(API_URL_1 + `products/EditProducts/${productId}`, formData)
                     console.log(res.data)
-                    alert('Produk sudah ditambahkan silahkan cek')
+                    alert('Produk sudah diganti silahkan cek')
+                    window.location.reload()
                 }
             } else {
                 alert('Please, isi gambarnya!')
@@ -194,8 +206,8 @@ class EditProduct extends Component {
         return this.state.size.map((item, index) => {
             return (
                 <option value={item.id} key={index}>
-                    {item.size}gr
-                    </option>
+                    {item.size}
+                </option>
             )
         })
     }
@@ -204,7 +216,7 @@ class EditProduct extends Component {
         return this.state.price.map((item, index) => {
             return (
                 <option value={item.id} key={index}>
-                    Rp. {item.price},-
+                    {item.price}
                 </option>
             )
         })
@@ -266,11 +278,10 @@ class EditProduct extends Component {
         const { product } = this.state
         return (
             <div>
-                <div><em style={{ fontSize: '10px' }}>Product before edit: </em>{product.productname} <MDBInput label="Product Name" inputRef={(productName) => this.productName = productName} /></div>
+                <div><input type='text' className='form-control' defaultValue={product.productname} ref="productName" /></div>
                 <br />
-                <div><em style={{ fontSize: '10px' }}>Category before edit: </em>{product.category}</div>
                 <select className="form-control" onChange={this.onChangeSelectCategory} >
-                    <option value={product.productname}>Edit Category</option>
+                    <option value={product.productname}>EDIT CATEGORY</option>
                     {this.renderListCategory()}
                 </select>
                 <br />
@@ -289,19 +300,19 @@ class EditProduct extends Component {
                     <MDBTableFoot>
                         <tr>
                             <td>
-                                <select value={this.state.newSize} className="form-control" onChange={(e) => this.setState({ newSize: e.target.value })}>
+                                <select defaultValue={this.state.newSizeId} className="form-control" onChange={(e) => this.setState({ newSizeId: e.target.value, newSize: e.target[e.target.selectedIndex].text })}>
                                     <option >NEW SIZE</option>
                                     {this.renderListSize()}
                                 </select>
                             </td>
                             <td>
-                                <select value={this.state.newPrice} className="form-control" onChange={(e) => this.setState({ newPrice: e.target.value })}>
+                                <select defaultValue={this.state.newPriceId} className="form-control" onChange={(e) => this.setState({ newPriceId: e.target.value, newPrice: e.target[e.target.selectedIndex].text })}>
                                     <option >NEW PRICE</option>
                                     {this.renderListPrice()}
                                 </select>
                             </td>
                             <td>
-                                <input onChange={(e) => this.setState({ newStock: e.target.value })} className='form-control' type='number' placeholder='New Stock' />
+                                <input onChange={(e) => this.setState({ newStock: e.target.value })} className='form-control' type='number' placeholder='NEW STOCK' />
                             </td>
                             <td>
                                 <input type="button" value="Add Stock" onClick={this.newStock} />
@@ -309,12 +320,12 @@ class EditProduct extends Component {
                         </tr>
                     </MDBTableFoot>
                 </MDBTable>
-                <br />
-                <div><em>Edit Image</em><br />
-                    <input accept='image/*' onChange={this.btnUploadImageProduct} type='file' /></div>
+                <div><em>EDIT IMAGE</em>
+                    <br />
+                    <input accept='image/*' onChange={this.btnUploadImageProduct} type='file' style={{ fontSize: '12px' }} /></div>
                 <br />
                 <div className="form-group">
-                    <em>Edit Description</em>
+                    <em>EDIT DESCRIPTION</em>
                     <textarea
                         className="form-control"
                         id="exampleFormControlTextarea1"

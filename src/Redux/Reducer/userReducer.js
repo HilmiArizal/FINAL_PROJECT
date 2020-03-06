@@ -17,6 +17,6 @@ export default (state = INITAL_STATE, action) => {
         case 'LOGOUT':
             return INITAL_STATE
         default:
-            return INITAL_STATE
+            return state
     }
 }

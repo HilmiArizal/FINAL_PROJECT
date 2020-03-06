@@ -120,7 +120,6 @@ class AddProduct extends Component {
 
     uploadProduct = async () => {
         try {
-
             const { addImageFile } = this.state;
             // console.log(addImageFile)
             if (addImageFile) {
@@ -168,9 +167,6 @@ class AddProduct extends Component {
                         {this.renderListCategory()}
                     </select>
                     <br />
-                    {/* {this.state.addSize}
-                    {this.state.addPrice}
-                    {this.state.value} */}
                     <MDBContainer>
                         <MDBBtn color="elegant" size="sm" onClick={this.toggle(14)}>ADD STOCK</MDBBtn>
                         <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>

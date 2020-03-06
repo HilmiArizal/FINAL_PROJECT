@@ -5,7 +5,6 @@ import LoginPage from './UserPages/Login';
 import RegisterPage from './UserPages/Register';
 import { connect } from 'react-redux';
 import { keepLogin } from './Redux/Action';
-import Search from './Component/Search';
 import Homepage from './AdminPages/Home';
 import Sidebar from './AdminPages/Sidebar';
 import Profile from './AdminPages/Profile';
@@ -17,6 +16,7 @@ import AddProduct from './AdminPages/AddProduct';
 import DetailProduct from './UserPages/DetailProduct';
 import EditProduct from './AdminPages/EditProduct';
 import ProfileCart from './UserPages/ProfileCartUser';
+import Verified from './UserPages/Verified';
 
 class App extends Component {
 
@@ -47,10 +47,10 @@ class App extends Component {
           <Route path='/' component={Home} exact />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegisterPage} />
-          <Route path='/search' component={Search} />
           <Route path='/product' component={Product} />
           <Route path='/productdetail' component={DetailProduct} />
           <Route path='/profilecart' component={ProfileCart} />
+          <Route path='/verified' component={Verified} />
         </div>
       )
     } else {
@@ -59,10 +59,10 @@ class App extends Component {
           <Route path='/' component={Home} exact />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegisterPage} />
-          <Route path='/search' component={Search} />
           <Route path='/product' component={Product} />
           <Route path='/productdetail' component={DetailProduct} />
           <Route path='/profilecart' component={ProfileCart} />
+          <Route path='/verified' component={Verified} />
         </div>
       )
     }

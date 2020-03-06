@@ -48,7 +48,7 @@ class RegisterPage extends Component {
     render() {
         if (this.props.role !== '') {
             return(
-                <Redirect to = '/'>
+                <Redirect to = '/login'>
 
                 </Redirect>
             )

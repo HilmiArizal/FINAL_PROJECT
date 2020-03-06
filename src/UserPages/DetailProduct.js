@@ -4,22 +4,25 @@ import { API_URL_1 } from '../Helpers/API_URL';
 import NavbarUser from '../Component/NavbarUser';
 import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBBtn } from "mdbreact";
 import '../CSSAdmin/InputNumber.css';
+import { connect } from 'react-redux';
 
 class DetailProduct extends Component {
     state = {
         product: [],
         size: [],
         price: [],
-        idSize: 0,
-        value: 1,
+
+        sizeId: 0,
+        priceId: 0,
+
+        idSiz: 0,
         newPrice: 0,
-        showPrice: false
+
+        value: 1,
+        showPrice: false,
+        order: []
     }
 
-    componentDidMount() {
-        this.getIdProduct()
-        this.getSizeProduct()
-    }
 
     AddClick = () => {
         if (this.state.showPrice) {
@@ -40,6 +43,10 @@ class DetailProduct extends Component {
         } else {
             alert('PILIH SIZE DULU!')
         }
+    }
+    componentDidMount() {
+        this.getIdProduct()
+        this.getSizeProduct()
     }
 
     getIdProduct = () => {
@@ -66,11 +73,39 @@ class DetailProduct extends Component {
             })
     }
 
+    addToCart = async () => {
+        try {
+            if (this.props.id > 0) {
+                let userId = this.props.id;
+                let productId = this.props.location.search.split('=')[1];
+                let sizeId = this.state.sizeId;
+                let priceId = this.state.priceId;
+                let qty = this.state.value;
+                let totalprice = this.state.value * this.state.newPrice;
+                let postCart = {
+                    userId: parseInt(userId),
+                    productId: parseInt(productId),
+                    sizeId: parseInt(sizeId),
+                    priceId: parseInt(priceId),
+                    qty: parseInt(qty),
+                    totalprice
+                }
+                const res = await Axios.post(API_URL_1 + `carts/addToCart`, postCart)
+                alert('Sudah ditambahkan ke cart')
+                window.location.reload()
+            } else {
+                alert('Please Login!')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     renderGetSize = () => {
         return this.state.size.map((item, index) => {
             // console.log(this.state.newPrice)
             return (
-                <MDBBtn color="elegant" key={index} size='md' onClick={() => this.setState({ idSiz: item.idprice, newPrice: item.price, showPrice: true })} style={{ cursor: 'pointer' }}>
+                <MDBBtn color="elegant" key={index} size='md' onClick={() => this.setState({ idSiz: item.idprice, newPrice: item.price, showPrice: true, sizeId: item.idsize, priceId: item.idprice })} style={{ cursor: 'pointer' }}>
                     {item.size} gr
                 </MDBBtn>
             )
@@ -102,8 +137,8 @@ class DetailProduct extends Component {
     renderProducts = () => {
         const { product } = this.state;
         return (
-            <MDBContainer className="mt-5 " style={{ fontFamily: 'Segoe UI Symbol' }}>
-                <MDBJumbotron className="p-0" style={{ height: "66vh" }}>
+            <MDBContainer className="mt-5 " style={{ fontFamily: 'Segoe UI Symbol', minHeight: '70vh' }}>
+                <MDBJumbotron className="p-0" >
                     <MDBContainer>
                         <MDBRow>
                             <MDBCol sm="6">
@@ -158,10 +193,10 @@ class DetailProduct extends Component {
                     </MDBContainer>
                     <MDBRow>
                         <MDBCol sm="10">
-                            <div className='d-flex' style={{ paddingLeft: '5%', backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '30px', fontFamily: 'Hammersmith One, sans- serif' }}>Total Price Rp. {this.state.value * this.state.newPrice},- </div>
+                            <div className='d-flex' style={{ marginBottom: '25px', paddingLeft: '5%', backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '30px', fontFamily: 'Hammersmith One, sans- serif' }}>Total Price Rp. {this.state.value * this.state.newPrice},- </div>
                         </MDBCol>
                         <MDBCol sm="2">
-                            <div className='d-flex justify-content-center' style={{ backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '20px', fontFamily: 'Hammersmith One, sans- serif', cursor: 'pointer' }}>ADD TO CART </div>
+                            <div className='d-flex justify-content-center' style={{ backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '20px', fontFamily: 'Hammersmith One, sans- serif', cursor: 'pointer' }} onClick={this.addToCart}>ADD TO CART </div>
                         </MDBCol>
                     </MDBRow>
                 </MDBJumbotron>
@@ -179,4 +214,10 @@ class DetailProduct extends Component {
     }
 }
 
-export default DetailProduct;
+const mapStatetoProps = (state) => {
+    return {
+        id: state.user.id
+    }
+}
+
+export default connect(mapStatetoProps)(DetailProduct);
