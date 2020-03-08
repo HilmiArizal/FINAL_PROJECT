@@ -5,9 +5,11 @@ import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNav
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Logo from '../Image/Logo-SarenOne.png';
 import { Logout } from '../Redux/Action';
-import Cart from "../UserPages/Cart";
+import CartNotif from '../UserPages/CartNotif';
+import { Link } from "react-router-dom";
 
 class NavbarUser extends Component {
     state = {
@@ -41,10 +43,10 @@ class NavbarUser extends Component {
                             <MDBNavLink to="/product" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>PRODUCT</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem id='paddingCenterNav'>
-                            <MDBNavLink to="#!" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>PROMOTION</MDBNavLink>
+                            <MDBNavLink to="/promotion" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>PROMOTION</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem id='paddingCenterNav'>
-                            <MDBNavLink to="#!" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>ABOUT</MDBNavLink>
+                            <MDBNavLink to="/about" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>ABOUT</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right >
@@ -53,15 +55,18 @@ class NavbarUser extends Component {
                                 ?
                                 <div id='centerNav'>
                                     <MDBNavItem>
-                                            <Cart />
+                                        <Link to="/cart">
+                                            <CartNotif />
+                                        </Link>
+
                                     </MDBNavItem>
                                     <div className="dropdown" style={{ cursor: 'pointer' }}>
                                         <div className="dropdown-toggle dropdownCustom" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Hi, {this.props.username.toUpperCase()}
+                                            <AccountCircleIcon />{this.props.username.toUpperCase()}
                                         </div>
                                         <div className="dropdown-menu">
                                             <a className="dropdown-item" href="/profileuser"><PersonIcon fontSize="small" style={{ margin: '5px' }} />Your Profile</a>
-                                            <a className="dropdown-item" href="/profilecart"><ShoppingCartIcon fontSize="small" style={{ margin: '5px' }} />Your Cart</a>
+                                            <a className="dropdown-item" href="/cart"><ShoppingCartIcon fontSize="small" style={{ margin: '5px' }} />Your Cart</a>
                                             <div className="dropdown-divider"></div>
                                             <a className="dropdown-item" onClick={this.onBtnLogout} href="/"><ExitToAppIcon fontSize="small" style={{ margin: '5px' }} />Logout</a>
                                         </div>
@@ -70,7 +75,7 @@ class NavbarUser extends Component {
                                 :
                                 <div id='centerNav'>
                                     <MDBNavItem>
-                                            <Cart />
+                                        <CartNotif />
                                     </MDBNavItem>
                                     <MDBNavItem id='centerNav'>
                                         <MDBNavLink to="/login" style={{ color: 'black', fontSize: '18px', fontFamily: 'Hammersmith One, sans-serif' }}>

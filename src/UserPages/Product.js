@@ -92,15 +92,14 @@ class Product extends Component {
     }
 
     render() {
-        // console.log(this.state.idCategory)
         return (
             <div>
                 <NavbarUser />
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol size="4">
-                            <div style={{ backgroundColor: ' #192b3c', height: '80vh', borderRadius: '20px' }}>
-                                <div style={{ backgroundColor: ' #192b3c', color: ' #192b3c', padding: '10%' }}>
+                            <div style={{ backgroundColor: ' #404040', height: '80vh', borderRadius: '20px' }}>
+                                <div style={{ backgroundColor: ' #404040', color: ' #404040', padding: '10%' }}>
                                     TEST
                                 </div>
                                 <center>

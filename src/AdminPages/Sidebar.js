@@ -78,28 +78,6 @@ class Sidebar extends Component {
                                             </MDBNavLink>
                                         </MDBDropdownMenu>
                                     </MDBDropdown>
-                                    {/* <MDBModal isOpen={this.state.modal8} toggle={this.toggle(8)} fullHeight position="left">
-                                        <MDBNavLink to="/">
-                                            <MDBModalHeader toggle={this.toggle(8)}></MDBModalHeader>
-                                        </MDBNavLink>
-                                        <MDBModalBody style={{ color: 'black' }}>
-                                            <div className="container d-flex justify-content-center" style={{ marginTop: '20%' }} >
-                                                <div className="row">
-                                                    <a href="seeproduct" onClick={this.toggle(8)} className="btn btn--border btn--center btn--border-lightgrey" style={{ fontSize: '130%' }}> <span className="btn-text">LIHAT SEMUA PRODUK</span> <span className="btn-arrow"> </span> </a>
-                                                </div>
-                                            </div>
-                                            <div className="container d-flex justify-content-center" style={{ marginTop: '20%' }} >
-                                                <div className="row">
-                                                    <a href="editdelete" onClick={this.toggle(8)} className="btn btn--border btn--center btn--border-lightgrey" style={{ fontSize: '130%' }}> <span className="btn-text" >UBAH/HAPUS PRODUK</span> <span className="btn-arrow"> </span> </a>
-                                                </div>
-                                            </div>
-                                            <div className="container d-flex justify-content-center" style={{ marginTop: '20%' }}>
-                                                <div className="row" >
-                                                    <a href="addproduct" onClick={this.toggle(8)} className="btn btn--border btn--center btn--border-lightgrey" style={{ fontSize: '130%' }}> <span className="btn-text" >TAMBAH PRODUK</span> <span className="btn-arrow"> </span> </a>
-                                                </div>
-                                            </div>
-                                        </MDBModalBody>
-                                    </MDBModal> */}
                                 </li>
                                 <li>
                                     <MDBNavLink to="/">

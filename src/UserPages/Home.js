@@ -52,17 +52,16 @@ class Home extends Component {
                 <div className='home'>
                     OUR MENUS
                 </div>
-                <div className='d-flex justify-content-center' style={{minHeight:'80vh'}}>
+                <div className='d-flex justify-content-center' style={{ minHeight: '80vh' }}>
                     <MDBContainer>
                         <MDBRow>
                             {this.renderGetCategory()}
                         </MDBRow>
                     </MDBContainer>
                 </div>
-                <br/>
-                <br/>
-                <br/>
-                <Footer/>
+                <div style={{marginTop:50}}>
+                    <Footer />
+                </div>
             </div>
         );
     }

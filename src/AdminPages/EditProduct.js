@@ -20,7 +20,9 @@ class EditProduct extends Component {
         newStock: 0,
         editCategory: 0,
         editDescription: '',
-        editImageFile: undefined,
+        image: undefined,
+        previewImage: undefined,
+        editImage: false,
 
         editInput: null,
     }
@@ -116,6 +118,12 @@ class EditProduct extends Component {
         stock[index].jumlahstock = parseInt(e.target.value)
     }
 
+    addImage = (e) => {
+        if (e.target.value[0]) {
+            this.setState({ image: e.target.files[0], previewImage: URL.createObjectURL(e.target.files[0]), editImage: true })
+        }
+    }
+
     newStock = () => {
         let productId = this.props.location.search.split('=')[1]
         let { stock } = this.state
@@ -161,31 +169,30 @@ class EditProduct extends Component {
 
     btnConfirmEdit = async () => {
         try {
-            const { productId, editCategory, stock, editImageFile } = this.state;
-            if (editImageFile) {
-                let formData = new FormData()
-                let dataproduct = {
-                    productname: this.refs.productName.value,
-                    productcategoryId: parseInt(editCategory),
-                    description: this.refs.productDescription.value
-                }
-                let data = {
-                    dataproduct,
-                    productId,
-                    jumlahstock: stock
-                }
-                formData.append('data', JSON.stringify(data))
-                formData.append('image', editImageFile)
-                console.log(formData)
-                if (window.confirm(`Anda yakin ingin mengubah produk?`)) {
-                    let res = await Axios.patch(API_URL_1 + `products/EditProducts/${productId}`, formData)
-                    console.log(res.data)
-                    alert('Produk sudah diganti silahkan cek')
-                    window.location.reload()
-                }
-            } else {
-                alert('Please, isi gambarnya!')
+            const { productId, editCategory, stock, image, editImage } = this.state;
+
+            let formData = new FormData()
+            let dataproduct = {
+                productname: this.refs.productName.value,
+                productcategoryId: parseInt(editCategory),
+                description: this.refs.productDescription.value
             }
+            let data = {
+                dataproduct,
+                editImage,
+                productId,
+                jumlahstock: stock
+            }
+            formData.append('data', JSON.stringify(data))
+            formData.append('image', image)
+            console.log(formData)
+            if (window.confirm(`Anda yakin ingin mengubah produk?`)) {
+                let res = await Axios.patch(API_URL_1 + `products/EditProducts/${productId}`, formData)
+                console.log(res.data)
+                alert('Produk sudah diganti silahkan cek')
+                window.location.reload()
+            }
+
         } catch (err) {
             // console.log(err)
         }
@@ -320,9 +327,20 @@ class EditProduct extends Component {
                         </tr>
                     </MDBTableFoot>
                 </MDBTable>
-                <div><em>EDIT IMAGE</em>
-                    <br />
-                    <input accept='image/*' onChange={this.btnUploadImageProduct} type='file' style={{ fontSize: '12px' }} /></div>
+                <div className='EDP-Box-Edit-Img'> EDIT IMAGE
+                <br />
+                    <label className='EDP-Input-File'>
+                        {
+                            this.state.previewImage
+                                ?
+                                <img className='EDP-Box-Edit-Img' src={this.state.previewImage} alt="img" width='30%' />
+                                :
+                                <img className='EDP-Box-Edit-Img' src={API_URL_1 + product.imagePath} alt="img" alt="img" width='30%' />
+                        }
+                        <br />
+                        <input type="file" onChange={this.addImage} />
+                    </label>
+                </div>
                 <br />
                 <div className="form-group">
                     <em>EDIT DESCRIPTION</em>

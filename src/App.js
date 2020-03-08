@@ -15,8 +15,13 @@ import SeeProduct from './AdminPages/SeeProduct';
 import AddProduct from './AdminPages/AddProduct';
 import DetailProduct from './UserPages/DetailProduct';
 import EditProduct from './AdminPages/EditProduct';
-import ProfileCart from './UserPages/ProfileCartUser';
 import Verified from './UserPages/Verified';
+import Cart from './UserPages/Cart';
+import ProfileUser from './UserPages/ProfileUser';
+import Promotion from './UserPages/Promotion';
+import About from './UserPages/About';
+import ChangePass from './UserPages/ChangePass';
+import DeleteAccount from './UserPages/DeleteAccount';
 
 class App extends Component {
 
@@ -49,8 +54,13 @@ class App extends Component {
           <Route path='/register' component={RegisterPage} />
           <Route path='/product' component={Product} />
           <Route path='/productdetail' component={DetailProduct} />
-          <Route path='/profilecart' component={ProfileCart} />
+          <Route path='/cart' component={Cart} />
           <Route path='/verified' component={Verified} />
+          <Route path='/profileuser' component={ProfileUser} />
+          <Route path='/promotion' component={Promotion} />
+          <Route path='/about' component={About} />
+          <Route path='/changepass' component={ChangePass} />
+          <Route path='/deleteaccount' component={DeleteAccount} />
         </div>
       )
     } else {
@@ -61,8 +71,13 @@ class App extends Component {
           <Route path='/register' component={RegisterPage} />
           <Route path='/product' component={Product} />
           <Route path='/productdetail' component={DetailProduct} />
-          <Route path='/profilecart' component={ProfileCart} />
+          <Route path='/cart' component={Cart} />
           <Route path='/verified' component={Verified} />
+          <Route path='/profileuser' component={ProfileUser} />
+          <Route path='/promotion' component={Promotion} />
+          <Route path='/about' component={About} />
+          <Route path='/changepass' component={ChangePass} />
+          <Route path='/deleteaccount' component={DeleteAccount} />
         </div>
       )
     }

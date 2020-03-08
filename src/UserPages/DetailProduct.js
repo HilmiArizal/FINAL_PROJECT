@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
 import NavbarUser from '../Component/NavbarUser';
-import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBBtn } from "mdbreact";
+import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBBtn, MDBNavLink } from "mdbreact";
 import '../CSSAdmin/InputNumber.css';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class DetailProduct extends Component {
     state = {
@@ -20,7 +21,10 @@ class DetailProduct extends Component {
 
         value: 1,
         showPrice: false,
-        order: []
+        order: [],
+
+        RedirectLogin: false,
+        RedirectNext: false
     }
 
 
@@ -73,6 +77,17 @@ class DetailProduct extends Component {
             })
     }
 
+    // onBtnLoginCart = () => {
+
+    //     if (username) {
+    //         this.setState({ RedirectNext: true })
+    //         alert('Berhasil ditambahkan ke cart')
+    //     } else {
+    //         this.setState({ RedirectLogin: true })
+    //         alert('Please Login')
+    //     }
+    // }
+
     addToCart = async () => {
         try {
             if (this.props.id > 0) {
@@ -90,11 +105,16 @@ class DetailProduct extends Component {
                     qty: parseInt(qty),
                     totalprice
                 }
-                const res = await Axios.post(API_URL_1 + `carts/addToCart`, postCart)
-                alert('Sudah ditambahkan ke cart')
-                window.location.reload()
+                if (userId && productId && sizeId && priceId && qty && totalprice) {
+                    const res = await Axios.post(API_URL_1 + `carts/addToCart`, postCart)
+                    this.setState({ RedirectNext: true })
+                    alert('Berhasil ditambahkan ke cart')
+                } else {
+                    alert('Isi dengan benar!')
+                }
             } else {
-                alert('Please Login!')
+                alert('Please Login')
+                this.setState({ RedirectLogin: true })
             }
         } catch (err) {
             console.log(err)
@@ -135,7 +155,17 @@ class DetailProduct extends Component {
     }
 
     renderProducts = () => {
-        const { product } = this.state;
+        const { product, RedirectLogin, RedirectNext } = this.state;
+        if (RedirectLogin) {
+            return (
+                <Redirect to="/login" />
+            )
+        } else if (RedirectNext) {
+            return (
+                <Redirect to="/cart" />
+            )
+        }
+
         return (
             <MDBContainer className="mt-5 " style={{ fontFamily: 'Segoe UI Symbol', minHeight: '70vh' }}>
                 <MDBJumbotron className="p-0" >
@@ -216,7 +246,8 @@ class DetailProduct extends Component {
 
 const mapStatetoProps = (state) => {
     return {
-        id: state.user.id
+        id: state.user.id,
+        username: state.user.username
     }
 }
 

@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
+import { MDBTable, MDBTableBody, MDBTableHead, MDBRow, MDBCol, MDBContainer } from 'mdbreact';
+import NavbarUser from '../Component/NavbarUser';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { Link } from 'react-router-dom';
+
 
 class Cart extends Component {
     state = {
-        cart: [],
-        valueCart: [],
-        defaultvalue: 0
+        cart: []
     }
 
     componentDidMount() {
-        this.getCart()
-        this.getValueCart()
-    }
-
-    getCart = () => {
         const token = localStorage.getItem('token')
         Axios.get(API_URL_1 + `carts/getCart`, {
             headers: {
@@ -24,60 +22,87 @@ class Cart extends Component {
         })
             .then((res) => {
                 this.setState({ cart: res.data })
-                console.log('ini', res.data)
+                console.table('ini', res.data)
             })
             .catch((err) => {
                 console.log(err)
             })
     }
 
-    getValueCart = () => {
-        const token = localStorage.getItem('token')
-        Axios.get(API_URL_1 + `carts/getValueCart`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
+    onBtnDelete = async (id) => {
+        try {
+            if(window.confirm(`ARE YOU SURE FOR DELETE?`)){
+                await Axios.delete(API_URL_1 + `carts/deleteCart?id=${id}`)
+                alert('Delete Successful')
+                window.location.reload()
             }
-        })
-            .then((res) => {
-                this.setState({ valueCart: res.data })
-                console.log('ini', res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 
-    renderValueCart = () => {
-        return this.state.valueCart.map((item, index) => {
+    renderGetCart = () => {
+        return this.state.cart.map((item, index) => {
             return (
-                <div key={index}>
-                    {item.valuecart}
-                </div>
+                <tr key={index}>
+                    <td><div className="d-flex justify-content-center" >{index + 1}</div></td>
+                    <td>
+                        <div className="d-flex justify-content-center">
+                            <img
+                                src={API_URL_1 + item.imagePath}
+                                alt='ImgProduct'
+                                width="50"
+                                height="30"
+                            />
+                        </div>
+                    </td>
+                    <td><div className="d-flex justify-content-center">{item.size}gr</div></td>
+                    <td><div className="d-flex justify-content-center">Rp. {item.price},-</div></td>
+                    <td><div className="d-flex justify-content-center">{item.qty}</div></td>
+                    <td><div className="d-flex justify-content-center">{item.totalprice}</div></td>
+                    <td>
+                        <div className="d-flex justify-content-center">
+                            <Link to="product">
+                                <div style={{ margin: "0 20px 0 10px" }}><AddShoppingCartIcon /></div>
+                            </Link>
+                            <div style={{ margin: "0 10px 0 10px", cursor: 'pointer' }} onClick={() => this.onBtnDelete(item.id)}><DeleteIcon /></div>
+                        </div>
+                    </td>
+                </tr>
             )
         })
     }
 
     render() {
-        const token = localStorage.getItem('token')
         return (
-
-            <div style={{ width: '120%', marginRight: 50 }}>
-                <div className="row">
-                    <ShoppingCartOutlinedIcon fontSize='large' style={{ color: 'black' }} />
-                    {
-                        token
-                            ?
-                            <div style={{ backgroundColor: "black", color: 'white', borderRadius: '100px', fontSize: '20px', width: "35%", height: "35px", textAlign: "center", padding: "2%" }}>
-                                {this.renderValueCart()}
-                            </div>
-                            :
-                            <div style={{ backgroundColor: "black", color: 'white', borderRadius: '100px', fontSize: '20px', width: "35%", height: "35px", textAlign: "center", padding: "2%" }}>
-                            {this.state.defaultvalue}
-                        </div>
-                    }
+            <div>
+                <NavbarUser />
+                <div style={{ marginTop: 20 }}>
+                    <MDBRow>
+                        <MDBCol sm="6">
+                            <div className="d-flex justify-content-center" style={{ fontSize: 30 }}> Your Cart </div>
+                            <MDBContainer>
+                                <MDBTable bordered>
+                                    <MDBTableHead style={{ backgroundColor: "#404040", color: 'white' }}>
+                                        <tr>
+                                            <th><div className="d-flex justify-content-center">No</div></th>
+                                            <th><div className="d-flex justify-content-center">Product</div></th>
+                                            <th><div className="d-flex justify-content-center">Weight</div></th>
+                                            <th><div className="d-flex justify-content-center">Price</div></th>
+                                            <th><div className="d-flex justify-content-center">Quantity</div></th>
+                                            <th><div className="d-flex justify-content-center">Total Price</div></th>
+                                            <th><div className="d-flex justify-content-center"></div></th>
+                                        </tr>
+                                    </MDBTableHead>
+                                    <MDBTableBody>
+                                        {this.renderGetCart()}
+                                    </MDBTableBody>
+                                </MDBTable>
+                            </MDBContainer>
+                        </MDBCol>
+                    </MDBRow>
                 </div>
             </div>
-
         );
     }
 }

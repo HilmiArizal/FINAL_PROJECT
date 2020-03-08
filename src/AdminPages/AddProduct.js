@@ -103,8 +103,14 @@ class AddProduct extends Component {
         var size = this.state.addSize
         var price = this.state.addPrice;
         var jumlahstock = this.state.value
-        this.state.stock.push([parseInt(size), parseInt(price), jumlahstock])
-        this.setState({ modal14: true})
+        if (size && price && jumlahstock) {
+            this.state.stock.push([parseInt(size), parseInt(price), jumlahstock])
+            alert('Stock ditambahkan')
+        } else {
+            alert('Isi dgn benar!')
+            this.setState({ modal14: !this.state.modal14 })
+
+        }
         // console.log(this.state.stock)
         // window.location.reload()
     }
@@ -167,6 +173,9 @@ class AddProduct extends Component {
                         {this.renderListCategory()}
                     </select>
                     <br />
+                    <div>
+                        {this.state.stock}
+                    </div>
                     <MDBContainer>
                         <MDBBtn color="elegant" size="sm" onClick={this.toggle(14)}>ADD STOCK</MDBBtn>
                         <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
@@ -197,7 +206,7 @@ class AddProduct extends Component {
                                         <button onClick={this.increase} className="plus"></button>
                                     </center>
                                 </div>
-                                <button onClick={this.btnSaveAddStock} >Save</button>
+                                <button onClick={this.btnSaveAddStock} >Keep in stock</button>
                             </MDBModalBody>
                         </MDBModal>
                     </MDBContainer>
