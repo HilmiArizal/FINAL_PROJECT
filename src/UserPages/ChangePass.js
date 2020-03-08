@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavbarUser from '../Component/NavbarUser';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import { connect } from 'react-redux';
+import SidebarUser from '../Component/SidebarUser';
 
 class ChangePass extends Component {
     state = {}
@@ -12,68 +13,42 @@ class ChangePass extends Component {
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol size="4">
-                            <div style={{ backgroundColor: '#404040', height: '50vh', borderRadius: '20px' }}>
-                                <div style={{ backgroundColor: '#404040', color: '#404040', padding: '10%' }}>
-                                    TEST
-                            </div>
-                                <div>
-                                    <a className="s-sidebar__nav-link" href="/profileuser">
-                                        <div className="text-Center">
-                                            <center>
-                                                PROFILE
-                                            </center>
-                                        </div>
-                                    </a>
-                                    <a className="s-sidebar__nav-link" href="/changepass">
-                                        <div className="text-Center">
-                                            <center>
-                                                CHANGE PASSWORD
-                                            </center>
-                                        </div>
-                                    </a>
-                                    <a className="s-sidebar__nav-link" href="/deleteaccount">
-                                        <div className="text-Center">
-                                            <center>
-                                                DELETE ACCOUNT
-                                            </center>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                            <SidebarUser />
                         </MDBCol>
                         <MDBCol size="8">
                             <center>
                                 <div style={{ margin: '3%', fontFamily: 'Hammersmith One, sans-serif', fontSize: '200%' }}> Hi, {this.props.username} </div>
                             </center>
-                            <br/>
+                            <div style={{ border: '2px solid black' }}> </div>
+                            <br />
                             <MDBRow>
                                 <MDBCol size="4">
                                     <MDBRow>
-                                       
+
                                     </MDBRow>
                                 </MDBCol>
                                 <MDBCol size="4">
-                                    <MDBRow>    
-                                        <div className="d-flex justify-content-center">
+                                    <MDBRow className="d-flex justify-content-center">
+                                        <div >
                                             Old Password
                                         </div>
                                         <input className="form-control" type="password" />
-                                        <div className="d-flex justify-content-center">
+                                        <div style={{ marginTop: 20 }}>
                                             New Password
                                         </div>
                                         <input className="form-control" type="password" />
-                                        <div className="d-flex justify-content-center">
+                                        <div style={{ marginTop: 20 }}>
                                             Confirm Password
                                         </div>
                                         <input className="form-control" type="password" />
-                                        <br/>
-                                        <br/>
+                                        <br />
+                                        <br />
                                         <MDBBtn color="elegant" size="sm">Save</MDBBtn>
                                     </MDBRow>
                                 </MDBCol>
                                 <MDBCol size="4">
                                     <MDBRow>
-                                       
+
                                     </MDBRow>
                                 </MDBCol>
                             </MDBRow>

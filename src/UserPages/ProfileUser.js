@@ -1,55 +1,104 @@
 import React, { Component } from 'react';
 import NavbarUser from '../Component/NavbarUser';
 import '../CSSAdmin/Homepage.css';
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact'
 import { connect } from 'react-redux';
+import SidebarUser from '../Component/SidebarUser';
+import Avatar from '@material-ui/core/Avatar';
 
 class ProfileUser extends Component {
-    state = {}
-
 
     render() {
         return (
             <div>
                 <NavbarUser />
                 <MDBContainer>
-                    <MDBRow>
+                    <MDBRow >
                         <MDBCol size="4">
-                            <div style={{ backgroundColor: '#404040', height: '50vh', borderRadius: '20px' }}>
-                                <div style={{ backgroundColor: '#404040', color: '#404040', padding: '10%' }}>
-                                    TEST
-                                </div>
-                                <div>
-                                    <a className="s-sidebar__nav-link" href="/profileuser">
-                                        <div className="text-Center">
-                                            <center>
-                                                PROFILE
-                                            </center>
-                                        </div>
-                                    </a>
-                                    <a className="s-sidebar__nav-link" href="/changepass">
-                                        <div className="text-Center">
-                                            <center>
-                                                CHANGE PASSWORD
-                                            </center>
-                                        </div>
-                                    </a>
-                                    <a className="s-sidebar__nav-link" href="/deleteaccount">
-                                        <div className="text-Center">
-                                            <center>
-                                                DELETE ACCOUNT
-                                            </center>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                            <SidebarUser />
                         </MDBCol>
                         <MDBCol size="8">
                             <center>
                                 <div style={{ margin: '3%', fontFamily: 'Hammersmith One, sans-serif', fontSize: '200%' }}> Hi, {this.props.username} </div>
                             </center>
+                            <div style={{ border: '2px solid black' }}> </div>
+                            <br />
                             <MDBRow>
+                                <MDBCol size="6" className="d-flex justify-content-center">
+                                    <Avatar src="/broken-image.jpg" style={{ height: 150, width: 150 }} />
+                                </MDBCol>
+                                <MDBCol size="6">
+                                    <div> Email: {this.props.email}</div>
+                                    <div> Full Name: {this.props.username} </div>
+                                    <div> Birthday Date: </div>
+                                    <div> Gender: </div>
+                                    <div> Job: </div>
+                                    <div> Address: </div>
+                                </MDBCol>
+                            </MDBRow>
+                            <br />
+                            <div style={{ border: '2px solid black' }}> </div>
+                            <br />
+                            <br />
+                            <MDBRow >
+                                <MDBCol size="6" >
+                                    <center>First Name</center>
+                                    <input type="text" className="form-control" />
+                                    <br />
+                                    <center>Last Name</center>
+                                    <input type="text" className="form-control" />
+                                    <br />
+                                    <center>Birthday Date</center>
+                                    <input type="text" className="form-control" />
+                                </MDBCol>
+                                <MDBCol size="6">
+                                    <MDBRow>
+                                        <MDBCol size="6">
+                                            <center>Gender</center>
+                                            <select className="form-control" >
+                                                <option >Pria</option>
+                                                <option >Wanita</option>
+                                            </select>
+                                        </MDBCol>
+                                        <MDBCol size="6">
+                                            <center>Job</center>
+                                            <select className="form-control" >
+                                                <option >Pelajar/Mahasiswa</option>
+                                                <option >Ibu rumah tangga</option>
+                                                <option >Swasta</option>
+                                                <option >Wiraswasta</option>
+                                            </select>
+                                        </MDBCol>
+                                    </MDBRow>
+                                    <div style={{ marginTop: 30 }}>
+                                        <center>Address</center>
+                                        <div className="form-group">
+                                            <textarea
+                                                className="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="4"
+                                            />
+                                        </div>
+                                    </div>
+                                </MDBCol>
+                            </MDBRow>
+                            <br />
+                            <MDBRow>
+                                <MDBCol size="4">
+                                    <MDBRow>
 
+                                    </MDBRow>
+                                </MDBCol>
+                                <MDBCol size="4">
+                                    <MDBRow className="d-flex justify-content-center">
+                                        <MDBBtn color="elegant" size="lg">Save</MDBBtn>
+                                    </MDBRow>
+                                </MDBCol>
+                                <MDBCol size="4">
+                                    <MDBRow>
+
+                                    </MDBRow>
+                                </MDBCol>
                             </MDBRow>
                         </MDBCol>
                     </MDBRow>
@@ -61,7 +110,8 @@ class ProfileUser extends Component {
 
 const mapStatetoProps = (state) => {
     return {
-        username: state.user.username
+        username: state.user.username,
+        email: state.user.email
     }
 }
 
