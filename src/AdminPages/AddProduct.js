@@ -151,6 +151,7 @@ class AddProduct extends Component {
                         let res = await Axios.post(API_URL_1 + `products/AddProducts`, formData)
                         console.log(res.data)
                         alert('Produk sudah ditambahkan silahkan cek')
+                        window.location.reload()
                     }
                 } else {
                     alert('Please, isi dengan lengkap!')

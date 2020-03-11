@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
-import { MDBBtn, MDBInput, MDBTable, MDBTableBody, MDBTableHead, MDBTableFoot } from 'mdbreact';
+import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead, MDBTableFoot } from 'mdbreact';
 
 class EditProduct extends Component {
     state = {
@@ -98,7 +98,7 @@ class EditProduct extends Component {
 
     onChangeSelectSize = (e, index) => {
         let { stock } = this.state;
-        console.log('old', stock[index].sizeId)
+        // console.log('old', stock[index].sizeId)
         // stock[index].sizeId = parseInt(e.target.value)
         stock[index].size = e.target[e.target.selectedIndex].text
         // console.log('new', stock[index].sizeId)
@@ -109,8 +109,8 @@ class EditProduct extends Component {
         let { stock } = this.state;
         stock[index].priceId = parseInt(e.target.value)
         stock[index].price = e.target[e.target.selectedIndex].text // index dari select optionnya
-        console.log('id', e.target.value)
-        console.log('price', e.target[e.target.selectedIndex].text)
+        // console.log('id', e.target.value)
+        // console.log('price', e.target[e.target.selectedIndex].text)
     }
 
     onChangeStock = (e, index) => {

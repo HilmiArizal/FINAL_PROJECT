@@ -4,6 +4,7 @@ import { API_URL_1 } from '../Helpers/API_URL';
 import { MDBRow, MDBCol, MDBCardBody, MDBContainer, MDBNavLink } from 'mdbreact'
 import NavbarUser from '../Component/NavbarUser';
 import '../CSSAdmin/Homepage.css'
+import Footer from '../Component/Footer';
 
 class Product extends Component {
     state = {
@@ -127,6 +128,9 @@ class Product extends Component {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
+                <div style={{marginTop:50}}>
+                    <Footer/>
+                </div>
             </div>
         );
     }

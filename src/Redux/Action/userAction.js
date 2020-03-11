@@ -10,7 +10,6 @@ export const Login = (username, password) => {
             .then((res) => {
                 if (res.data.length !== 0) {
                     localStorage.setItem('token', res.data.token)
-                    console.log('id adalahhhh',res.data)
                     alert('LOGIN SUCCESS!')
                     dispatch({
                         type: 'LOGIN',
@@ -49,7 +48,6 @@ export const keepLogin = () => {
             }
             Axios.post(API_URL_1 + `users/keepLogin`, {}, headers)
                 .then((res) => {
-                    console.log(res.data)
                     dispatch({
                         type: 'LOGIN',
                         payload: res.data

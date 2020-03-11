@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
 import NavbarUser from '../Component/NavbarUser';
-import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBBtn, MDBNavLink } from "mdbreact";
+import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBBtn } from "mdbreact";
 import '../CSSAdmin/InputNumber.css';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Footer from '../Component/Footer';
 
 class DetailProduct extends Component {
     state = {
@@ -77,17 +78,6 @@ class DetailProduct extends Component {
             })
     }
 
-    // onBtnLoginCart = () => {
-
-    //     if (username) {
-    //         this.setState({ RedirectNext: true })
-    //         alert('Berhasil ditambahkan ke cart')
-    //     } else {
-    //         this.setState({ RedirectLogin: true })
-    //         alert('Please Login')
-    //     }
-    // }
-
     addToCart = async () => {
         try {
             if (this.props.id > 0) {
@@ -106,7 +96,7 @@ class DetailProduct extends Component {
                     totalprice
                 }
                 if (userId && productId && sizeId && priceId && qty && totalprice) {
-                    const res = await Axios.post(API_URL_1 + `carts/addToCart`, postCart)
+                    await Axios.post(API_URL_1 + `carts/addToCart`, postCart)
                     this.setState({ RedirectNext: true })
                     alert('Berhasil ditambahkan ke cart')
                 } else {
@@ -238,7 +228,11 @@ class DetailProduct extends Component {
         return (
             <div>
                 <NavbarUser />
+                <br/>
                 {this.renderProducts()}
+                <div style={{marginTop: 60}}>
+                    <Footer/>
+                </div>
             </div>
         );
     }

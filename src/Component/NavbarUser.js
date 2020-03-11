@@ -58,7 +58,6 @@ class NavbarUser extends Component {
                                         <Link to="/cart">
                                             <CartNotif />
                                         </Link>
-
                                     </MDBNavItem>
                                     <div className="dropdown" style={{ cursor: 'pointer' }}>
                                         <div className="dropdown-toggle dropdownCustom" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
