@@ -6,6 +6,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import Logo from '../Image/Logo-SarenOne.png';
 import { Logout } from '../Redux/Action';
 import CartNotif from '../UserPages/CartNotif';
@@ -65,7 +66,7 @@ class NavbarUser extends Component {
                                         </div>
                                         <div className="dropdown-menu">
                                             <a className="dropdown-item" href="/profileuser"><PersonIcon fontSize="small" style={{ margin: '5px' }} />Your Profile</a>
-                                            <a className="dropdown-item" href="/cart"><ShoppingCartIcon fontSize="small" style={{ margin: '5px' }} />Your Cart</a>
+                                            <a className="dropdown-item" href="/historytransaction"><MonetizationOnIcon fontSize="small" style={{ margin: '5px' }} />Your Transaction</a>
                                             <div className="dropdown-divider"></div>
                                             <a className="dropdown-item" onClick={this.onBtnLogout} href="/"><ExitToAppIcon fontSize="small" style={{ margin: '5px' }} />Logout</a>
                                         </div>

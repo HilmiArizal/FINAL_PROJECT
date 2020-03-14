@@ -3,7 +3,7 @@ import '../CSSUser/Login.css';
 import form1 from '../Image/FORM-1.png';
 import form2 from '../Image/FORM-2.png';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink, MDBBtn } from "mdbreact";
-import { Register } from '../Redux/Action';
+import { Register, Login } from '../Redux/Action';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -37,6 +37,7 @@ class RegisterPage extends Component {
                 var data = { username, email, password }
                 this.props.Register(data)
                 alert('Register Success')
+                this.props.Login(username, password)
             } else {
                 alert('Your password not same!')
             }
@@ -48,7 +49,7 @@ class RegisterPage extends Component {
     render() {
         if (this.props.role !== '') {
             return(
-                <Redirect to = '/login'>
+                <Redirect to = '/unverified'>
 
                 </Redirect>
             )
@@ -69,7 +70,7 @@ class RegisterPage extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label className="text-uppercase">Email</label>
-                                    <input type="text" className="form-control" ref='email' />
+                                    <input type="text" className="form-control" ref='email' defaultValue='hilmi.arizal36@gmail.com' />
                                 </div>
                                 <div className="form-group">
                                     <label className="text-uppercase">Password</label>
@@ -129,4 +130,4 @@ const mapStatetoProps = (state) => {
     }
 }
 
-export default connect(mapStatetoProps, { Register })(RegisterPage);
+export default connect(mapStatetoProps, { Register, Login })(RegisterPage);

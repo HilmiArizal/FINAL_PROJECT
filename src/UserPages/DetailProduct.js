@@ -5,7 +5,7 @@ import NavbarUser from '../Component/NavbarUser';
 import { MDBJumbotron, MDBContainer, MDBRow, MDBCol, MDBCardBody, MDBCardTitle, MDBBtn } from "mdbreact";
 import '../CSSAdmin/InputNumber.css';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Footer from '../Component/Footer';
 
 class DetailProduct extends Component {
@@ -215,9 +215,19 @@ class DetailProduct extends Component {
                         <MDBCol sm="10">
                             <div className='d-flex' style={{ marginBottom: '25px', paddingLeft: '5%', backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '30px', fontFamily: 'Hammersmith One, sans- serif' }}>Total Price Rp. {this.state.value * this.state.newPrice},- </div>
                         </MDBCol>
-                        <MDBCol sm="2">
-                            <div className='d-flex justify-content-center' style={{ backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '20px', fontFamily: 'Hammersmith One, sans- serif', cursor: 'pointer' }} onClick={this.addToCart}>ADD TO CART </div>
-                        </MDBCol>
+                        {
+                            this.props.status === 'verified'
+                                ?
+                                <MDBCol sm="2">
+                                    <div className='d-flex justify-content-center' style={{ backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '20px', fontFamily: 'Hammersmith One, sans- serif', cursor: 'pointer' }} onClick={this.addToCart}>ADD TO CART </div>
+                                </MDBCol>
+                                :
+                                <MDBCol sm="2">
+                                    <Link to='unverified'>
+                                        <div className='d-flex justify-content-center' style={{ backgroundColor: '#192b3c', height: '10vh', color: 'white', alignItems: 'center', fontSize: '20px', fontFamily: 'Hammersmith One, sans- serif', cursor: 'pointer' }}>ADD TO CART </div>
+                                    </Link>
+                                </MDBCol>
+                        }
                     </MDBRow>
                 </MDBJumbotron>
             </MDBContainer >
@@ -228,10 +238,10 @@ class DetailProduct extends Component {
         return (
             <div>
                 <NavbarUser />
-                <br/>
+                <br />
                 {this.renderProducts()}
-                <div style={{marginTop: 60}}>
-                    <Footer/>
+                <div style={{ marginTop: 60 }}>
+                    <Footer />
                 </div>
             </div>
         );
@@ -241,7 +251,8 @@ class DetailProduct extends Component {
 const mapStatetoProps = (state) => {
     return {
         id: state.user.id,
-        username: state.user.username
+        username: state.user.username,
+        status: state.user.status
     }
 }
 

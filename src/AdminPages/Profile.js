@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../CSSAdmin/Homepage.css';
+import LogoSarenOne from '../Image/LogoSarenOne.png';
+
 
 
 class Profile extends Component {
@@ -10,9 +12,9 @@ class Profile extends Component {
                 <main className="s-layout__content">
                     <center>
                         <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            PROFILE SARENONE
+                            WELCOME ADMIN SARENONE!
                     </div>
-                        {/* <img src={LogoSarenOne} alt='LogoSarenOne' style={{ width: '30%' }} /> */}
+                        <img src={LogoSarenOne} alt='LogoSarenOne' style={{ width: '55%' }} />
                     </center>
                 </main>
             </div>

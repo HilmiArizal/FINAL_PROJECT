@@ -22,13 +22,13 @@ class SidebarUser extends Component {
                                 </center>
                             </div>
                         </a>
-                        <a className="s-sidebar__nav-link" href="/deleteaccount">
+                        {/* <a className="s-sidebar__nav-link" href="/deleteaccount">
                             <div className="text-Center">
                                 <center>
                                     DELETE ACCOUNT
                                 </center>
                             </div>
-                        </a>
+                        </a> */}
                     </div>
                 </div>
             </div>

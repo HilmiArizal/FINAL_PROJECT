@@ -6,6 +6,7 @@ import form1 from '../Image/FORM-1.png'
 import form2 from '../Image/FORM-2.png';
 import { Login } from '../Redux/Action';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink, MDBBtn } from "mdbreact";
+import { Link } from 'react-router-dom'
 
 
 class LoginPage extends Component {
@@ -14,6 +15,7 @@ class LoginPage extends Component {
         var username = this.refs.username.value;
         var password = this.refs.password.value;
         this.props.Login(username, password)
+        alert('Login Success')
     }
 
     render() {
@@ -43,7 +45,7 @@ class LoginPage extends Component {
                                         <label className="text-uppercase">Password</label>
                                         <input type="password" className="form-control" ref='password' />
                                     </div>
-                                    <div>
+                                    < div >
                                         <MDBBtn color="elegant" className="float-right" style={{ padding: '13px 30px 13px 30px', borderRadius: '5px', fontSize: ' 13px' }} onClick={this.LoginUser}>SUBMIT</MDBBtn>
                                     </div>
                                 </form>
@@ -82,14 +84,15 @@ class LoginPage extends Component {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
         );
     }
 }
 
 const mapStatetoProps = (state) => {
     return {
-        role: state.user.role
+        role: state.user.role,
+        status: state.user.status
     }
 }
 export default connect(mapStatetoProps, { Login })(LoginPage)

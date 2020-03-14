@@ -22,6 +22,7 @@ class Verified extends Component {
             .then((res) => {
                 localStorage.setItem('token', token)
                 this.setState({ redirect: true })
+                alert('Thank you, your account has been verified')
             })
             .catch((err) => {
                 console.log(err)
@@ -31,14 +32,14 @@ class Verified extends Component {
     render() {
         if (this.state.redirect) {
             return (
-                <Redirect to="/">
+                <Redirect to="/profileuser">
 
                 </Redirect>
             )
         }
         return (
             <div>
-                Check Your Email
+                {/* Check Your Email */}
             </div>
         )
     }

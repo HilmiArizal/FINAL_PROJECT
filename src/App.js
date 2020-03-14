@@ -5,7 +5,6 @@ import LoginPage from './UserPages/Login';
 import RegisterPage from './UserPages/Register';
 import { connect } from 'react-redux';
 import { keepLogin } from './Redux/Action';
-import Homepage from './AdminPages/Home';
 import Sidebar from './AdminPages/Sidebar';
 import Profile from './AdminPages/Profile';
 import HisTransaction from './AdminPages/HistoryTransaction';
@@ -22,6 +21,10 @@ import Promotion from './UserPages/Promotion';
 import About from './UserPages/About';
 import ChangePass from './UserPages/ChangePass';
 import DeleteAccount from './UserPages/DeleteAccount';
+import UserTransaction from './UserPages/UserTransaction';
+import PageNotFound from './UserPages/PageNotFound';
+import HistoryTransactionUser from './UserPages/HistoryTransaction';
+import Unverified from './UserPages/UnverifiedPage';
 
 class App extends Component {
 
@@ -37,13 +40,12 @@ class App extends Component {
       return (
         <div>
           <Sidebar />
-          <Route path='/' component={Homepage} exact />
-          <Route path='/profile' component={Profile} />
+          <Route path='/' component={Profile} exact />
           <Route path='/addproduct' component={AddProduct} />
           <Route path='/editdelete' component={EditDelete} />
           <Route path='/editproduct' component={EditProduct} />
           <Route path='/seeproduct' component={SeeProduct} />
-          <Route path='/histransaction' component={HisTransaction} />
+          <Route path='/historytransaction' component={HisTransaction} />
         </div>
       )
     } else if (this.props.role === 'user') {
@@ -61,6 +63,9 @@ class App extends Component {
           <Route path='/about' component={About} />
           <Route path='/changepass' component={ChangePass} />
           <Route path='/deleteaccount' component={DeleteAccount} />
+          <Route path='/transaction' component={UserTransaction} />
+          <Route path='/historytransaction' component={HistoryTransactionUser} />
+          <Route path='/unverified' component={Unverified} />
         </div>
       )
     } else {
@@ -71,13 +76,13 @@ class App extends Component {
           <Route path='/register' component={RegisterPage} />
           <Route path='/product' component={Product} />
           <Route path='/productdetail' component={DetailProduct} />
-          <Route path='/cart' component={Cart} />
-          <Route path='/verified' component={Verified} />
+          <Route path='/cart' component={PageNotFound} />
+          <Route path='/verified' component={PageNotFound} />
           <Route path='/profileuser' component={ProfileUser} />
           <Route path='/promotion' component={Promotion} />
           <Route path='/about' component={About} />
-          <Route path='/changepass' component={ChangePass} />
-          <Route path='/deleteaccount' component={DeleteAccount} />
+          <Route path='/transaction' component={PageNotFound} />
+          <Route path='/unverified' component={Unverified} />
         </div>
       )
     }

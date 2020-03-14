@@ -83,19 +83,19 @@ class ProfileUser extends Component {
         try {
             let firstname = this.refs.editfirstname.value;
             let lastname = this.refs.editlastname.value;
+            let phonenumber = this.refs.editphonenumber.value;
             let age = this.refs.editage.value;
             let genderId = parseInt(this.state.editGenderId);
             let jobId = parseInt(this.state.editJobId);
             let address = this.refs.editaddress.value;
             let dataprofile = {
-                firstname, lastname, age, genderId, jobId, address
+                firstname, lastname, phonenumber, age, genderId, jobId, address
             }
             const res = await Axios.patch(API_URL_1 + `users/editProfileUser/${this.props.id}`, dataprofile)
             console.log(res.data)
         } catch (err) {
             console.log(err)
         }
-
     }
 
     renderInputProfile = () => {
@@ -109,8 +109,16 @@ class ProfileUser extends Component {
                         <center>Last Name</center>
                         <input type="text" className="form-control" ref="editlastname" defaultValue={item.lastname} />
                         <br />
-                        <center>Age</center>
-                        <input type="number" className="form-control" ref="editage" defaultValue={item.age} />
+                        <MDBRow>
+                            <MDBCol size="6">
+                                <center>Phone Number</center>
+                                <input type="text" className="form-control" ref="editphonenumber" defaultValue={item.phonenumber} />
+                            </MDBCol>
+                            <MDBCol size="6">
+                                <center>Age</center>
+                                <input type="number" className="form-control" ref="editage" defaultValue={item.age} />
+                            </MDBCol>
+                        </MDBRow>
                     </MDBCol>
                     <MDBCol size="6">
                         <MDBRow>
@@ -151,13 +159,14 @@ class ProfileUser extends Component {
         return this.state.profile.map((item, index) => {
             return (
                 <MDBCol size="6" key={index}>
-                    <div> Email <em style={{ marginLeft: 39 }}>: {this.props.email}</em></div>
-                    <div> Username <em style={{ marginLeft: 5 }}>: {this.props.username}</em> </div>
-                    <div> FullName <em style={{ marginLeft: 10 }}>: {item.firstname} {item.lastname}</em> </div>
-                    <div> Age <em style={{ marginLeft: 51 }}>: {item.age}</em> </div>
-                    <div> Gender <em style={{ marginLeft: 26 }}>: {item.gender}</em> </div>
-                    <div> Job <em style={{ marginLeft: 54 }}>: {item.job}</em></div>
-                    <div> Address <em style={{ marginLeft: 21 }}>: {item.address}</em></div>
+                    <div> Email <em style={{ marginLeft: 65 }}>: {this.props.email}</em></div>
+                    <div> Username <em style={{ marginLeft: 32 }}>: {this.props.username}</em> </div>
+                    <div> FullName <em style={{ marginLeft: 38 }}>: {item.firstname} {item.lastname}</em> </div>
+                    <div> Phone Number : {item.phonenumber} </div>
+                    <div> Age <em style={{ marginLeft: 80 }}>: {item.age}</em> </div>
+                    <div> Gender <em style={{ marginLeft: 55 }}>: {item.gender}</em> </div>
+                    <div> Job <em style={{ marginLeft: 83 }}>: {item.job}</em></div>
+                    <div> Address <em style={{ marginLeft: 50 }}>: {item.address}</em></div>
                 </MDBCol>
             )
         })
@@ -205,8 +214,8 @@ class ProfileUser extends Component {
                                 {this.renderProfile()}
                             </MDBRow>
 
-                            <div style={{ border: '2px solid black', margin:'5% 0px 5% 0px' }}> </div>
-     
+                            <div style={{ border: '2px solid black', margin: '5% 0px 5% 0px' }}> </div>
+
                             {this.renderInputProfile()}
                             <MDBRow>
                                 <MDBCol size="4">

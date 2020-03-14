@@ -25,7 +25,7 @@ class Product extends Component {
                 // console.log(res.data)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
     }
 
@@ -45,7 +45,7 @@ class Product extends Component {
             return (
                 <div key={index}>
                     <div className="s-sidebar__nav-link" onClick={() => this.setState({ idCat: item.id })} style={{ cursor: 'pointer' }}>
-                        <div className="text-Center">
+                        <div className="text-Center" style={{fontSize:25, margin:13}}>
                             <center>
                                 {item.category}
                             </center>
@@ -108,7 +108,7 @@ class Product extends Component {
                                 </center>
                                 <div>
                                     <a className="s-sidebar__nav-link" href="product">
-                                        <div className="text-Center">
+                                        <div className="text-Center" style={{fontSize:25, margin:13}}>
                                             <center>
                                                 ALL PRODUCT
                                             </center>

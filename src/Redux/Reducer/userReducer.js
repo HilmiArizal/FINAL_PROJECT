@@ -2,7 +2,8 @@ const INITAL_STATE = {
     id : 0,
     username : null,
     email : '',
-    role : ''
+    role : '',
+    status : ''
 }
 
 export default (state = INITAL_STATE, action) => {
@@ -12,7 +13,8 @@ export default (state = INITAL_STATE, action) => {
                 id: action.payload.id,
                 username: action.payload.username,
                 email: action.payload.email,
-                role: action.payload.role
+                role: action.payload.role,
+                status: action.payload.verified
             }
         case 'LOGOUT':
             return INITAL_STATE

@@ -10,7 +10,7 @@ export const Login = (username, password) => {
             .then((res) => {
                 if (res.data.length !== 0) {
                     localStorage.setItem('token', res.data.token)
-                    alert('LOGIN SUCCESS!')
+                    // alert('LOGIN SUCCESS!')
                     dispatch({
                         type: 'LOGIN',
                         payload: res.data
@@ -39,7 +39,6 @@ export const Logout = () => {
 export const keepLogin = () => {
     return (dispatch) => {
         const token = localStorage.getItem('token')
-        console.log(token)
         if (token) {
             const headers = {
                 headers: {
