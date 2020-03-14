@@ -49,8 +49,10 @@ class HisTransaction extends Component {
                     <td>Rp. {item.totaltransaction},-</td>
                     <td>{item.datetransaction}</td>
                     <td>
-                        <select defaultValue={item.status} className="form-control" onChange={(e) => this.onChangeSelectStatus(e, index)} style={{ fontSize: 13, width: 100 }}>
+                        <select defaultValue={item.status} className="form-control" onChange={(e) => this.onChangeSelectStatus(e, index)} style={{ fontSize: 13, width: 120 }}>
                             <option>UNPAID</option>
+                            <option>ON PROCESS</option>
+                            <option>DELIVERY</option>
                             <option>PAID</option>
                         </select>
                         <MDBBtn color="elegant" size="sm" onClick={() => this.onBtnSaveTransaction(item.idtransaction)}>Save</MDBBtn>

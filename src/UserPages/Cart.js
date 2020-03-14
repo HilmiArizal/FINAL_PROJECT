@@ -7,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import '../CSSUser/Step.css';
 
 
 class Cart extends Component {
@@ -81,6 +82,22 @@ class Cart extends Component {
             <div>
                 <NavbarUser />
                 <center>
+                    <div className="container" style={{ margin: 50 }}>
+                        <div className="row">
+                            <div className="col-4">
+                                <div style={{ border: '2px solid black' }}></div>
+                                <MDBBtn color="elegant" style={{ width: 300, borderRadius: 50 }}>CART</MDBBtn>
+                            </div>
+                            <div className="col-4">
+                                <div style={{ border: '2px solid white' }}></div>
+                                <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>TRANSACTION</MDBBtn>
+                            </div>
+                            <div className="col-4">
+                            <div style={{ border: '2px solid white' }}></div>
+                                <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>STATUS TRANSACTION</MDBBtn>
+                            </div>
+                        </div>
+                    </div>
                     <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
                         YOUR CART
                     </div>

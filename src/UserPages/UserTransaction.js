@@ -4,13 +4,16 @@ import { API_URL_1 } from '../Helpers/API_URL';
 import NavbarUser from '../Component/NavbarUser';
 import { MDBRow, MDBCol, MDBContainer, MDBBtn, MDBCard } from 'mdbreact';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class UserTransaction extends Component {
     state = {
         profile: [],
         cart: [],
-        transaction: []
+        transaction: [],
+
+        RedirectStay: false,
+        RedirectNext: false
     }
 
     componentDidMount() {
@@ -62,8 +65,9 @@ class UserTransaction extends Component {
             })
     }
 
-    saveEditProfile = async () => {
-        try {
+    saveEditProfile = () => {
+        // try {
+            // window.location.reload()
             let firstname = this.refs.editfirstname.value;
             let lastname = this.refs.editlastname.value;
             let phonenumber = this.refs.editphonenumber.value;
@@ -71,11 +75,18 @@ class UserTransaction extends Component {
             let dataprofile = {
                 firstname, lastname, phonenumber, address
             }
-            await Axios.patch(API_URL_1 + `users/editProfileUserTransaction/${this.props.id}`, dataprofile)
-            window.location.reload()
-            // console.log(res.data)
-        } catch (err) {
-            // console.log(err)
+        if (firstname && lastname && phonenumber && address) {
+            Axios.patch(API_URL_1 + `users/editProfileUserTransaction/${this.props.id}`, dataprofile)
+                .then((res) => {
+                    this.getProfileUser()
+                    return res.data
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+        else {
+            return 'PROFILE_KOSONG'
         }
     }
 
@@ -89,7 +100,6 @@ class UserTransaction extends Component {
     }
 
     onBtnPayment = async () => {
-        console.log(this.state.cart)
         try {
             // addTransaction
             let userId = this.props.id
@@ -107,12 +117,18 @@ class UserTransaction extends Component {
                 datetransaction
             }
 
-            await Axios.post(API_URL_1 + `transaction/addTransaction`, datatransaction)
-            await Axios.post(API_URL_1 + `transaction/addDetailTransaction`, detailcart)
-            await Axios.delete(API_URL_1 + `carts/deleteCartUserId?id=${this.props.id}`)
-            // console.log(res.data)
-            alert('Success')
-            window.location.reload()
+            if (this.saveEditProfile() !== 'PROFILE_KOSONG') {
+                await Axios.post(API_URL_1 + `transaction/addTransaction`, datatransaction)
+                await Axios.post(API_URL_1 + `transaction/addDetailTransaction`, detailcart)
+                await Axios.delete(API_URL_1 + `carts/deleteCartUserId?id=${this.props.id}`)
+                alert('Pesanan anda sedang di proses, mohon ditunggu')
+                this.setState({ RedirectNext: true })
+                // window.location.reload()
+            } else {
+                alert('Mohon isi data dengan benar')
+                window.location.reload()
+                this.setState({ RedirectStay: true })
+            }
         } catch (err) {
             // console.log(err)
         }
@@ -169,7 +185,7 @@ class UserTransaction extends Component {
                                     <textarea
                                         className="form-control"
                                         id="exampleFormControlTextarea1"
-                                        rows="7"
+                                        rows="3"
                                         ref="editaddress"
                                         defaultValue={item.address}
                                     />
@@ -186,48 +202,82 @@ class UserTransaction extends Component {
     }
 
     render() {
+        const { RedirectStay, RedirectNext } = this.state;
+        if (RedirectStay) {
+            return (
+                <Redirect to='/transaction'>
+
+                </Redirect>
+            )
+        } else if (RedirectNext) {
+            return (
+                <Redirect to='/historytransaction'>
+
+                </Redirect>
+            )
+        }
         return (
             <div>
                 <NavbarUser />
-                <div style={{ marginTop: 20 }}>
-                    <MDBContainer>
-                        <MDBRow>
-                            <MDBCol sm="6">
-                                <MDBCard>
-                                    <MDBContainer>
-                                        <div style={{ fontFamily: 'Hammersmith One, sans-serif', padding: 20, fontSize: 30 }}> Please {this.props.username}, check your form! </div>
-                                        {this.renderProfileTransaction()}
-                                    </MDBContainer>
-                                </MDBCard>
-                            </MDBCol>
-                            <MDBCol sm="6">
-                                <MDBCard>
-                                    <div className="d-flex justify-content-center"style={{ fontFamily: 'Hammersmith One, sans-serif', padding: 20, backgroundColor: '#404040', color: 'white', fontSize: 30}}> Your Transaction </div>
-                                    <MDBContainer>
-                                        {this.renderTransaction()}
-                                    </MDBContainer>
-                                </MDBCard>
-                                {
-                                    this.state.cart.length > 0
-                                        ?
-                                        < div >
-                                            < center >
-                                                <Link to="/">
-                                                    <MDBBtn color="elegant" size="md" onClick={this.onBtnPayment} style={{ marginTop: 20 }}>Payment Now</MDBBtn>
-                                                </Link>
-                                            </center>
-                                        </div>
-                                        :
+                <center>
+                    <div style={{ marginTop: 20 }}>
+                        <div className="container" style={{ margin: 50 }}>
+                            <div className="row">
+                                <div className="col-4">
+                                    <div style={{ border: '2px solid white' }}></div>
+                                    <Link to="cart">
+                                        <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>CART</MDBBtn>
+                                    </Link>
+                                </div>
+                                <div className="col-4">
+                                    <div style={{ border: '2px solid black' }}></div>
+                                    <MDBBtn color="elegant" style={{ width: 300, borderRadius: 50 }}>TRANSACTION</MDBBtn>
+                                </div>
+                                <div className="col-4">
+                                    <div style={{ border: '2px solid white' }}></div>
+                                    <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>STATUS TRANSACTION</MDBBtn>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+                <MDBContainer>
+                    <MDBRow>
+                        <MDBCol sm="6">
+                            <MDBCard>
+                                <MDBContainer>
+                                    <div style={{ fontFamily: 'Hammersmith One, sans-serif', padding: 20, fontSize: 30 }}> Please {this.props.username}, check your form! </div>
+                                    {this.renderProfileTransaction()}
+                                </MDBContainer>
+                            </MDBCard>
+                        </MDBCol>
+                        <MDBCol sm="6">
+                            <MDBCard>
+                                <div className="d-flex justify-content-center" style={{ fontFamily: 'Hammersmith One, sans-serif', padding: 20, backgroundColor: '#404040', color: 'white', fontSize: 30 }}> Your Transaction </div>
+                                <MDBContainer>
+                                    {this.renderTransaction()}
+                                </MDBContainer>
+                            </MDBCard>
+                            {
+                                this.state.cart.length > 0
+                                    ?
+                                    < div >
                                         < center >
-                                            <Link to="product">
-                                                <MDBBtn color="elegant" size="md" style={{ marginTop: 20 }}>Payment Now</MDBBtn>
-                                            </Link>
+                                            {/* <Link to="historytransaction"> */}
+                                            <MDBBtn color="elegant" size="md" onClick={this.onBtnPayment} style={{ marginTop: 20 }}>Payment Now</MDBBtn>
+                                            {/* </Link> */}
                                         </center>
-                                }
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBContainer>
-                </div>
+                                    </div>
+                                    :
+                                    < center >
+                                        <Link to="product">
+                                            <MDBBtn color="elegant" size="md" style={{ marginTop: 20 }}>Go To Product</MDBBtn>
+                                        </Link>
+                                    </center>
+                            }
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
             </div >
         );
     }

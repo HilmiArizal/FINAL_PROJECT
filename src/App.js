@@ -40,7 +40,7 @@ class App extends Component {
       return (
         <div>
           <Sidebar />
-          <Route path='/' component={Profile} exact />
+          <Route path='/profileadmin' component={Profile} exact />
           <Route path='/addproduct' component={AddProduct} />
           <Route path='/editdelete' component={EditDelete} />
           <Route path='/editproduct' component={EditProduct} />

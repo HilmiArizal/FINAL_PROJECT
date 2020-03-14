@@ -41,7 +41,7 @@ class Sidebar extends Component {
                                     <i><em><img src={LogoSarenOne} alt='LogoSarenOne' style={{ width: '100px', borderRadius: '50px', marginBottom: '20px' }} /></em></i>
                                 </li>
                                 <li>
-                                    <MDBNavLink to="/">
+                                    <MDBNavLink to="/profileadmin">
                                         <div style={{ color: 'white' }}>
                                             <MDBIcon icon="user" /> PROFILE
                                     </div>

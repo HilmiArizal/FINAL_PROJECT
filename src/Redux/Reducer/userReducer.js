@@ -3,18 +3,21 @@ const INITAL_STATE = {
     username : null,
     email : '',
     role : '',
-    status : ''
+    status : '',
+    gender: 0
 }
 
 export default (state = INITAL_STATE, action) => {
     switch(action.type){
         case 'LOGIN':
+            // console.log({gender: action.payload.genderId})
             return{
                 id: action.payload.id,
                 username: action.payload.username,
                 email: action.payload.email,
                 role: action.payload.role,
-                status: action.payload.verified
+                status: action.payload.verified,
+                gender: action.payload.genderId,
             }
         case 'LOGOUT':
             return INITAL_STATE

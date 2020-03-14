@@ -6,7 +6,6 @@ import form1 from '../Image/FORM-1.png'
 import form2 from '../Image/FORM-2.png';
 import { Login } from '../Redux/Action';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink, MDBBtn } from "mdbreact";
-import { Link } from 'react-router-dom'
 
 
 class LoginPage extends Component {
@@ -15,13 +14,19 @@ class LoginPage extends Component {
         var username = this.refs.username.value;
         var password = this.refs.password.value;
         this.props.Login(username, password)
-        alert('Login Success')
     }
 
     render() {
-        if (this.props.role !== '') {
+        if (this.props.role === 'user') {
             return (
                 <Redirect to='/'>
+
+                </Redirect>
+            )
+        } else if( this.props.role === 'admin'){
+            console.log(this.props.role)
+            return(
+                <Redirect to ='/profileadmin'>
 
                 </Redirect>
             )

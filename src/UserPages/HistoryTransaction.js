@@ -122,28 +122,48 @@ class HistoryTransactionUser extends Component {
             <div>
                 <NavbarUser />
                 <center>
-                    <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                        YOUR TRANSACTION
+                    <div className="container" style={{ margin: 50 }}>
+                        <div className="row">
+                            <div className="col-4">
+                                <div style={{ border: '2px solid white' }}></div>
+                                <Link to="cart">
+                                    <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>CART</MDBBtn>
+                                </Link>
+                            </div>
+                            <div className="col-4">
+                                <div style={{ border: '2px solid white' }}></div>
+                                <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>TRANSACTION</MDBBtn>
+                            </div>
+                            <div className="col-4">
+                                <div style={{ border: '2px solid black' }}></div>
+                                <MDBBtn color="elegant" style={{ width: 300, borderRadius: 50 }}>STATUS TRANSACTION</MDBBtn>
+                            </div>
+                        </div>
                     </div>
+                    <center>
+                        <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
+                            YOUR TRANSACTION
+                    </div>
+                    </center>
+                    <MDBContainer>
+                        <MDBTable bordered >
+                            <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: '#404040', color: 'white' }}>
+                                <tr style={{ fontSize: '10px', textAlign: 'center' }}>
+                                    <th>No. </th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Total Transaction</th>
+                                    <th>Date Transaction</th>
+                                    <th style={{width:120}}>Status</th>
+                                    <th></th>
+                                </tr>
+                            </MDBTableHead>
+                            <MDBTableBody >
+                                {this.renderGetHistoryTransaction()}
+                            </MDBTableBody>
+                        </MDBTable>
+                    </MDBContainer>
                 </center>
-                <MDBContainer>
-                    <MDBTable bordered >
-                        <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: '#404040', color: 'white' }}>
-                            <tr style={{ fontSize: '10px', textAlign: 'center' }}>
-                                <th>No. </th>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Total Transaction</th>
-                                <th>Date Transaction</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                        </MDBTableHead>
-                        <MDBTableBody >
-                            {this.renderGetHistoryTransaction()}
-                        </MDBTableBody>
-                    </MDBTable>
-                </MDBContainer>
             </div>
         );
     }

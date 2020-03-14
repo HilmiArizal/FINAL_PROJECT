@@ -143,7 +143,7 @@ class EditProduct extends Component {
         }
         stock.push(newId)
         this.setState({ stock: stock })
-        console.table(stock)
+        // console.table(stock)
     }
 
     btnDeleteStock = async (id) => {
