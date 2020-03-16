@@ -67,14 +67,14 @@ class UserTransaction extends Component {
 
     saveEditProfile = () => {
         // try {
-            // window.location.reload()
-            let firstname = this.refs.editfirstname.value;
-            let lastname = this.refs.editlastname.value;
-            let phonenumber = this.refs.editphonenumber.value;
-            let address = this.refs.editaddress.value;
-            let dataprofile = {
-                firstname, lastname, phonenumber, address
-            }
+        // window.location.reload()
+        let firstname = this.refs.editfirstname.value;
+        let lastname = this.refs.editlastname.value;
+        let phonenumber = this.refs.editphonenumber.value;
+        let address = this.refs.editaddress.value;
+        let dataprofile = {
+            firstname, lastname, phonenumber, address
+        }
         if (firstname && lastname && phonenumber && address) {
             Axios.patch(API_URL_1 + `users/editProfileUserTransaction/${this.props.id}`, dataprofile)
                 .then((res) => {
@@ -108,15 +108,19 @@ class UserTransaction extends Component {
             let month = new Date().getMonth() + 1
             let year = new Date().getFullYear()
             let datetransaction = `${year}-${month}-${date}`
+            let hour = new Date().getHours()
+            let minute = new Date().getMinutes()
+            let second = new Date().getSeconds()
+            let timescart = `${hour}:${minute}:${second}`
             let datatransaction = {
-                userId, totaltransaction, datetransaction
+                userId, totaltransaction, datetransaction, timescart
             }
             // addDetailTransaction
             let detailcart = {
                 cart: this.state.cart,
-                datetransaction
+                datetransaction,
+                timescart
             }
-
             if (this.saveEditProfile() !== 'PROFILE_KOSONG') {
                 await Axios.post(API_URL_1 + `transaction/addTransaction`, datatransaction)
                 await Axios.post(API_URL_1 + `transaction/addDetailTransaction`, detailcart)

@@ -84,8 +84,19 @@ class ProfileUser extends Component {
         // console.log(e.target[e.target.selectedIndex].text)
     }
 
+    addImage = (e) => {
+        if (e.target.files[0]) {
+            this.setState({
+                image: e.target.files[0],
+                previewImage: URL.createObjectURL(e.target.files[0]),
+                changeImage: true
+            })
+        }
+    }
+
     saveEditProfile = async () => {
         try {
+            let formData = new FormData();
             let firstname = this.refs.editfirstname.value;
             let lastname = this.refs.editlastname.value;
             let phonenumber = this.refs.editphonenumber.value;
@@ -93,12 +104,21 @@ class ProfileUser extends Component {
             let genderId = parseInt(this.state.editGenderId);
             let jobId = parseInt(this.state.editJobId);
             let address = this.refs.editaddress.value;
+            let changeImage = this.state.changeImage;
             let dataprofile = {
                 firstname, lastname, phonenumber, age, genderId, jobId, address
             }
-            const res = await Axios.patch(API_URL_1 + `users/editProfileUser/${this.props.id}`, dataprofile)
+            let profilecomplete = {
+                dataprofile,
+                changeImage
+            }
+            formData.append('profilecomplete', JSON.stringify(profilecomplete))
+            formData.append('image', (this.state.image))
+            console.log(this.state.image)
+            const res = await Axios.patch(API_URL_1 + `users/editProfileUser/${this.props.id}`, formData)
+            alert('Success!')
             this.getProfileUser()
-            console.log(res.data)
+            // console.log(res.data)
         } catch (err) {
             console.log(err)
         }
@@ -164,17 +184,37 @@ class ProfileUser extends Component {
     renderProfile = () => {
         return this.state.profile.map((item, index) => {
             return (
-                <MDBCol size="6" key={index}>
-                    <div className="row">
-                        <div className="col-5"> Email </div><div className="col-7">: {this.props.email}</div>
-                        <div className="col-5"> Username </div><div className="col-5">: {this.props.username}</div>
-                        <div className="col-5"> FullName </div><div className="col-7">: {item.firstname} {item.lastname}</div>
-                        <div className="col-5"> Phone Number </div><div className="col-7">: {item.phonenumber}</div>
-                        <div className="col-5"> Age </div><div className="col-7">: {item.age}</div>
-                        <div className="col-5"> Gender </div><div className="col-7">: {item.gender}</div>
-                        <div className="col-5"> Address </div><div className="col-7">: {item.address}</div>
-                    </div>
-                </MDBCol>
+                <MDBRow>
+                    <MDBCol size="5" className="d-flex justify-content-center">
+                        <div>
+                            {
+                                this.state.previewImage
+                                    ?
+                                    <div className='d-flex justify-content-center'>
+                                        <img className='EDP-Preview-Image' src={this.state.previewImage} alt="profile" style={{ height: 170, width: 170, borderRadius: 100 }} />
+                                    </div>
+                                    :
+                                    <div className='d-flex justify-content-center'>
+                                        <img className='EDP-Preview-Image' src={API_URL_1 + item.imagePath} style={{ height: 170, width: 170, borderRadius: 100  }} />
+                                    </div>
+                            }
+                            <div className='d-flex justify-content-center'>
+                                <input type='file' onChange={this.addImage} />
+                            </div>
+                        </div>
+                    </MDBCol>
+                    <MDBCol size="7" key={index}>
+                        <div className="row">
+                            <div className="col-4"> Email </div><div className="col-8">: {this.props.email}</div>
+                            <div className="col-4"> Username </div><div className="col-8">: {this.props.username}</div>
+                            <div className="col-4"> FullName </div><div className="col-8">: {item.firstname} {item.lastname}</div>
+                            <div className="col-4"> Phone Number </div><div className="col-8">: {item.phonenumber}</div>
+                            <div className="col-4"> Age </div><div className="col-8">: {item.age}</div>
+                            <div className="col-4"> Gender </div><div className="col-8">: {item.gender}</div>
+                            <div className="col-4"> Address </div><div className="col-8">: {item.address}</div>
+                        </div>
+                    </MDBCol>
+                </MDBRow>
             )
         })
     }
@@ -200,7 +240,6 @@ class ProfileUser extends Component {
     }
 
     render() {
-
         return (
             <div>
                 <NavbarUser />
@@ -216,19 +255,7 @@ class ProfileUser extends Component {
                             <div style={{ border: '2px solid black' }}> </div>
                             <br />
                             <MDBRow>
-                                <MDBCol size="6" className="d-flex justify-content-center">
-                                    {
-                                        this.props.gender === 1
-                                            ?
-                                            <img src={AvatarMen} style={{ height: 170, width: 170 }} />
-                                            :
-                                            this.props.gender === 2
-                                                ?
-                                                <img src={AvatarWomen} style={{ height: 170, width: 170 }} />
-                                                :
-                                                ''
-                                    }
-                                </MDBCol>
+
                                 {this.renderProfile()}
                             </MDBRow>
                             <div style={{ border: '2px solid black', margin: '3% 0px 3% 0px' }}> </div>

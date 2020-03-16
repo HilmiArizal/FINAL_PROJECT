@@ -52,10 +52,10 @@ class EditProduct extends Component {
         Axios.get(API_URL_1 + `products/getStockId/${takeId}`)
             .then((res) => {
                 this.setState({ stock: res.data })
-                console.table('ini', res.data)
+                // console.table('ini', res.data)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
     }
 
@@ -63,7 +63,7 @@ class EditProduct extends Component {
         Axios.get(API_URL_1 + `products/getCategory`)
             .then((res) => {
                 this.setState({ category: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -74,7 +74,7 @@ class EditProduct extends Component {
         Axios.get(API_URL_1 + `products/getSize`)
             .then((res) => {
                 this.setState({ size: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -85,7 +85,7 @@ class EditProduct extends Component {
         Axios.get(API_URL_1 + `products/getPrice`)
             .then((res) => {
                 this.setState({ price: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -159,13 +159,13 @@ class EditProduct extends Component {
         }
     }
 
-    btnUploadImageProduct = (e) => {
-        if (e.target.files) {
-            this.setState({ editImageFile: e.target.files[0] })
-        } else {
-            this.setState({ editImageFile: undefined })
-        }
-    }
+    // btnUploadImageProduct = (e) => {
+    //     if (e.target.files) {
+    //         this.setState({ editImageFile: e.target.files[0] })
+    //     } else {
+    //         this.setState({ editImageFile: undefined })
+    //     }
+    // }
 
     btnConfirmEdit = async () => {
         try {

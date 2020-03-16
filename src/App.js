@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import Home from './UserPages/Home';
-import LoginPage from './UserPages/Login';
-import RegisterPage from './UserPages/Register';
 import { connect } from 'react-redux';
 import { keepLogin } from './Redux/Action';
 import Sidebar from './AdminPages/Sidebar';
 import Profile from './AdminPages/Profile';
 import HisTransaction from './AdminPages/HistoryTransaction';
-import Product from './UserPages/Product';
 import EditDelete from './AdminPages/EditDelete';
 import SeeProduct from './AdminPages/SeeProduct';
 import AddProduct from './AdminPages/AddProduct';
-import DetailProduct from './UserPages/DetailProduct';
 import EditProduct from './AdminPages/EditProduct';
+import LoginPage from './UserPages/Login';
+import RegisterPage from './UserPages/Register';
+import Home from './UserPages/Home';
+import Product from './UserPages/Product';
+import DetailProduct from './UserPages/DetailProduct';
 import Verified from './UserPages/Verified';
 import Cart from './UserPages/Cart';
 import ProfileUser from './UserPages/ProfileUser';
@@ -45,7 +45,7 @@ class App extends Component {
           <Route path='/editdelete' component={EditDelete} />
           <Route path='/editproduct' component={EditProduct} />
           <Route path='/seeproduct' component={SeeProduct} />
-          <Route path='/historytransaction' component={HisTransaction} />
+          <Route path='/historytransactionadmin' component={HisTransaction} />
         </div>
       )
     } else if (this.props.role === 'user') {

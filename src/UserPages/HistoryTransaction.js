@@ -13,7 +13,8 @@ class HistoryTransactionUser extends Component {
     state = {
         transaction: [],
         detailtransaction: [],
-        modal4: false
+        modal4: false,
+        detailcart: null
     }
 
     toggle = nr => () => {
@@ -30,7 +31,7 @@ class HistoryTransactionUser extends Component {
 
     getTransaction = () => {
         const token = localStorage.getItem('token')
-        console.log(token)
+        // console.log(token)
         Axios.get(API_URL_1 + `transaction/getTransaction`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -58,17 +59,18 @@ class HistoryTransactionUser extends Component {
 
     renderGetDetailTransaction = () => {
         return this.state.detailtransaction.map((item, index) => {
-            return (
-                <tr key={index} style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
-                    <td>{index + 1}</td>
-                    <td>{item.productname}</td>
-                    <td>{item.size}</td>
-                    <td>{item.price}</td>
-                    <td><div className="d-flex justify-content-center">{item.qty}</div></td>
-                    <td><div className="d-flex justify-content-center">{item.totalprice}</div></td>
-                    <td style={{ width: 200 }}><div className="d-flex justify-content-center">{moment(item.datetranscation).format('LL')}</div></td>
-                </tr>
-            )
+            if (this.state.detailcart === item.timescart) {
+                return (
+                    <tr key={index} style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
+                        {/* <td><div className="d-flex justify-content-center">{item.timescart}</div></td> */}
+                        <td><div>{item.productname}</div></td>
+                        <td><div className="d-flex justify-content-center">{item.size}gr</div></td>
+                        <td><div className="d-flex justify-content-center">Rp. {item.price.toLocaleString()},-</div></td>
+                        <td><div className="d-flex justify-content-center">{item.qty}</div></td>
+                        <td><div className="d-flex justify-content-center">Rp. {item.totalprice.toLocaleString()},-</div></td>
+                    </tr >
+                )
+            }
         })
     }
 
@@ -76,15 +78,15 @@ class HistoryTransactionUser extends Component {
         return this.state.transaction.map((item, index) => {
             return (
                 <tr key={index} style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
-                    <td>{index + 1}</td>
+                    <td><div className="d-flex justify-content-center">{index + 1}</div></td>
+                    <td style={{ width: 200 }}><div className="d-flex justify-content-center">{moment(item.datetranscation).format('LL')}</div></td>
                     <td><div className="d-flex justify-content-center">{item.firstname} {item.lastname}</div></td>
                     <td>{item.address}</td>
                     <td style={{ width: 200 }}><div className="d-flex justify-content-center">Rp. {item.totaltransaction.toLocaleString()},-</div></td>
-                    <td style={{ width: 200 }}><div className="d-flex justify-content-center">{moment(item.datetranscation).format('LL')}</div></td>
                     <td><div className="d-flex justify-content-center">{item.status}</div></td>
                     <td>
                         <MDBContainer>
-                            <div className="d-flex justify-content-center">
+                            <div className="d-flex justify-content-center" onClick={() => this.setState({ detailcart: item.timescart })}>
                                 <MDBBtn color="primary" onClick={this.toggle(4)} size="sm" color="elegant" style={{ width: 120 }}>DETAIL CART</MDBBtn>
                             </div>
                             <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
@@ -94,13 +96,12 @@ class HistoryTransactionUser extends Component {
                                         <MDBTable bordered >
                                             <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
                                                 <tr style={{ fontSize: '10px', textAlign: 'center' }}>
-                                                    <th>No. </th>
+                                                    {/* <th>Times Cart</th> */}
                                                     <th>Product Name</th>
                                                     <th>Size</th>
                                                     <th>Price</th>
                                                     <th>Quantity</th>
                                                     <th>Total Price</th>
-                                                    <th>Date Cart</th>
                                                 </tr>
                                             </MDBTableHead>
                                             <MDBTableBody >
@@ -118,6 +119,7 @@ class HistoryTransactionUser extends Component {
     }
 
     render() {
+        console.log(this.state.detailtransaction)
         return (
             <div>
                 <NavbarUser />
@@ -150,11 +152,11 @@ class HistoryTransactionUser extends Component {
                             <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: '#404040', color: 'white' }}>
                                 <tr style={{ fontSize: '10px', textAlign: 'center' }}>
                                     <th>No. </th>
+                                    <th>Date Transaction</th>
                                     <th>Name</th>
                                     <th>Address</th>
                                     <th>Total Transaction</th>
-                                    <th>Date Transaction</th>
-                                    <th style={{width:120}}>Status</th>
+                                    <th style={{ width: 120 }}>Status</th>
                                     <th></th>
                                 </tr>
                             </MDBTableHead>

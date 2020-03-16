@@ -45,7 +45,7 @@ class Product extends Component {
             return (
                 <div key={index}>
                     <div className="s-sidebar__nav-link" onClick={() => this.setState({ idCat: item.id })} style={{ cursor: 'pointer' }}>
-                        <div className="text-Center" style={{fontSize:25, margin:13}}>
+                        <div className="text-Center" style={{fontSize:20, margin:15 }}>
                             <center>
                                 {item.category}
                             </center>
@@ -108,7 +108,7 @@ class Product extends Component {
                                 </center>
                                 <div>
                                     <a className="s-sidebar__nav-link" href="product">
-                                        <div className="text-Center" style={{fontSize:25, margin:13}}>
+                                        <div className="text-Center" style={{fontSize:20, margin:15}}>
                                             <center>
                                                 ALL PRODUCT
                                             </center>
