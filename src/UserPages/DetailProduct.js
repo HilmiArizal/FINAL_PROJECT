@@ -35,7 +35,7 @@ class DetailProduct extends Component {
         if (this.state.showPrice) {
             this.setState({ value: this.state.value + 1 });
         } else {
-            alert('PILIH SIZE DULU!')
+            alert('Pilih beratnya dulu!')
         }
     }
 
@@ -48,7 +48,7 @@ class DetailProduct extends Component {
                 this.setState({ value: this.state.value - 1 });
             }
         } else {
-            alert('PILIH SIZE DULU!')
+            alert('Pilih beratnya dulu!')
         }
     }
     componentDidMount() {
@@ -110,11 +110,11 @@ class DetailProduct extends Component {
                     alert('Isi dengan benar!')
                 }
             } else {
-                alert('Please Login')
+                alert('Please Login!')
                 this.setState({ RedirectLogin: true })
             }
         } catch (err) {
-            console.log(err)
+            // console.log(err)
         }
     }
 

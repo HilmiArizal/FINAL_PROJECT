@@ -124,9 +124,7 @@ class Cart extends Component {
                                     </tr>
                                 </MDBTableHead>
                                 <MDBTableBody>
-                                    {/* <div>    */}
                                     {this.renderGetCart()}
-                                    {/* </div> */}
                                 </MDBTableBody>
                             </MDBTable>
                             :

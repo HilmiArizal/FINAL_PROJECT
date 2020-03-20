@@ -5,6 +5,7 @@ import { API_URL_1 } from '../Helpers/API_URL';
 import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { connect } from 'react-redux';
 
 
 class HistoryTransactionUser extends Component {
@@ -14,8 +15,7 @@ class HistoryTransactionUser extends Component {
         detailtransaction: [],
         productpopuler: [],
         modal4: false,
-        detailcart: null
-    }
+        detailcart: null    }
 
     toggle = nr => () => {
         let modalNumber = 'modal' + nr
@@ -51,7 +51,7 @@ class HistoryTransactionUser extends Component {
         Axios.get(API_URL_1 + `transaction/getDetailTransaction?username=${this.props.username}`)
             .then((res) => {
                 this.setState({ detailtransaction: res.data })
-                // console.log(res.data)
+                console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -80,7 +80,9 @@ class HistoryTransactionUser extends Component {
                             {/* <MDBCardText style={{ fontFamily: "Hammersmith One, sans-serif", fontSize: 8 }}>
                                 Produk terlaris ini termasuk salah satu produk terbaik yang dimiliki SarenOne
                     </MDBCardText> */}
-                            <MDBBtn color="elegant" size="sm" href="#">BUY</MDBBtn>
+                            <Link to={`productdetail?id=${item.productId}`}>
+                                <MDBBtn color="elegant" size="sm" href="#">BUY</MDBBtn>
+                            </Link>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
@@ -110,7 +112,7 @@ class HistoryTransactionUser extends Component {
             return (
                 <tr key={index} className="text-center" style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
                     <td><div className="d-flex justify-content-center">{index + 1}</div></td>
-                    <td style={{ width: 150 }}><div className="d-flex justify-content-center">{moment(item.datetranscation).format('LL')}</div></td>
+                    <td style={{ width: 150 }}><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                     <td style={{ width: 100 }}><div className="d-flex justify-content-center">{item.firstname} {item.lastname}</div></td>
                     <td>{item.address}</td>
                     <td style={{ width: 150 }}><div className="d-flex justify-content-center">Rp. {item.totaltransaction.toLocaleString()},-</div></td>
@@ -208,8 +210,8 @@ class HistoryTransactionUser extends Component {
                             </div>
                             <div className="col-2">
                                 <center>
-                                    <div style={{ fontSize: '100%', fontFamily: 'Hammersmith One, sans-serif', marginTop:18 }}>
-                                       3 PRODUK TERLARIS
+                                    <div style={{ fontSize: '100%', fontFamily: 'Hammersmith One, sans-serif', marginTop: 18 }}>
+                                        3 PRODUK TERLARIS
                                     </div>
                                 </center>
                                 <div>
@@ -224,5 +226,10 @@ class HistoryTransactionUser extends Component {
     }
 }
 
+const mapStatetoProps = (state) => {
+    return {
+        username: state.user.username
+    }
+}
 
-export default HistoryTransactionUser;
+export default connect(mapStatetoProps)(HistoryTransactionUser);

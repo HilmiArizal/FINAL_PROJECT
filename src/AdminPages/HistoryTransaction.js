@@ -84,7 +84,7 @@ class HisTransaction extends Component {
         return this.state.totaltransaction.map((item, index) => {
             return (
                 <tr key={index} className="text-center">
-                    <td><div className="d-flex justify-content-center">{moment(item.datetranscation).format('LL')}</div></td>
+                    <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                     <td>Rp. {item.alltotaltransaction.toLocaleString()},-</td>
                 </tr>
 
@@ -109,8 +109,9 @@ class HisTransaction extends Component {
                     <tr key={index} className="text-center">
                         <td>{item.username}</td>
                         <td style={{ width: 200 }}>{item.address}</td>
-                        <td>Rp. {item.totaltransaction},-</td>
+                        <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetranscation).format('LL')}</div></td>
+                        <td><img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} /> </td>
                         <td>
                             <select defaultValue={item.status} className="form-control" onChange={(e) => this.onChangeSelectStatus(e, index)} style={{ fontSize: 13, width: 150 }}>
                                 <option>UNPAID</option>
@@ -127,8 +128,9 @@ class HisTransaction extends Component {
                     <tr key={index} className="text-center">
                         <td>{item.username}</td>
                         <td style={{ width: 200 }}>{item.address}</td>
-                        <td>Rp. {item.totaltransaction},-</td>
+                        <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetranscation).format('LL')}</div></td>
+                        <td><img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} /> </td>
                         <td>
                             <select defaultValue={item.status} className="form-control" onChange={(e) => this.onChangeSelectStatus(e, index)} style={{ fontSize: 13, width: 150 }}>
                                 <option>UNPAID</option>
@@ -145,8 +147,9 @@ class HisTransaction extends Component {
                     <tr key={index} className="text-center">
                         <td>{item.username}</td>
                         <td style={{ width: 200 }}>{item.address}</td>
-                        <td>Rp. {item.totaltransaction},-</td>
+                        <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetranscation).format('LL')}</div></td>
+                        <td><img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} /> </td>
                         <td>
                             <select defaultValue={item.status} className="form-control" onChange={(e) => this.onChangeSelectStatus(e, index)} style={{ fontSize: 13, width: 150 }}>
                                 <option>UNPAID</option>
@@ -176,7 +179,6 @@ class HisTransaction extends Component {
                                 <div className="col-4"></div>
                                 <div className="col-4">
                                     <select className="form-control" onChange={(e) => this.setState({ getUser: e.target.value })} style={{ fontSize: 15 }}>
-                                        <option disabled>NAMA KONSUMEN</option>
                                         {this.renderGetAllUsername()}
                                     </select>
                                 </div>
@@ -186,13 +188,14 @@ class HisTransaction extends Component {
                             {
                                 this.state.transaction.length > 0
                                     ?
-                                    <MDBTable bordered style={{marginTop:50}} >
+                                    <MDBTable bordered style={{ marginTop: 50 }} >
                                         <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
                                             <tr style={{ fontSize: '10px', textAlign: 'center' }}>
                                                 <th>USERNAME</th>
                                                 <th>ADDRESS</th>
                                                 <th>TOTAL TRANSACTION</th>
                                                 <th>DATE TRANSACTION</th>
+                                                <th>TRANSACTION UPLOAD</th>
                                                 <th>STATUS</th>
                                             </tr>
                                         </MDBTableHead>

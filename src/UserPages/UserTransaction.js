@@ -2,24 +2,44 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
 import NavbarUser from '../Component/NavbarUser';
-import { MDBRow, MDBCol, MDBContainer, MDBBtn, MDBCard } from 'mdbreact';
+import { MDBRow, MDBCol, MDBContainer, MDBBtn, MDBCard, MDBModal, MDBModalHeader, MDBModalBody } from 'mdbreact';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import bca from '../Image/bca.png';
+
 
 class UserTransaction extends Component {
     state = {
         profile: [],
         cart: [],
         transaction: [],
+        metodetransaction: [],
 
         RedirectStay: false,
-        RedirectNext: false
+        RedirectNext: false,
+        modal4: false,
+
+        choosenBank: '',
+        image: undefined,
+        previewImage: undefined,
+        changeImage: false,
+
+        methodId: 0
+
+    }
+
+    toggle = nr => () => {
+        let modalNumber = 'modal' + nr
+        this.setState({
+            [modalNumber]: !this.state[modalNumber]
+        });
     }
 
     componentDidMount() {
         this.getTransaction()
         this.getCart()
         this.getProfileUser()
+        this.getMetodeTransaction()
     }
 
     getProfileUser() {
@@ -65,6 +85,17 @@ class UserTransaction extends Component {
             })
     }
 
+    getMetodeTransaction = () => {
+        Axios.get(API_URL_1 + `transaction/getMetodeTransaksi`)
+            .then((res) => {
+                this.setState({ metodetransaction: res.data })
+                // console.log(res.data)
+            })
+            .catch((err) => {
+                // console.log(err)
+            })
+    }
+
     saveEditProfile = () => {
         let firstname = this.refs.editfirstname.value;
         let lastname = this.refs.editlastname.value;
@@ -97,21 +128,38 @@ class UserTransaction extends Component {
         return totalprice
     }
 
+    addImage = (e) => {
+        if (e.target.files[0]) {
+            this.setState({
+                image: e.target.files[0],
+                previewImage: URL.createObjectURL(e.target.files[0]),
+                changeImage: true
+            })
+        }
+    }
+
     onBtnPayment = async () => {
         try {
             // addTransaction
+            let formData = new FormData();
             let userId = this.props.id
             let totaltransaction = this.totaltransaction()
             let date = new Date().getDate()
             let month = new Date().getMonth() + 1
             let year = new Date().getFullYear()
             let datetransaction = `${year}-${month}-${date}`
+            let metodetransaksiId = this.state.methodId
+            let changeImage = this.state.changeImage
             let hour = new Date().getHours()
             let minute = new Date().getMinutes()
             let second = new Date().getSeconds()
             let timescart = `${hour}:${minute}:${second}`
             let datatransaction = {
-                userId, totaltransaction, datetransaction, timescart
+                userId, totaltransaction, datetransaction, timescart, metodetransaksiId
+            }
+            let transactioncomplete = {
+                datatransaction,
+                changeImage
             }
             // addDetailTransaction
             let detailcart = {
@@ -119,8 +167,11 @@ class UserTransaction extends Component {
                 datetransaction,
                 timescart
             }
+            // console.log(metodetransaksiId)
+            formData.append('transactioncomplete', JSON.stringify(transactioncomplete))
+            formData.append('image', (this.state.image))
             if (this.saveEditProfile() !== 'PROFILE_KOSONG') {
-                await Axios.post(API_URL_1 + `transaction/addTransaction`, datatransaction)
+                await Axios.post(API_URL_1 + `transaction/addTransaction`, formData)
                 await Axios.post(API_URL_1 + `transaction/addDetailTransaction`, detailcart)
                 await Axios.delete(API_URL_1 + `carts/deleteCartUserId?id=${this.props.id}`)
                 alert('Pesanan anda sedang di proses, mohon ditunggu')
@@ -134,6 +185,17 @@ class UserTransaction extends Component {
         } catch (err) {
             // console.log(err)
         }
+    }
+
+    renderMetodeTransaction = () => {
+        return this.state.metodetransaction.map((item, index) => {
+            return (
+                <div className="col-3">
+                    <input type="radio" name="BANK" onClick={() => this.setState({ choosenBank: item.nomorRekening, methodId: item.id })} style={{ cursor: 'pointer', margin: 13 }} />
+                    <img src={API_URL_1 + item.imagePath} alt="logo" style={{ width: '60%' }} />
+                </div>
+            )
+        })
     }
 
     renderTransaction = () => {
@@ -204,7 +266,6 @@ class UserTransaction extends Component {
     }
 
     render() {
-        console.log(this.state.cart)
         const { RedirectStay, RedirectNext } = this.state;
         if (RedirectStay) {
             return (
@@ -270,7 +331,54 @@ class UserTransaction extends Component {
                                     ?
                                     < div >
                                         < center >
-                                            <MDBBtn color="elegant" size="md" onClick={this.onBtnPayment} style={{ marginTop: 20 }}>Payment Now</MDBBtn>
+                                            <MDBBtn color="elegant" size="md" onClick={this.toggle(4)} style={{ marginTop: 20 }}>Payment Now</MDBBtn>
+                                            <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
+                                                <MDBModalHeader toggle={this.toggle(4)}></MDBModalHeader>
+                                                <MDBModalBody>
+                                                    <MDBContainer>
+                                                        <div style={{ margin: 30, fontSize: 25 }}>SILAHKAN PILIH METODE PEMBAYARAN</div>
+                                                        <div className="row" >
+                                                            {this.renderMetodeTransaction()}
+                                                        </div>
+                                                    </MDBContainer>
+                                                    <div style={{ margin: 50 }}>
+                                                        {
+                                                            this.state.choosenBank === ''
+                                                                ?
+                                                                ''
+                                                                :
+                                                                <center>
+                                                                    <div style={{ margin: 100 }}>
+                                                                        <div style={{ margin: 10 }}>BERIKUT NOMOR REKENING A/N. CV. HEAVEN SENTOSA</div>
+                                                                        <div style={{ backgroundColor: '#404040', color: 'white' }}>{this.state.choosenBank}</div>
+                                                                        {
+                                                                            this.state.previewImage
+                                                                                ?
+                                                                                <div className='d-flex justify-content-center'>
+                                                                                    <img className='EDP-Preview-Image' src={this.state.previewImage} alt="profile" style={{ height: 300, width: 400 }} />
+                                                                                </div>
+                                                                                :
+                                                                                <div className='d-flex justify-content-center'>
+                                                                                    <img className='EDP-Preview-Image' src={bca} style={{ height: 300, width: 400 }} />
+                                                                                </div>
+                                                                        }
+                                                                        <div className='d-flex justify-content-center' >
+                                                                            <div className="row">
+                                                                                <div className="col-4"></div>
+                                                                                <div className="col-4">
+                                                                                    <input type='file' onChange={this.addImage} />
+                                                                                </div>
+                                                                                <div className="col-4"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style={{ fontSize: 12 }}>*Jika sudah bayar, bukti transaksi mohon di upload agar pesanan cepat di proses, Terimakasih</div>
+                                                                    </div>
+                                                                </center>
+                                                        }
+                                                    </div>
+                                                    <MDBBtn color="elegant" size="md" onClick={this.onBtnPayment}>DONE</MDBBtn>
+                                                </MDBModalBody>
+                                            </MDBModal>
                                         </center>
                                     </div>
                                     :
