@@ -32,7 +32,7 @@ class SeeProduct extends Component {
                     <td>{item.productname}</td>
                     <td>{item.category}</td>
                     <td>{item.size}gr</td>
-                    <td>{item.price}</td>
+                    <td><div style={{width:100}}>Rp. {item.price}</div></td>
                     <td>{item.jumlahstock}</td>
                     <td style={{fontSize:'13px'}}>{item.description}</td>
                     <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
@@ -55,19 +55,19 @@ class SeeProduct extends Component {
                     <center>
                         <MDBContainer>
                             <MDBTable bordered >
-                                <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: '#192b3c', color: 'white' }}>
+                                <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
                                     <tr style={{fontSize:'10px', textAlign:'center'}}>
-                                        <th>No. </th>
-                                        <th>Product</th>
-                                        <th>Category</th>
-                                        <th>Weight</th>
-                                        <th>Price</th>
-                                        <th>Stock</th>
-                                        <th>Description</th>
-                                        <th>Image</th>
+                                        <th>NO. </th>
+                                        <th>PRODUCT</th>
+                                        <th>CATEGORY</th>
+                                        <th>WEIGHT</th>
+                                        <th>PRICE</th>
+                                        <th>STOCK</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>IMAGE</th>
                                     </tr>
                                 </MDBTableHead>
-                                <MDBTableBody >
+                                <MDBTableBody style={{ fontFamily: 'Hammersmith One, sans-serif'}}>
                                     {this.renderGetProduct()}
                                 </MDBTableBody>
                             </MDBTable>

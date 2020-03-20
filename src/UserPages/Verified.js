@@ -12,7 +12,7 @@ class Verified extends Component {
     componentDidMount() {
         let params = queryString.parse(this.props.location.search)
         let token = params.token;
-        console.log('ini', token)
+        // console.log('ini', token)
         const options = {
             headers: {
                 'Authorization': `Bearer ${token}`

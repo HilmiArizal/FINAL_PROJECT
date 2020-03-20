@@ -28,17 +28,17 @@ class Home extends Component {
         let { category } = this.state;
         return category.map((item, index) => {
             return (
-                <MDBCol md='4' key={index}>
-                    <center>
-                        <div className='menu'>
-                            <div className='gambarmenu'>
-                                <img src={item.imagecategory} alt='categoryproduct' className='isigambar' />
-                            </div>
-                            <div className='detailmenu'>
-                                {item.category}
-                            </div>
+                <MDBCol key={index}>
+                    {/* <center> */}
+                    <div className='menu'>
+                        <div className='gambarmenu'>
+                            <img src={item.imagecategory} alt='categoryproduct' className='isigambar' />
                         </div>
-                    </center>
+                        <div className='detailmenu'>
+                            {item.category}
+                        </div>
+                    </div>
+                    {/* </center> */}
                 </MDBCol>
             )
         })
@@ -52,14 +52,18 @@ class Home extends Component {
                 <div className='home'>
                     OUR MENUS
                 </div>
-                <div className='d-flex justify-content-center' style={{ minHeight: '80vh' }}>
-                    <MDBContainer>
-                        <MDBRow>
-                            {this.renderGetCategory()}
-                        </MDBRow>
-                    </MDBContainer>
-                </div>
-                <div style={{marginTop:50}}>
+                <MDBContainer>
+                    <MDBRow>
+                        {this.renderGetCategory()}
+                    </MDBRow>   
+                    <div style={{ border: '2px solid black', margin: 50 }}></div>
+                    <div className='d-flex justify-content-center' style={{ minHeight: '80vh' }}>
+                        <div className='home'>
+                            HOW TO ORDER
+                    </div>
+                    </div>
+                </MDBContainer>
+                <div>
                     <Footer />
                 </div>
             </div>

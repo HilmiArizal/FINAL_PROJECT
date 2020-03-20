@@ -8,6 +8,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../CSSUser/Step.css';
+import Footer from '../Component/Footer';
 
 
 class Cart extends Component {
@@ -55,9 +56,9 @@ class Cart extends Component {
                         </div>
                     </td>
                     <td><div className="d-flex justify-content-center">{item.size}gr</div></td>
-                    <td><div className="d-flex justify-content-center">Rp. {item.price},-</div></td>
+                    <td><div className="d-flex justify-content-center">Rp. {item.price.toLocaleString()},-</div></td>
                     <td><div className="d-flex justify-content-center">{item.qty}</div></td>
-                    <td><div className="d-flex justify-content-center">{item.totalprice}</div></td>
+                    <td><div className="d-flex justify-content-center">Rp. {item.totalprice.toLocaleString()},-</div></td>
                     <td>
                         <div className="d-flex justify-content-center">
                             <div className="row">
@@ -67,7 +68,7 @@ class Cart extends Component {
                                     </Link>
                                 </div>
                                 <div className="col-6">
-                                    <div style={{ margin: "0 10px 0 10px", cursor: 'pointer' }} onClick={() => this.onBtnDelete(item.id)}><DeleteIcon /></div>
+                                    <div style={{ margin: "0 10px 0 10px", cursor: 'pointer' }} onClick={() => this.onBtnDelete(item.idcart)}><DeleteIcon /></div>
                                 </div>
                             </div>
                         </div>
@@ -84,17 +85,21 @@ class Cart extends Component {
                 <center>
                     <div className="container" style={{ margin: 50 }}>
                         <div className="row">
-                            <div className="col-4">
-                                <div style={{ border: '2px solid black' }}></div>
-                                <MDBBtn color="elegant" style={{ width: 300, borderRadius: 50 }}>CART</MDBBtn>
-                            </div>
-                            <div className="col-4">
+                            <div className="col-3">
                                 <div style={{ border: '2px solid white' }}></div>
-                                <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>TRANSACTION</MDBBtn>
+                                <MDBBtn color="white" style={{ width: 230, borderRadius: 50 }}>PRODUCT CHOOSEN</MDBBtn>
                             </div>
-                            <div className="col-4">
-                            <div style={{ border: '2px solid white' }}></div>
-                                <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>STATUS TRANSACTION</MDBBtn>
+                            <div className="col-3">
+                                <div style={{ border: '2px solid black' }}></div>
+                                <MDBBtn color="elegant" style={{ width: 230, borderRadius: 50 }}>CART</MDBBtn>
+                            </div>
+                            <div className="col-3">
+                                <div style={{ border: '2px solid white' }}></div>
+                                <MDBBtn color="white" style={{ width: 230, borderRadius: 50 }}>TRANSACTION</MDBBtn>
+                            </div>
+                            <div className="col-3">
+                                <div style={{ border: '2px solid white' }}></div>
+                                <MDBBtn color="white" style={{ width: 230, borderRadius: 50 }}>STATUS TRANSACTION</MDBBtn>
                             </div>
                         </div>
                     </div>
@@ -103,22 +108,32 @@ class Cart extends Component {
                     </div>
                 </center>
                 <MDBContainer>
-                    <MDBTable bordered>
-                        <MDBTableHead style={{ backgroundColor: "#404040", color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            <tr>
-                                <th><div className="d-flex justify-content-center">No</div></th>
-                                <th><div className="d-flex justify-content-center">Product</div></th>
-                                <th><div className="d-flex justify-content-center">Weight</div></th>
-                                <th><div className="d-flex justify-content-center">Price</div></th>
-                                <th><div className="d-flex justify-content-center">Quantity</div></th>
-                                <th><div className="d-flex justify-content-center">Total Price</div></th>
-                                <th><div className="d-flex justify-content-center"></div></th>
-                            </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                            {this.renderGetCart()}
-                        </MDBTableBody>
-                    </MDBTable>
+                    {
+                        this.state.cart.length > 0
+                            ?
+                            <MDBTable bordered>
+                                <MDBTableHead style={{ backgroundColor: "#404040", color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
+                                    <tr>
+                                        <th><div className="d-flex justify-content-center">No</div></th>
+                                        <th><div className="d-flex justify-content-center">Product</div></th>
+                                        <th><div className="d-flex justify-content-center">Weight</div></th>
+                                        <th><div className="d-flex justify-content-center">Price</div></th>
+                                        <th><div className="d-flex justify-content-center">Quantity</div></th>
+                                        <th><div className="d-flex justify-content-center">Total Price</div></th>
+                                        <th><div className="d-flex justify-content-center">Your Action</div></th>
+                                    </tr>
+                                </MDBTableHead>
+                                <MDBTableBody>
+                                    {/* <div>    */}
+                                    {this.renderGetCart()}
+                                    {/* </div> */}
+                                </MDBTableBody>
+                            </MDBTable>
+                            :
+                            <div>
+                                *Tidak ada keranjang belanja, SHOP NOW untuk mulai belanja
+                                    </div>
+                    }
                     <div className="d-flex justify-content-end">
                         {
                             this.state.cart.length > 0
@@ -133,6 +148,9 @@ class Cart extends Component {
                         }
                     </div>
                 </MDBContainer>
+                <div style={{ marginTop: 180 }}>
+                    <Footer />
+                </div>
             </div>
         );
     }

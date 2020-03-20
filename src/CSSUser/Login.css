@@ -3,7 +3,7 @@ background: -webkit-linear-gradient(to bottom, rgb(235, 232, 231)   , rgb(46, 43
 background: linear-gradient(to bottom,  rgb(235, 232, 231), rgb(46, 43, 43)); 
 float:left;
 width:100%;
-padding : 100px 0;
+padding : 120px 0;
 font-family: 'Hammersmith One', sans-serif;
 }
 .banner-sec{ background-size:cover; min-height:500px; border-radius: 0 10px 10px 0; padding:0;}

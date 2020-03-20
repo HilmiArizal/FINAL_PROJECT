@@ -127,7 +127,7 @@ class ProfileUser extends Component {
     renderInputProfile = () => {
         return this.state.profile.map((item, index) => {
             return (
-                <MDBRow >
+                <MDBRow style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
                     <MDBCol size="6" >
                         <center>First Name</center>
                         <input type="text" className="form-control" ref="editfirstname" defaultValue={item.firstname} />
@@ -184,7 +184,7 @@ class ProfileUser extends Component {
     renderProfile = () => {
         return this.state.profile.map((item, index) => {
             return (
-                <MDBRow>
+                <MDBRow style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
                     <MDBCol size="5" className="d-flex justify-content-center">
                         <div>
                             {
@@ -195,11 +195,17 @@ class ProfileUser extends Component {
                                     </div>
                                     :
                                     <div className='d-flex justify-content-center'>
-                                        <img className='EDP-Preview-Image' src={API_URL_1 + item.imagePath} style={{ height: 170, width: 170, borderRadius: 100  }} />
+                                        <img className='EDP-Preview-Image' src={API_URL_1 + item.imagePath} style={{ height: 170, width: 170, borderRadius: 100 }} />
                                     </div>
                             }
                             <div className='d-flex justify-content-center'>
-                                <input type='file' onChange={this.addImage} />
+                                <div className="row">
+                                    <div className="col-4"></div>
+                                    <div className="col-4">
+                                        <input type='file' onChange={this.addImage} style={{fontSize:13}}/>
+                                    </div>
+                                    <div className="col-4"></div>
+                                </div>
                             </div>
                         </div>
                     </MDBCol>
@@ -211,6 +217,7 @@ class ProfileUser extends Component {
                             <div className="col-4"> Phone Number </div><div className="col-8">: {item.phonenumber}</div>
                             <div className="col-4"> Age </div><div className="col-8">: {item.age}</div>
                             <div className="col-4"> Gender </div><div className="col-8">: {item.gender}</div>
+                            <div className="col-4"> Job </div><div className="col-8">: {item.job}</div>
                             <div className="col-4"> Address </div><div className="col-8">: {item.address}</div>
                         </div>
                     </MDBCol>

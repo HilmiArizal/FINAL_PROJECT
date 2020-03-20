@@ -284,7 +284,7 @@ class EditProduct extends Component {
     renderGetProduct = () => {
         const { product } = this.state
         return (
-            <div>
+            <div style={{ fontFamily: 'Hammersmith One, sans-serif'}}>
                 <div><input type='text' className='form-control' defaultValue={product.productname} ref="productName" /></div>
                 <br />
                 <select className="form-control" onChange={this.onChangeSelectCategory} >
@@ -293,12 +293,12 @@ class EditProduct extends Component {
                 </select>
                 <br />
                 <MDBTable bordered className="text-center">
-                    <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: '#192b3c', color: 'white' }}>
+                    <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
                         <tr>
-                            <th className='EDP-Table-Head-Txt'>Size</th>
-                            <th className='EDP-Table-Head-Txt'>Price</th>
-                            <th className='EDP-Table-Head-Txt'>Stock</th>
-                            <th className='EDP-Table-Head-Txt'>Action</th>
+                            <th className='EDP-Table-Head-Txt'>SIZE</th>
+                            <th className='EDP-Table-Head-Txt'>PRODUCT</th>
+                            <th className='EDP-Table-Head-Txt'>STOCK</th>
+                            <th className='EDP-Table-Head-Txt'>ACTION</th>
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>

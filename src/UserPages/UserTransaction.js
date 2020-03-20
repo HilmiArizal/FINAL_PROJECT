@@ -66,8 +66,6 @@ class UserTransaction extends Component {
     }
 
     saveEditProfile = () => {
-        // try {
-        // window.location.reload()
         let firstname = this.refs.editfirstname.value;
         let lastname = this.refs.editlastname.value;
         let phonenumber = this.refs.editphonenumber.value;
@@ -82,7 +80,7 @@ class UserTransaction extends Component {
                     return res.data
                 })
                 .catch((err) => {
-                    console.log(err)
+                    // console.log(err)
                 })
         }
         else {
@@ -127,7 +125,7 @@ class UserTransaction extends Component {
                 await Axios.delete(API_URL_1 + `carts/deleteCartUserId?id=${this.props.id}`)
                 alert('Pesanan anda sedang di proses, mohon ditunggu')
                 this.setState({ RedirectNext: true })
-                // window.location.reload()
+                window.location.reload()
             } else {
                 alert('Mohon isi data dengan benar')
                 window.location.reload()
@@ -206,6 +204,7 @@ class UserTransaction extends Component {
     }
 
     render() {
+        console.log(this.state.cart)
         const { RedirectStay, RedirectNext } = this.state;
         if (RedirectStay) {
             return (
@@ -227,19 +226,23 @@ class UserTransaction extends Component {
                     <div style={{ marginTop: 20 }}>
                         <div className="container" style={{ margin: 50 }}>
                             <div className="row">
-                                <div className="col-4">
+                                <div className="col-3">
+                                    <div style={{ border: '2px solid white' }}></div>
+                                    <MDBBtn color="white" style={{ width: 230, borderRadius: 50 }}>PRODUCT CHOOSEN</MDBBtn>
+                                </div>
+                                <div className="col-3">
                                     <div style={{ border: '2px solid white' }}></div>
                                     <Link to="cart">
-                                        <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>CART</MDBBtn>
+                                        <MDBBtn color="white" style={{ width: 230, borderRadius: 50 }}>CART</MDBBtn>
                                     </Link>
                                 </div>
-                                <div className="col-4">
+                                <div className="col-3">
                                     <div style={{ border: '2px solid black' }}></div>
-                                    <MDBBtn color="elegant" style={{ width: 300, borderRadius: 50 }}>TRANSACTION</MDBBtn>
+                                    <MDBBtn color="elegant" style={{ width: 230, borderRadius: 50 }}>TRANSACTION</MDBBtn>
                                 </div>
-                                <div className="col-4">
+                                <div className="col-3">
                                     <div style={{ border: '2px solid white' }}></div>
-                                    <MDBBtn color="white" style={{ width: 300, borderRadius: 50 }}>STATUS TRANSACTION</MDBBtn>
+                                    <MDBBtn color="white" style={{ width: 230, borderRadius: 50 }}>STATUS TRANSACTION</MDBBtn>
                                 </div>
                             </div>
                         </div>
@@ -267,9 +270,7 @@ class UserTransaction extends Component {
                                     ?
                                     < div >
                                         < center >
-                                            {/* <Link to="historytransaction"> */}
                                             <MDBBtn color="elegant" size="md" onClick={this.onBtnPayment} style={{ marginTop: 20 }}>Payment Now</MDBBtn>
-                                            {/* </Link> */}
                                         </center>
                                     </div>
                                     :

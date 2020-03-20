@@ -47,7 +47,7 @@ class EditDelete extends Component {
         Axios.get(API_URL_1 + `products/getProduct`)
             .then((res) => {
                 this.setState({ product: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -69,7 +69,7 @@ class EditDelete extends Component {
         Axios.get(API_URL_1 + `products/getPrice`)
             .then((res) => {
                 this.setState({ price: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -81,7 +81,7 @@ class EditDelete extends Component {
     }
 
     btnUploadImageProduct = (e) => {
-        console.log(e.target.files[0])
+        // console.log(e.target.files[0])
         if (e.target.files) {
             this.setState({ addImageFile: e.target.files[0] })
         } else {
@@ -205,14 +205,14 @@ class EditDelete extends Component {
                     <center>
                         <MDBContainer>
                             <MDBTable bordered >
-                                <MDBTableHead style={{ fontFamily: 'Righteous, cursive', backgroundColor: '#192b3c', color: 'white' }}>
+                                <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
                                     <tr style={{ fontSize: '10px', textAlign: 'center' }}>
-                                        <th>Image</th>
-                                        <th>Product</th>
-                                        <th>Action</th>
+                                        <th>IMAGE</th>
+                                        <th>PRODUCT</th>
+                                        <th>ACTION</th>
                                     </tr>
                                 </MDBTableHead>
-                                <MDBTableBody >
+                                <MDBTableBody style={{ fontFamily: 'Hammersmith One, sans-serif'}} >
                                     {this.renderGetProduct()}
                                 </MDBTableBody>
                             </MDBTable>

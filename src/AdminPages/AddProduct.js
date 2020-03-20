@@ -207,7 +207,7 @@ class AddProduct extends Component {
                                         <button onClick={this.increase} className="plus"></button>
                                     </center>
                                 </div>
-                                <button onClick={this.btnSaveAddStock} >Keep in stock</button>
+                                <button onClick={this.btnSaveAddStock}>Keep in stock</button>
                             </MDBModalBody>
                         </MDBModal>
                     </MDBContainer>
@@ -243,7 +243,6 @@ class AddProduct extends Component {
         })
     }
 
-
     renderListSize = () => {
         return this.state.size.map((item, index) => {
             return (
@@ -264,8 +263,7 @@ class AddProduct extends Component {
         })
     }
 
-    render() {
-        console.table(this.state.size)
+    render(){
         return (
             <div>
                 <main className="s-layout__content">
@@ -275,7 +273,7 @@ class AddProduct extends Component {
                         </div>
                     </center>
                 </main>
-                <main className="s-layout__content">
+                <main className="s-layout__content" style={{ fontFamily: 'Hammersmith One, sans-serif'}}>
                     <center>
                         {this.renderInputProduct()}
                     </center>
