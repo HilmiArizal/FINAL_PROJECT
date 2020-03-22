@@ -24,7 +24,6 @@ class LoginPage extends Component {
                 </Redirect>
             )
         } else if( this.props.role === 'admin'){
-            console.log(this.props.role)
             return(
                 <Redirect to ='/profileadmin'>
 

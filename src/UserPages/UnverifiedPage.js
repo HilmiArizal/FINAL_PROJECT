@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 class Unverified extends Component {
     render() {
-        console.log(this.props.status)
         return (
             <div className="error-content" style={{ marginTop: 100 }}>
                 <div className="container">

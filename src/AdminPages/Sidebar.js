@@ -48,6 +48,13 @@ class Sidebar extends Component {
                                     </MDBNavLink>
                                 </li>
                                 <li>
+                                    <MDBNavLink to="/pendingtransaction">
+                                        <div style={{ color: 'white' }}>
+                                            <MDBIcon icon="dollar-sign" /> PENDING TRANSACTION
+                                        </div>
+                                    </MDBNavLink>
+                                </li>
+                                <li>
                                     <MDBNavLink to="/historytransactionadmin">
                                         <div style={{ color: 'white' }}>
                                             <MDBIcon icon="dollar-sign" /> HISTORY TRANSACTION

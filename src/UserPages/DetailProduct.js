@@ -7,6 +7,8 @@ import '../CSSAdmin/InputNumber.css';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import Footer from '../Component/Footer';
+import Swal from 'sweetalert2';
+
 
 class DetailProduct extends Component {
     state = {
@@ -35,7 +37,13 @@ class DetailProduct extends Component {
         if (this.state.showPrice) {
             this.setState({ value: this.state.value + 1 });
         } else {
-            alert('Pilih beratnya dulu!')
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: `Please, ${this.props.username} pilih dulu beratnya!`,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     }
 
@@ -48,7 +56,13 @@ class DetailProduct extends Component {
                 this.setState({ value: this.state.value - 1 });
             }
         } else {
-            alert('Pilih beratnya dulu!')
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: `Please, ${this.props.username} pilih dulu beratnya!`,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     }
     componentDidMount() {
@@ -107,10 +121,22 @@ class DetailProduct extends Component {
                     this.setState({ RedirectNext: true })
                     alert('Berhasil ditambahkan ke cart')
                 } else {
-                    alert('Isi dengan benar!')
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: `Please, ${this.props.username} pilih dulu beratnya!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
             } else {
-                alert('Please Login!')
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: `Login dulu ya!`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 this.setState({ RedirectLogin: true })
             }
         } catch (err) {

@@ -5,7 +5,7 @@ import NavbarUser from '../Component/NavbarUser';
 import { MDBRow, MDBCol, MDBContainer, MDBBtn, MDBCard, MDBModal, MDBModalHeader, MDBModalBody } from 'mdbreact';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import bca from '../Image/bca.png';
+import transfer from '../Image/transfer.png';
 
 
 class UserTransaction extends Component {
@@ -78,7 +78,7 @@ class UserTransaction extends Component {
         })
             .then((res) => {
                 this.setState({ transaction: res.data })
-                // console.log(res.data)
+                console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -115,6 +115,7 @@ class UserTransaction extends Component {
                 })
         }
         else {
+            alert('Isi semua data!')
             return 'PROFILE_KOSONG'
         }
     }
@@ -126,6 +127,15 @@ class UserTransaction extends Component {
             totalprice += cart[i].totalprice
         }
         return totalprice
+    }
+
+    idtransaction = () => {
+        let { transaction } = this.state
+        let idnya = 0
+        for (var i = 0; i < transaction.length; i++) {
+            idnya = transaction[i].idtransaction
+        }
+        return idnya + 1
     }
 
     addImage = (e) => {
@@ -143,6 +153,7 @@ class UserTransaction extends Component {
             // addTransaction
             let formData = new FormData();
             let userId = this.props.id
+            let transactionId = this.idtransaction()
             let totaltransaction = this.totaltransaction()
             let date = new Date().getDate()
             let month = new Date().getMonth() + 1
@@ -164,19 +175,24 @@ class UserTransaction extends Component {
             // addDetailTransaction
             let detailcart = {
                 cart: this.state.cart,
+                transactionId,
                 datetransaction,
                 timescart
             }
-            // console.log(metodetransaksiId)
+            // console.log(datatransaction)
             formData.append('transactioncomplete', JSON.stringify(transactioncomplete))
             formData.append('image', (this.state.image))
             if (this.saveEditProfile() !== 'PROFILE_KOSONG') {
-                await Axios.post(API_URL_1 + `transaction/addTransaction`, formData)
-                await Axios.post(API_URL_1 + `transaction/addDetailTransaction`, detailcart)
-                await Axios.delete(API_URL_1 + `carts/deleteCartUserId?id=${this.props.id}`)
-                alert('Pesanan anda sedang di proses, mohon ditunggu')
-                this.setState({ RedirectNext: true })
-                window.location.reload()
+                if (this.state.image) {
+                    await Axios.post(API_URL_1 + `transaction/addTransaction`, formData)
+                    await Axios.post(API_URL_1 + `transaction/addDetailTransaction`, detailcart)
+                    await Axios.delete(API_URL_1 + `carts/deleteCartUserId?id=${this.props.id}`)
+                    alert('Pesanan anda sedang di proses, mohon ditunggu')
+                    this.setState({ RedirectNext: true })
+                    window.location.reload()
+                } else {
+                    alert('Mohon untuk upload bukti transaksinya!')
+                }
             } else {
                 alert('Mohon isi data dengan benar')
                 window.location.reload()
@@ -359,7 +375,7 @@ class UserTransaction extends Component {
                                                                                 </div>
                                                                                 :
                                                                                 <div className='d-flex justify-content-center'>
-                                                                                    <img className='EDP-Preview-Image' src={bca} style={{ height: 300, width: 400 }} />
+                                                                                    <img className='EDP-Preview-Image' src={transfer} style={{ height: 300, width: 400 }} />
                                                                                 </div>
                                                                         }
                                                                         <div className='d-flex justify-content-center' >

@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { API_URL_1 } from '../../Helpers/API_URL';
+import Swal from 'sweetalert2';
 
 export const Login = (username, password) => {
     return (dispatch) => {
@@ -11,6 +12,13 @@ export const Login = (username, password) => {
                 if (res.data.length !== 0) {
                     localStorage.setItem('token', res.data.token)
                     // alert('LOGIN SUCCESS!')
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: `Welcome Back, ${username}!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     dispatch({
                         type: 'LOGIN',
                         payload: res.data
@@ -19,8 +27,13 @@ export const Login = (username, password) => {
             })
             .catch((err) => {
                 localStorage.removeItem('token')
-                alert(err.response.data)
-                // console.log(err)
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: err.response.data,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 dispatch({
                     type: 'LOGOUT'
                 })
@@ -30,6 +43,13 @@ export const Login = (username, password) => {
 
 export const Logout = () => {
     return (dispatch) => {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: `Thank you!`,
+            showConfirmButton: false,
+            timer: 1500
+        })
         dispatch({
             type: 'LOGOUT'
         })
@@ -53,7 +73,7 @@ export const keepLogin = () => {
                     })
                 })
                 .catch((err) => {
-                    console.log(err)
+                    // console.log(err)
                     dispatch({
                         type: 'LOGOUT'
                     })
@@ -66,15 +86,16 @@ export const Register = (data) => {
     return (dispatch) => {
         Axios.post(API_URL_1 + `users/register`, data)
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 localStorage.setItem('token', res.data.token)
+                
                 dispatch({
                     type: 'LOGIN',
                     payload: res.data
                 })
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
                 dispatch({
                     type: 'LOGOUT'
                 })

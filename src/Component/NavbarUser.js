@@ -45,8 +45,8 @@ class NavbarUser extends Component {
                         <MDBNavItem id='paddingCenterNav'>
                             <MDBNavLink to="/about" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>ABOUT</MDBNavLink>
                         </MDBNavItem>
-                        <MDBNavItem id='paddingCenterNav'>
-                            <MDBNavLink to="/" id="howtoorder" style={{color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>HOW TO ORDER?</MDBNavLink>
+                        <MDBNavItem id='paddingCenterNav' style={{ marginTop: 7 }}>
+                            <a href="#howtoorder" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>HOW TO ORDER?</a>
                         </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right >

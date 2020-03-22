@@ -4,8 +4,6 @@ import '../CSSAdmin/Homepage.css';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact'
 import { connect } from 'react-redux';
 import SidebarUser from '../Component/SidebarUser';
-import AvatarMen from '../Image/AKUNIMAGE.png';
-import AvatarWomen from '../Image/AKUNIMAGEWOMEN.png';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
 
@@ -114,13 +112,13 @@ class ProfileUser extends Component {
             }
             formData.append('profilecomplete', JSON.stringify(profilecomplete))
             formData.append('image', (this.state.image))
-            console.log(this.state.image)
+            // console.log(this.state.image)
             const res = await Axios.patch(API_URL_1 + `users/editProfileUser/${this.props.id}`, formData)
             alert('Success!')
             this.getProfileUser()
             // console.log(res.data)
         } catch (err) {
-            console.log(err)
+            // console.log(err)
         }
     }
 

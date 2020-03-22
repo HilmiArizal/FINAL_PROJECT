@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import '../CSSAdmin/Homepage.css';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
-import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody } from 'mdbreact';
+import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBCardImage } from 'mdbreact';
 import moment from 'moment'
 import { connect } from 'react-redux';
 
 
-class HisTransaction extends Component {
+class PendingTransaction extends Component {
     state = {
         transaction: [],
         totaltransaction: [],
@@ -16,7 +16,7 @@ class HisTransaction extends Component {
         getUser: 0,
 
         modal4: false,
-        modal5: false
+        modal: false
     }
 
     toggle = nr => () => {
@@ -33,10 +33,10 @@ class HisTransaction extends Component {
     }
 
     getTransaction = () => {
-        Axios.get(API_URL_1 + `transaction/getAllTransactionPaid`)
+        Axios.get(API_URL_1 + `transaction/getAllTransactionProses`)
             .then((res) => {
                 this.setState({ transaction: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => [
                 // console.log(err)
@@ -55,7 +55,7 @@ class HisTransaction extends Component {
     }
 
     getTotalTransaction = () => {
-        Axios.get(API_URL_1 + `transaction/getAllTotal`)
+        Axios.get(API_URL_1 + `transaction/getAllTotalProses`)
             .then((res) => {
                 this.setState({ totaltransaction: res.data })
                 // console.log(res.data)
@@ -117,7 +117,7 @@ class HisTransaction extends Component {
                             <MDBModal isOpen={this.state.modal5} toggle={this.toggle(5)} size="fluid">
                                 <MDBModalHeader toggle={this.toggle(5)}></MDBModalHeader>
                                 <MDBModalBody>
-                                    <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
+                                    <MDBCardImage src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
                                 </MDBModalBody>
                             </MDBModal>
                         </div>
@@ -141,11 +141,11 @@ class HisTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle(5)} />
-                            <MDBModal isOpen={this.state.modal5} toggle={this.toggle(5)} size="fluid">
-                                <MDBModalHeader toggle={this.toggle(5)}></MDBModalHeader>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle} />
+                            <MDBModal isOpen={this.state.modal} toggle={this.toggle} size="fluid">
+                                <MDBModalHeader toggle={this.toggle}></MDBModalHeader>
                                 <MDBModalBody>
-                                <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }}/>
+                                    <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
                                 </MDBModalBody>
                             </MDBModal>
                         </div>
@@ -169,10 +169,10 @@ class HisTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle(5)} />
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle} />
                             <MDBContainer>
-                                <MDBModal isOpen={this.state.modal5} toggle={this.toggle(5)} size="fluid">
-                                    <MDBModalHeader toggle={this.toggle(5)}></MDBModalHeader>
+                                <MDBModal isOpen={this.state.modal} toggle={this.toggle} size="fluid">
+                                    <MDBModalHeader toggle={this.toggle}></MDBModalHeader>
                                     <MDBModalBody>
                                         <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
                                     </MDBModalBody>
@@ -270,4 +270,4 @@ const mapStatetoProps = (state) => {
 }
 
 
-export default connect(mapStatetoProps)(HisTransaction);
+export default connect(mapStatetoProps)(PendingTransaction);

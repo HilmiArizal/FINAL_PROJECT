@@ -25,6 +25,8 @@ import UserTransaction from './UserPages/UserTransaction';
 import PageNotFound from './UserPages/PageNotFound';
 import HistoryTransactionUser from './UserPages/HistoryTransaction';
 import Unverified from './UserPages/UnverifiedPage';
+import LoginAdmin from './AdminPages/LoginAdmin';
+import PendingTransaction from './AdminPages/PendingTransaction';
 
 class App extends Component {
 
@@ -46,6 +48,7 @@ class App extends Component {
           <Route path='/editproduct' component={EditProduct} />
           <Route path='/seeproduct' component={SeeProduct} />
           <Route path='/historytransactionadmin' component={HisTransaction} />
+          <Route path='/pendingtransaction' component={PendingTransaction} />
         </div>
       )
     } else if (this.props.role === 'user') {
@@ -83,6 +86,7 @@ class App extends Component {
           <Route path='/about' component={About} />
           <Route path='/transaction' component={PageNotFound} />
           <Route path='/unverified' component={Unverified} />
+          <Route path='/loginadmin' component={LoginAdmin} />
         </div>
       )
     }

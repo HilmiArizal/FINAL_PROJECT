@@ -6,13 +6,17 @@ import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNa
 import { Register, Login } from '../Redux/Action';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import Axios from 'axios';
+import { API_URL_1 } from '../Helpers/API_URL';
 
 class RegisterPage extends Component {
-    // state = {
-    //     char: false,
-    //     num: false,
-    //     show: false
-    // }
+    state = {
+        dataUser: []
+        // char: false,
+        // num: false,
+        // show: false
+    }
 
     // handleChange = (e) => {
     //     var pass = e.target.value
@@ -27,29 +31,70 @@ class RegisterPage extends Component {
     //     this.setState({ show: true})
     // }
 
+    componentDidMount() {
+        Axios.get(API_URL_1 + `users/getAllUsers`)
+            .then((res) => {
+                this.setState({ dataUser: res.data })
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     RegisterUser = () => {
+        let { dataUser } = this.state
+        var stop = true
         var username = this.refs.username.value;
         var email = this.refs.email.value;
         var password = this.refs.password.value;
         var confirmPassword = this.refs.confirmPassword.value;
         if (username && email && password && confirmPassword) {
             if (password === confirmPassword) {
-                var data = { username, email, password }
-                this.props.Register(data)
-                alert('Register Success')
-                this.props.Login(username, password)
+                for (var i = 0; i < dataUser.length; i++) {
+                    if (username === dataUser[i].username) {
+                        alert('Username has been taken')
+                        stop = true
+                        break;
+                    } else {
+                        stop = false
+                    }
+                }
+                if (!stop) {
+                    var data = { username, email, password }
+                    this.props.Register(data)
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: `Thank you for Register!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
             } else {
-                alert('Your password not same!')
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: `Your password not same!`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
         } else {
-            alert('Please, input full your data!')
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: `Input, full!`,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     }
 
     render() {
         if (this.props.role !== '') {
-            return(
-                <Redirect to = '/unverified'>
+            return (
+                <Redirect to='/unverified'>
 
                 </Redirect>
             )
