@@ -43,7 +43,7 @@ class Sidebar extends Component {
                                 <li>
                                     <MDBNavLink to="/profileadmin">
                                         <div style={{ color: 'white' }}>
-                                            <MDBIcon icon="user" /> PROFILE
+                                            <MDBIcon icon="user" /> HOME
                                     </div>
                                     </MDBNavLink>
                                 </li>

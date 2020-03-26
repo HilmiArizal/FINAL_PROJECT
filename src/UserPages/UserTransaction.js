@@ -6,6 +6,7 @@ import { MDBRow, MDBCol, MDBContainer, MDBBtn, MDBCard, MDBModal, MDBModalHeader
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import transfer from '../Image/transfer.png';
+import Swal from 'sweetalert2';
 
 
 class UserTransaction extends Component {
@@ -78,7 +79,7 @@ class UserTransaction extends Component {
         })
             .then((res) => {
                 this.setState({ transaction: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -115,7 +116,13 @@ class UserTransaction extends Component {
                 })
         }
         else {
-            alert('Isi semua data!')
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: `Please, isi semua data!`,
+                showConfirmButton: false,
+                timer: 1500
+            })
             return 'PROFILE_KOSONG'
         }
     }
@@ -179,7 +186,6 @@ class UserTransaction extends Component {
                 datetransaction,
                 timescart
             }
-            // console.log(datatransaction)
             formData.append('transactioncomplete', JSON.stringify(transactioncomplete))
             formData.append('image', (this.state.image))
             if (this.saveEditProfile() !== 'PROFILE_KOSONG') {
@@ -187,16 +193,34 @@ class UserTransaction extends Component {
                     await Axios.post(API_URL_1 + `transaction/addTransaction`, formData)
                     await Axios.post(API_URL_1 + `transaction/addDetailTransaction`, detailcart)
                     await Axios.delete(API_URL_1 + `carts/deleteCartUserId?id=${this.props.id}`)
-                    alert('Pesanan anda sedang di proses, mohon ditunggu')
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: `Thanks, silahkan tunggu pesanan anda sedang diproses`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     this.setState({ RedirectNext: true })
-                    window.location.reload()
+                    // window.location.reload()
                 } else {
-                    alert('Mohon untuk upload bukti transaksinya!')
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: `Please, upload bukti transaksinya`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
             } else {
-                alert('Mohon isi data dengan benar')
-                window.location.reload()
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: `Please, isi data profile dengan benar!`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 this.setState({ RedirectStay: true })
+                window.location.reload()
             }
         } catch (err) {
             // console.log(err)
@@ -206,7 +230,7 @@ class UserTransaction extends Component {
     renderMetodeTransaction = () => {
         return this.state.metodetransaction.map((item, index) => {
             return (
-                <div className="col-3">
+                <div className="col-3" key={index}>
                     <input type="radio" name="BANK" onClick={() => this.setState({ choosenBank: item.nomorRekening, methodId: item.id })} style={{ cursor: 'pointer', margin: 13 }} />
                     <img src={API_URL_1 + item.imagePath} alt="logo" style={{ width: '60%' }} />
                 </div>
@@ -214,7 +238,7 @@ class UserTransaction extends Component {
         })
     }
 
-    renderTransaction = () => {
+    renderFixProfileTransaction = () => {
         return this.state.profile.map((item, index) => {
             return (
                 <div key={index} style={{ fontFamily: 'Hammersmith One, sans-serif', padding: 20 }}>
@@ -224,7 +248,6 @@ class UserTransaction extends Component {
                     <div className='row'> <div className='col-4'>Total Transaction</div><div className='col-8'>: Rp. {this.totaltransaction().toLocaleString()} ,-</div></div>
                     <div className='row'> <div className='col-4'>Status</div><div className='col-8'>: UNPAID</div></div>
                 </div>
-
             )
         })
     }
@@ -234,30 +257,24 @@ class UserTransaction extends Component {
             return (
                 <div key={index} style={{ fontFamily: 'Hammersmith One, sans-serif', padding: 20 }}>
                     <MDBRow>
-                        <MDBCol size="8" >
+                        <MDBCol size="8">
                             First Name
                             <input type="text" className="form-control" ref="editfirstname" defaultValue={item.firstname} />
                             <br />
                         </MDBCol>
-                        <MDBCol size="4" >
-
-                        </MDBCol>
+                        <MDBCol size="4"></MDBCol>
                         <MDBCol size="8" >
                             Last Name
                             <input type="text" className="form-control" ref="editlastname" defaultValue={item.lastname} />
                             <br />
                         </MDBCol>
-                        <MDBCol size="4" >
-
-                        </MDBCol>
+                        <MDBCol size="4"></MDBCol>
                         <MDBCol sm="8">
                             Phone Number
                             <input type="text" className="form-control" ref="editphonenumber" defaultValue={item.phonenumber} />
                             <br />
                         </MDBCol>
-                        <MDBCol sm="4">
-
-                        </MDBCol>
+                        <MDBCol sm="4"></MDBCol>
                         <MDBCol>
                             <div>
                                 <center>Address</center>
@@ -339,7 +356,7 @@ class UserTransaction extends Component {
                             <MDBCard>
                                 <div className="d-flex justify-content-center" style={{ fontFamily: 'Hammersmith One, sans-serif', padding: 20, backgroundColor: '#404040', color: 'white', fontSize: 30 }}> Your Transaction </div>
                                 <MDBContainer>
-                                    {this.renderTransaction()}
+                                    {this.renderFixProfileTransaction()}
                                 </MDBContainer>
                             </MDBCard>
                             {

@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import '../CSSUser/Home.css'
+import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
 import CarouselHome from '../Component/CarouselHome';
 import NavbarUser from '../Component/NavbarUser';
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import Footer from '../Component/Footer';
-import { Link } from 'react-router-dom';
+import { MDBContainer, MDBRow, MDBCol, MDBCardImage, MDBCardBody, MDBCard, MDBCardTitle, MDBBtn, MDBCardText, MDBNavLink } from 'mdbreact';
+import '../CSSUser/Home.css'
 
 
 class Home extends Component {
     state = {
-        category: []
+        category: [],
+        productpopuler: []
     }
 
     componentDidMount() {
+        this.getCategory()
+        this.getProductPopuler()
+    }
+
+    getCategory = () => {
         Axios.get(API_URL_1 + `products/getCategory`)
             .then((res) => {
                 this.setState({ category: res.data })
@@ -25,21 +31,47 @@ class Home extends Component {
             })
     }
 
+    getProductPopuler = () => {
+        Axios.get(API_URL_1 + `transaction/getProductPopuler`)
+            .then((res) => {
+                this.setState({ productpopuler: res.data })
+                // console.log(res.data)
+            })
+            .catch((err) => {
+                // console.log(err)
+            })
+    }
+
+    renderGetProductPopuler = () => {
+        return this.state.productpopuler.map((item, index) => {
+            return (
+                <MDBCol key={index}>
+                    <MDBCard style={{ width: "15rem" }}>
+                        <MDBCardImage className="img-fluid" src={API_URL_1 + item.imagePath} waves style={{ width: 250 }} />
+                        <MDBCardBody>
+                            <MDBCardTitle className="detailmenu">{item.productname}</MDBCardTitle>
+                            <MDBCardText>
+                                Produk {item.productname} termasuk salah satu produk terbaik/terlaris dari SarenOne.
+                                </MDBCardText>
+                            <MDBBtn size="md" color="elegant" href={`productdetail?id=${item.productId}`}>BUY</MDBBtn>
+                        </MDBCardBody>
+                    </MDBCard>
+                </MDBCol>
+            )
+        })
+    }
+
     renderGetCategory = () => {
         let { category } = this.state;
         return category.map((item, index) => {
             return (
                 <MDBCol key={index}>
-                    {/* <center> */}
-                    <div className='menu'>
-                        <div className='gambarmenu'>
-                            <img src={item.imagecategory} alt='categoryproduct' className='isigambar' />
-                        </div>
-                        <div className='detailmenu'>
-                            {item.category}
-                        </div>
-                    </div>
-                    {/* </center> */}
+                    <MDBCard style={{ width: "12rem" }}>
+                        <img className="img-fluid" src={item.imagecategory} waves style={{ width: 130, marginTop: 20 }} />
+                        <MDBCardBody>
+                            <MDBCardTitle className="detailmenu" style={{ fontSize: 20 }}>{item.category}</MDBCardTitle>
+                        </MDBCardBody>
+                    </MDBCard>
                 </MDBCol>
             )
         })
@@ -50,19 +82,30 @@ class Home extends Component {
             <div>
                 <NavbarUser />
                 <CarouselHome />
-                <div className='home'>
+                <div className='home' style={{margin: 10}}>
                     OUR MENUS
                 </div>
                 <MDBContainer>
-                    <MDBRow>
-                        {this.renderGetCategory()}
-                    </MDBRow>
+                    <center>
+                        <MDBRow>
+                            {this.renderGetCategory()}
+                        </MDBRow>
+                    </center>
                     <div style={{ border: '2px solid black', marginTop: 50 }}></div>
-                    <div id ="howtoorder" className='home' style={{margin:10}}>
+                    <div className='home' style={{ margin: 10 }}>
+                        BEST SELLER
+                    </div>
+                    <center>
+                        <MDBRow>
+                            {this.renderGetProductPopuler()}
+                        </MDBRow>
+                    </center>
+                    <div style={{ border: '2px solid black', marginTop: 50 }}></div>
+                    <div id="howtoorder" className='home' style={{ margin: 10 }}>
                         HOW TO ORDER
                     </div>
                     <div style={{ minHeight: '50vh' }}>
-                        <div className="jumbotron" style={{borderRadius:20, fontSize:15}}>
+                        <div className="jumbotron" style={{ borderRadius: 20, fontSize: 15 }}>
                             1. Harus memiliki akun. Jika belum memiliki akun, silahkan mendaftar terlebih dahulu <Link to="/register">disini</Link>.
                         <br />
                             2. Setelah form registrasi sudah diisi dengan benar, maka akan diminta untuk melakukan verifikasi melalui email yang telah didaftarkan.

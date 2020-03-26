@@ -15,7 +15,7 @@ export const Login = (username, password) => {
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
-                        title: `Welcome Back, ${username}!`,
+                        title: `WELCOME, ${username.toUpperCase()}!`,
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -46,7 +46,7 @@ export const Logout = () => {
         Swal.fire({
             position: 'center',
             icon: 'success',
-            title: `Thank you!`,
+            title: `TERIMAKASIH!`,
             showConfirmButton: false,
             timer: 1500
         })

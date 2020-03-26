@@ -12,38 +12,40 @@ import { API_URL_1 } from '../Helpers/API_URL';
 
 class RegisterPage extends Component {
     state = {
-        dataUser: []
-        // char: false,
-        // num: false,
-        // show: false
+        dataUser: [],
+        char: false,
+        num: false,
+        show: false,
+        border: false
     }
 
-    // handleChange = (e) => {
-    //     var pass = e.target.value
-    //     var num = /[0-9]/
-    //     this.setState({
-    //         num: num.test(pass),
-    //         char : (num.test(pass) && (pass.length > 7))
-    //     })
-    // }
+    handleChange = (e) => {
+        let password = e.target.value
+        let num = /[0-9]/
+        this.setState({
+            num: num.test(password),
+            char: password.length > 7,
+            border: (num.test(password) && (password.length > 7))
+        })
+    }
 
-    // showReq = () => {
-    //     this.setState({ show: true})
-    // }
+    showReq = () => {
+        this.setState({ show: true })
+    }
 
     componentDidMount() {
         Axios.get(API_URL_1 + `users/getAllUsers`)
             .then((res) => {
                 this.setState({ dataUser: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
     }
 
     RegisterUser = () => {
-        let { dataUser } = this.state
+        let { dataUser, char, num } = this.state
         var stop = true
         var username = this.refs.username.value;
         var email = this.refs.email.value;
@@ -53,7 +55,13 @@ class RegisterPage extends Component {
             if (password === confirmPassword) {
                 for (var i = 0; i < dataUser.length; i++) {
                     if (username === dataUser[i].username) {
-                        alert('Username has been taken')
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'warning',
+                            title: `USERNAME TERSEDIA`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                         stop = true
                         break;
                     } else {
@@ -61,21 +69,31 @@ class RegisterPage extends Component {
                     }
                 }
                 if (!stop) {
-                    var data = { username, email, password }
-                    this.props.Register(data)
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: `Thank you for Register!`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+                    if (char, num) {
+                        var data = { username, email, password }
+                        this.props.Register(data)
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: `TERIMAKASIH TELAH MENDAFTAR`,
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+                    } else {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'warning',
+                            title: `PASSWORD TIDAK TEPAT`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
                 }
             } else {
                 Swal.fire({
                     position: 'center',
                     icon: 'error',
-                    title: `Your password not same!`,
+                    title: `PASSWORD TIDAK SAMA`,
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -83,8 +101,8 @@ class RegisterPage extends Component {
         } else {
             Swal.fire({
                 position: 'center',
-                icon: 'success',
-                title: `Input, full!`,
+                icon: 'warning',
+                title: `PLEASE, ISI DATA DENGAN LENGKAP!`,
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -92,6 +110,7 @@ class RegisterPage extends Component {
     }
 
     render() {
+        let { char, num, show, border } = this.state
         if (this.props.role !== '') {
             return (
                 <Redirect to='/unverified'>
@@ -119,11 +138,11 @@ class RegisterPage extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label className="text-uppercase">Password</label>
-                                    <input type="password" className="form-control" ref='password' />
+                                    <input type="password" className="form-control" ref='password' onChange={this.handleChange} onFocus={this.showReq} />
                                 </div>
                                 <div className="form-group">
                                     <label className="text-uppercase">Confirm Password</label>
-                                    <input type="password" className="form-control" ref='confirmPassword' />
+                                    <input type="password" className="form-control" ref='confirmPassword' style={{ borderColor: border ? 'green' : 'red' }} />
                                 </div>
                                 <div>
                                     <MDBBtn color="elegant" className="float-right" style={{ padding: '13px 30px 13px 30px', borderRadius: '5px', fontSize: ' 13px' }} onClick={this.RegisterUser}>SUBMIT</MDBBtn>
@@ -164,6 +183,36 @@ class RegisterPage extends Component {
                         </div>
                     </div>
                 </div>
+                {
+                    show
+                        ?
+                        <div>
+                            {
+                                char
+                                    ?
+                                    <div style={{ color: 'green' }}>
+                                        Password length must be 8 or more Characters
+                            </div>
+                                    :
+                                    <div style={{ color: 'red' }}>
+                                        Password length must be 8 or more Characters
+                            </div>
+                            }
+                            {
+                                num
+                                    ?
+                                    <div style={{ color: 'green' }}>
+                                        Password must include number
+                            </div>
+                                    :
+                                    <div style={{ color: 'red' }}>
+                                        Password must include number
+                            </div>
+                            }
+                        </div>
+                        :
+                        null
+                }
             </section>
         );
     }

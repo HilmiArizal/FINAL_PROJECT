@@ -10,6 +10,8 @@ import Logo from '../Image/Logo-SarenOne.png';
 import { Logout } from '../Redux/Action';
 import CartNotif from '../UserPages/CartNotif';
 import { Link } from "react-router-dom";
+import NavbarUnverified from "./NavbarUnverified";
+import '../CSSUser/HoverNavbar.css';
 
 class NavbarUser extends Component {
     state = {
@@ -21,7 +23,7 @@ class NavbarUser extends Component {
     }
 
     onBtnLogout = () => {
-        if (window.confirm(`ARE YOU SURE TO LOGOUT ?`)) {
+        if (window.confirm(`ANDA YAKIN UNTUK LOGOUT ?`)) {
             localStorage.removeItem('token')
             this.props.Logout()
         }
@@ -35,31 +37,47 @@ class NavbarUser extends Component {
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={this.toggleCollapse} style={{ backgroundColor: 'black' }} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-                    <MDBNavbarNav left>
-                        <MDBNavItem active id='paddingCenterNav'>
-                            <MDBNavLink to="/" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>HOME</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem id='paddingCenterNav'>
-                            <MDBNavLink to="/product" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>PRODUCT</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem id='paddingCenterNav'>
-                            <MDBNavLink to="/about" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>ABOUT</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem id='paddingCenterNav' style={{ marginTop: 7 }}>
-                            <a href="#howtoorder" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>HOW TO ORDER?</a>
-                        </MDBNavItem>
-                    </MDBNavbarNav>
+                    {
+                        this.props.status === 'unverified'
+                            ?
+                            <MDBNavbarNav left>
+                                <NavbarUnverified />
+                            </MDBNavbarNav>
+                            :
+                            <MDBNavbarNav left>
+                                <MDBNavItem active id='paddingCenterNav'>
+                                    <MDBNavLink to="/" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>HOME</MDBNavLink>
+                                </MDBNavItem>
+                                <MDBNavItem id='paddingCenterNav'>
+                                    <MDBNavLink to="/product" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>PRODUCT</MDBNavLink>
+                                </MDBNavItem>
+                                <MDBNavItem id='paddingCenterNav'>
+                                    <MDBNavLink to="/about" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>ABOUT</MDBNavLink>
+                                </MDBNavItem>
+                                <MDBNavItem id='paddingCenterNav' style={{ marginTop: 7 }}>
+                                    <a href="#howtoorder" style={{ color: 'black', fontSize: '20px', fontFamily: 'Hammersmith One, sans-serif' }}>HOW TO ORDER?</a>
+                                </MDBNavItem>
+                            </MDBNavbarNav>
+                    }
                     <MDBNavbarNav right >
                         {
                             this.props.username
                                 ?
                                 <div id='centerNav'>
                                     <MDBNavItem>
-                                        <Link to="/cart">
-                                            <CartNotif />
-                                        </Link>
+                                        {
+                                            this.props.status === 'unverified'
+                                                ?
+                                                <div style={{marginRight:50}}>
+                                                    <a href="https://mail.google.com" className="btn btn-primary btn-round">Go to Email</a>
+                                                </div>
+                                                :
+                                                <Link to="/cart">
+                                                    <CartNotif />
+                                                </Link>
+                                        }
                                     </MDBNavItem>
-                                    <div className="dropdown" style={{ cursor: 'pointer' }}>
+                                    <div className="dropdown show-on-hover" style={{ cursor: 'pointer' }}>
                                         <div className="dropdown-toggle dropdownCustom" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <AccountCircleIcon />{this.props.username.toUpperCase()}
                                         </div>
@@ -97,7 +115,8 @@ class NavbarUser extends Component {
 
 const mapStatetoProps = (state) => {
     return {
-        username: state.user.username
+        username: state.user.username,
+        status: state.user.status
     }
 }
 

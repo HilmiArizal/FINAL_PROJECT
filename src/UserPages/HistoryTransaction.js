@@ -14,8 +14,10 @@ class HistoryTransactionUser extends Component {
         transaction: [],
         detailtransaction: [],
         productpopuler: [],
+
         modal4: false,
-        detailcart: null    }
+        detailcart: null
+    }
 
     toggle = nr => () => {
         let modalNumber = 'modal' + nr
@@ -32,7 +34,6 @@ class HistoryTransactionUser extends Component {
 
     getTransaction = () => {
         const token = localStorage.getItem('token')
-        // console.log(token)
         Axios.get(API_URL_1 + `transaction/getTransaction`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -51,7 +52,7 @@ class HistoryTransactionUser extends Component {
         Axios.get(API_URL_1 + `transaction/getDetailTransaction?username=${this.props.username}`)
             .then((res) => {
                 this.setState({ detailtransaction: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -77,9 +78,6 @@ class HistoryTransactionUser extends Component {
                         <MDBCardImage className="img-fluid" src={API_URL_1 + item.imagePath} waves />
                         <MDBCardBody>
                             <MDBCardTitle style={{ fontFamily: "Hammersmith One, sans-serif", fontSize: 12 }}>{item.productname.toUpperCase()}</MDBCardTitle>
-                            {/* <MDBCardText style={{ fontFamily: "Hammersmith One, sans-serif", fontSize: 8 }}>
-                                Produk terlaris ini termasuk salah satu produk terbaik yang dimiliki SarenOne
-                    </MDBCardText> */}
                             <Link to={`productdetail?id=${item.productId}`}>
                                 <MDBBtn color="elegant" size="sm" href="#">BUY</MDBBtn>
                             </Link>
@@ -95,7 +93,6 @@ class HistoryTransactionUser extends Component {
             if (this.state.detailcart === item.timescart) {
                 return (
                     <tr key={index} style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
-                        {/* <td><div className="d-flex justify-content-center">{item.timescart}</div></td> */}
                         <td><div>{item.productname}</div></td>
                         <td><div className="d-flex justify-content-center">{item.size}gr</div></td>
                         <td><div className="d-flex justify-content-center">Rp. {item.price.toLocaleString()},-</div></td>
@@ -189,9 +186,9 @@ class HistoryTransactionUser extends Component {
                                 <center>
                                     <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
                                         YOUR TRANSACTION
-                            </div>
+                                    </div>
                                 </center>
-                                <MDBTable bordered >
+                                <MDBTable bordered>
                                     <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#404040', color: 'white' }}>
                                         <tr style={{ fontSize: '10px', textAlign: 'center' }}>
                                             <th>No. </th>
@@ -200,7 +197,7 @@ class HistoryTransactionUser extends Component {
                                             <th>Address</th>
                                             <th>Total Transaction</th>
                                             <th style={{ width: 120 }}>Status</th>
-                                            <th></th>
+                                            <th>Action</th>
                                         </tr>
                                     </MDBTableHead>
                                     <MDBTableBody >

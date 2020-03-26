@@ -5,6 +5,7 @@ import { API_URL_1 } from '../Helpers/API_URL';
 import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBCardImage } from 'mdbreact';
 import moment from 'moment'
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 
 
 class PendingTransaction extends Component {
@@ -75,6 +76,14 @@ class PendingTransaction extends Component {
         try {
             let status = this.state.newStatus
             const res = await Axios.put(API_URL_1 + `transaction/editStatus?id=${idtransaction}`, { status })
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: `Status berhasil di ubah, dan pindahkan ke history transaction`,
+                showConfirmButton: false,
+                timer: 1500
+            })
+            window.location.reload()
             // console.log(res.data)
         } catch (err) {
             // console.log(err)
@@ -113,13 +122,7 @@ class PendingTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle(5)} />
-                            <MDBModal isOpen={this.state.modal5} toggle={this.toggle(5)} size="fluid">
-                                <MDBModalHeader toggle={this.toggle(5)}></MDBModalHeader>
-                                <MDBModalBody>
-                                    <MDBCardImage src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
-                                </MDBModalBody>
-                            </MDBModal>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div>
                         </td>
                         <td>
@@ -141,13 +144,7 @@ class PendingTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle} />
-                            <MDBModal isOpen={this.state.modal} toggle={this.toggle} size="fluid">
-                                <MDBModalHeader toggle={this.toggle}></MDBModalHeader>
-                                <MDBModalBody>
-                                    <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
-                                </MDBModalBody>
-                            </MDBModal>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div>
                         </td>
                         <td>
@@ -169,15 +166,7 @@ class PendingTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle} />
-                            <MDBContainer>
-                                <MDBModal isOpen={this.state.modal} toggle={this.toggle} size="fluid">
-                                    <MDBModalHeader toggle={this.toggle}></MDBModalHeader>
-                                    <MDBModalBody>
-                                        <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
-                                    </MDBModalBody>
-                                </MDBModal>
-                            </MDBContainer>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div></td>
                         <td>
                             <select defaultValue={item.status} className="form-control" onChange={(e) => this.onChangeSelectStatus(e, index)} style={{ fontSize: 13, width: 150 }}>
@@ -200,7 +189,7 @@ class PendingTransaction extends Component {
                 <main className="s-layout__content">
                     <center>
                         <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            HISTORY TRANSACTION CUSTOMER
+                            PENDING TRANSACTION CUSTOMER
                         </div>
                         <MDBContainer style={{ marginTop: 50 }}>
                             <div>LIHAT BERDASARKAN NAMA</div>
@@ -235,11 +224,11 @@ class PendingTransaction extends Component {
                                     :
                                     ''
                             }
-                            <MDBBtn onClick={this.toggle(4)} color="elegant" size="sm">TOTAL TRANSAKSI KESELURUHAN</MDBBtn>
+                            <MDBBtn onClick={this.toggle(4)} color="elegant" size="sm">TOTAL PENDING TRANSAKSI KESELURUHAN</MDBBtn>
                             <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
                                 <MDBModalHeader toggle={this.toggle(4)}></MDBModalHeader>
                                 <MDBModalBody>
-                                    <div style={{ fontSize: 20, margin: 20 }}>TOTAL HARIAN TRANSAKSI SEMUA KONSUMEN</div>
+                                    <div style={{ fontSize: 20, margin: 20 }}>TOTAL HARIAN PENDING TRANSAKSI SEMUA KONSUMEN</div>
                                     <MDBContainer>
                                         <MDBTable bordered >
                                             <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>

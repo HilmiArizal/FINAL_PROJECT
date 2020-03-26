@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import SidebarUser from '../Component/SidebarUser';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
+import Swal from 'sweetalert2';
 
 class ProfileUser extends Component {
 
@@ -113,8 +114,14 @@ class ProfileUser extends Component {
             formData.append('profilecomplete', JSON.stringify(profilecomplete))
             formData.append('image', (this.state.image))
             // console.log(this.state.image)
-            const res = await Axios.patch(API_URL_1 + `users/editProfileUser/${this.props.id}`, formData)
-            alert('Success!')
+            await Axios.patch(API_URL_1 + `users/editProfileUser/${this.props.id}`, formData)
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: `Profile Success!`,
+                showConfirmButton: false,
+                timer: 1500
+            })
             this.getProfileUser()
             // console.log(res.data)
         } catch (err) {

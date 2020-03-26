@@ -98,8 +98,7 @@ class EditProduct extends Component {
 
     onChangeSelectSize = (e, index) => {
         let { stock } = this.state;
-        // console.log('old', stock[index].sizeId)
-        // stock[index].sizeId = parseInt(e.target.value)
+        stock[index].sizeId = parseInt(e.target.value)
         stock[index].size = e.target[e.target.selectedIndex].text
         // console.log('new', stock[index].sizeId)
         // console.table(e.target.value)
@@ -158,14 +157,6 @@ class EditProduct extends Component {
             // console.log(err)
         }
     }
-
-    // btnUploadImageProduct = (e) => {
-    //     if (e.target.files) {
-    //         this.setState({ editImageFile: e.target.files[0] })
-    //     } else {
-    //         this.setState({ editImageFile: undefined })
-    //     }
-    // }
 
     btnConfirmEdit = async () => {
         try {

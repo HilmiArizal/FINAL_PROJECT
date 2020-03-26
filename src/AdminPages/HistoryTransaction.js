@@ -113,13 +113,7 @@ class HisTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle(5)} />
-                            <MDBModal isOpen={this.state.modal5} toggle={this.toggle(5)} size="fluid">
-                                <MDBModalHeader toggle={this.toggle(5)}></MDBModalHeader>
-                                <MDBModalBody>
-                                    <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
-                                </MDBModalBody>
-                            </MDBModal>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div>
                         </td>
                         <td>
@@ -141,13 +135,7 @@ class HisTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle(5)} />
-                            <MDBModal isOpen={this.state.modal5} toggle={this.toggle(5)} size="fluid">
-                                <MDBModalHeader toggle={this.toggle(5)}></MDBModalHeader>
-                                <MDBModalBody>
-                                <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }}/>
-                                </MDBModalBody>
-                            </MDBModal>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }}/>
                         </div>
                         </td>
                         <td>
@@ -169,15 +157,7 @@ class HisTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} onClick={this.toggle(5)} />
-                            <MDBContainer>
-                                <MDBModal isOpen={this.state.modal5} toggle={this.toggle(5)} size="fluid">
-                                    <MDBModalHeader toggle={this.toggle(5)}></MDBModalHeader>
-                                    <MDBModalBody>
-                                        <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 1000 }} />
-                                    </MDBModalBody>
-                                </MDBModal>
-                            </MDBContainer>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div></td>
                         <td>
                             <select defaultValue={item.status} className="form-control" onChange={(e) => this.onChangeSelectStatus(e, index)} style={{ fontSize: 13, width: 150 }}>

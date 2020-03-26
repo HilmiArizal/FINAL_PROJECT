@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
 import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 class Verified extends Component {
     state = {
@@ -22,7 +23,13 @@ class Verified extends Component {
             .then((res) => {
                 localStorage.setItem('token', token)
                 this.setState({ redirect: true })
-                alert('Thank you, your account has been verified')
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: `Thanks, your account has been verified!`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch((err) => {
                 console.log(err)

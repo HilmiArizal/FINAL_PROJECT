@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../CSSUser/Step.css';
 import Footer from '../Component/Footer';
+import Swal from 'sweetalert2';
 
 
 class Cart extends Component {
@@ -18,7 +19,6 @@ class Cart extends Component {
 
     componentDidMount() {
         const token = localStorage.getItem('token')
-        // console.log(token)
         Axios.get(API_URL_1 + `carts/getCart`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -26,7 +26,7 @@ class Cart extends Component {
         })
             .then((res) => {
                 this.setState({ cart: res.data })
-                // console.table('ini', res.data)
+                // console.table(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -37,7 +37,13 @@ class Cart extends Component {
         try {
             if (window.confirm(`ARE YOU SURE FOR DELETE?`)) {
                 await Axios.delete(API_URL_1 + `carts/deleteCart?id=${id}`)
-                alert('Delete Successful')
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: `Berhasil Dihapus!`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 window.location.reload()
             }
         } catch (err) {

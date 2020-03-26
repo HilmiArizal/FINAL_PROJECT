@@ -79,12 +79,9 @@ class App extends Component {
           <Route path='/register' component={RegisterPage} />
           <Route path='/product' component={Product} />
           <Route path='/productdetail' component={DetailProduct} />
-          <Route path='/cart' component={PageNotFound} />
-          <Route path='/verified' component={PageNotFound} />
           <Route path='/profileuser' component={ProfileUser} />
           <Route path='/promotion' component={Promotion} />
           <Route path='/about' component={About} />
-          <Route path='/transaction' component={PageNotFound} />
           <Route path='/unverified' component={Unverified} />
           <Route path='/loginadmin' component={LoginAdmin} />
         </div>

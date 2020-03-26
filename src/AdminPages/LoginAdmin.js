@@ -35,10 +35,10 @@ class LoginAdmin extends Component {
             <section className="login-block">
                 <div className="container" style={{minHeight:'70vh', width:500}}>
                     <div className="login-sec">
-                        <MDBNavLink to="/" style={{ color: 'black' }}>
+                        <MDBNavLink to="/" style={{ color: 'black', marginTop:25 }}>
                             <MDBIcon icon="times" />
                         </MDBNavLink>
-                        <div style={{ marginTop: '20px' }}>
+                        <div style={{ marginTop:20 }}>
                             <h2 className="text-center">HELLO ADMIN!</h2>
                             <form className="login-form">
                                 <div className="form-group">

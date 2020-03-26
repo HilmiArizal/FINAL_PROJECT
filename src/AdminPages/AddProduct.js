@@ -4,6 +4,8 @@ import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
 import { MDBInput, MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBCol, MDBRow, MDBJumbotron } from 'mdbreact';
 import '../CSSAdmin/InputNumber.css';
+import noproduct from '../Image/noproduct.png';
+
 
 
 class AddProduct extends Component {
@@ -13,12 +15,20 @@ class AddProduct extends Component {
         size: [],
         price: [],
         stock: [],
+
         addCategory: 0,
-        addImageFile: undefined,
         addSize: 0,
+        addSizeName: '',
         addPrice: 0,
+        addPriceName: '',
+        stockName: [],
+
         modal14: false,
-        value: 0
+        value: 0,
+
+        addImageFile: undefined,
+        previewImage: undefined,
+        changeImage: false
     }
 
     toggle = nr => () => {
@@ -47,7 +57,7 @@ class AddProduct extends Component {
         Axios.get(API_URL_1 + `products/getProducts`)
             .then((res) => {
                 this.setState({ product: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -93,18 +103,24 @@ class AddProduct extends Component {
 
     onChangeSelectSize = (e) => {
         this.setState({ addSize: e.target.value })
+        this.setState({ addSizeName: e.target[e.target.selectedIndex].text })
     }
 
     onChangeSelectPrice = (e) => {
         this.setState({ addPrice: e.target.value })
+        this.setState({ addPriceName: e.target[e.target.selectedIndex].text })
+        // console.log(e.target[e.target.selectedIndex].text)
     }
 
     btnSaveAddStock = () => {
         var size = this.state.addSize
         var price = this.state.addPrice;
         var jumlahstock = this.state.value
+        var sizeName = this.state.addSizeName;
+        var priceName = this.state.addPriceName;
         if (size && price && jumlahstock) {
             this.state.stock.push([parseInt(size), parseInt(price), jumlahstock])
+            this.state.stockName.push([sizeName, priceName, jumlahstock])
             alert('Stock ditambahkan')
         } else {
             alert('Isi dgn benar!')
@@ -115,12 +131,13 @@ class AddProduct extends Component {
         // window.location.reload()
     }
 
-    btnUploadImageProduct = (e) => {
-        console.log(e.target.files[0])
-        if (e.target.files) {
-            this.setState({ addImageFile: e.target.files[0] })
-        } else {
-            this.setState({ addImageFile: undefined })
+    addImage = (e) => {
+        if (e.target.files[0]) {
+            this.setState({
+                addImageFile: e.target.files[0],
+                previewImage: URL.createObjectURL(e.target.files[0]),
+                changeImage: true
+            })
         }
     }
 
@@ -168,14 +185,19 @@ class AddProduct extends Component {
         return (
             <MDBContainer>
                 <MDBJumbotron>
-                    <MDBInput label="Product Name" inputRef={(productName) => this.productName = productName} />
-                    <select className="form-control" onChange={this.onChangeSelectCategory}>
-                        <option value={this.state.addCategory}>Pilih Category</option>
-                        {this.renderListCategory()}
-                    </select>
-                    <br />
-                    <div>
-                        {this.state.stock}
+                    <div className="row">
+                        <div className="col-6">
+                            <MDBInput label="Product Name" inputRef={(productName) => this.productName = productName} />
+                        </div>
+                        <div className="col-6" style={{ marginTop: 27 }}>
+                            <select className="form-control" onChange={this.onChangeSelectCategory}>
+                                <option value={this.state.addCategory}>Pilih Category</option>
+                                {this.renderListCategory()}
+                            </select>
+                        </div>
+                    </div>
+                    <div style={{ fontFamily: 'arial' }}>
+                        {this.state.stockName.join(' || ')}
                     </div>
                     <MDBContainer>
                         <MDBBtn color="elegant" size="sm" onClick={this.toggle(14)}>ADD STOCK</MDBBtn>
@@ -223,10 +245,28 @@ class AddProduct extends Component {
                             ref="productDescription"
                         />
                     </div>
-                    <div><input accept='image/*' onChange={this.btnUploadImageProduct} type='file' /></div>
-                    <br />
+                    {
+                        this.state.previewImage
+                            ?
+                            <div className='d-flex justify-content-center'>
+                                <img className='EDP-Preview-Image' src={this.state.previewImage} alt="profile" style={{ height: 100, width: 150 }} />
+                            </div>
+                            :
+                            <div className='d-flex justify-content-center'>
+                                <img className='EDP-Preview-Image' src={noproduct} style={{ height: 100, width: 150 }} />
+                            </div>
+                    }
+                    <div className='d-flex justify-content-center' style={{ margin: 20 }} >
+                        <div className="row">
+                            <div className="col-4"></div>
+                            <div className="col-4">
+                                <input type='file' onChange={this.addImage} />
+                            </div>
+                            <div className="col-4"></div>
+                        </div>
+                    </div>
                     <center>
-                        <div> <MDBBtn color="elegant" onClick={this.uploadProduct}>Save changes</MDBBtn></div>
+                        <div> <MDBBtn size="md" color="elegant" onClick={this.uploadProduct}>Save changes</MDBBtn></div>
                     </center>
                 </MDBJumbotron>
             </MDBContainer>
@@ -263,7 +303,7 @@ class AddProduct extends Component {
         })
     }
 
-    render(){
+    render() {
         return (
             <div>
                 <main className="s-layout__content">
@@ -273,7 +313,7 @@ class AddProduct extends Component {
                         </div>
                     </center>
                 </main>
-                <main className="s-layout__content" style={{ fontFamily: 'Hammersmith One, sans-serif'}}>
+                <main className="s-layout__content" style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
                     <center>
                         {this.renderInputProduct()}
                     </center>

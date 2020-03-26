@@ -40,7 +40,7 @@ class DetailProduct extends Component {
             Swal.fire({
                 position: 'center',
                 icon: 'warning',
-                title: `Please, ${this.props.username} pilih dulu beratnya!`,
+                title: `Please, pilih dulu beratnya!`,
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -59,7 +59,7 @@ class DetailProduct extends Component {
             Swal.fire({
                 position: 'center',
                 icon: 'warning',
-                title: `Please, ${this.props.username} pilih dulu beratnya!`,
+                title: `Please, pilih dulu beratnya!`,
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -67,7 +67,7 @@ class DetailProduct extends Component {
     }
     componentDidMount() {
         this.getIdProduct()
-        this.getSizeProduct()
+        this.getSizeAndPriceProduct()
     }
 
     getIdProduct = () => {
@@ -82,7 +82,7 @@ class DetailProduct extends Component {
             })
     }
 
-    getSizeProduct = () => {
+    getSizeAndPriceProduct = () => {
         var takeId = this.props.location.search.split('=')[1];
         Axios.get(API_URL_1 + `products/getProductId?id=${takeId}`)
             .then((res) => {
@@ -115,11 +115,16 @@ class DetailProduct extends Component {
                     qty: parseInt(qty),
                     totalprice,
                 }
-                // console.log(postCart)
                 if (userId && productId && stockId && sizeId && priceId && jumlahstock && qty && totalprice) {
                     await Axios.post(API_URL_1 + `carts/addToCart`, postCart)
                     this.setState({ RedirectNext: true })
-                    alert('Berhasil ditambahkan ke cart')
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: `Produk berhasil ditambahkan`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 } else {
                     Swal.fire({
                         position: 'center',
@@ -133,7 +138,7 @@ class DetailProduct extends Component {
                 Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: `Login dulu ya!`,
+                    title: `Please, Login!`,
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -146,7 +151,6 @@ class DetailProduct extends Component {
 
     renderGetSize = () => {
         return this.state.size.map((item, index) => {
-            // console.log(this.state.newPrice)
             return (
                 <div className="row">
                     <div className="col-1">
@@ -186,7 +190,6 @@ class DetailProduct extends Component {
     }
 
     renderProducts = () => {
-        // console.log(this.state.product)
         const { product, RedirectLogin, RedirectNext } = this.state;
         if (RedirectLogin) {
             return (
