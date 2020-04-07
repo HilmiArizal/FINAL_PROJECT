@@ -48,12 +48,13 @@ class DetailProduct extends Component {
     }
 
     MinClick = () => {
+        let { value } = this.state
         let min = this.state.value;
         if (this.state.showPrice) {
             if (min <= 1) {
-                this.setState({ value: this.state.value = 1 });
+                this.setState({ value: value = 1 });
             } else {
-                this.setState({ value: this.state.value - 1 });
+                this.setState({ value: value - 1 });
             }
         } else {
             Swal.fire({
@@ -181,9 +182,13 @@ class DetailProduct extends Component {
                 return (
                     <div key={index}>
                         <h5>
-                            Price: Rp. <h1></h1>
+                            Price: Rp.
                         </h5>
                     </div>
+                )
+            } else {
+                return (
+                    <div></div>
                 )
             }
         })

@@ -5,7 +5,7 @@ import { API_URL_1 } from '../Helpers/API_URL';
 import CarouselHome from '../Component/CarouselHome';
 import NavbarUser from '../Component/NavbarUser';
 import Footer from '../Component/Footer';
-import { MDBContainer, MDBRow, MDBCol, MDBCardImage, MDBCardBody, MDBCard, MDBCardTitle, MDBBtn, MDBCardText, MDBNavLink } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBCardImage, MDBCardBody, MDBCard, MDBCardTitle, MDBBtn, MDBCardText } from 'mdbreact';
 import '../CSSUser/Home.css'
 
 
@@ -67,7 +67,7 @@ class Home extends Component {
             return (
                 <MDBCol key={index}>
                     <MDBCard style={{ width: "12rem" }}>
-                        <img className="img-fluid" src={item.imagecategory} waves style={{ width: 130, marginTop: 20 }} />
+                        <img className="img-fluid" src={item.imagecategory} waves alt="img" style={{ width: 130, marginTop: 20 }} />
                         <MDBCardBody>
                             <MDBCardTitle className="detailmenu" style={{ fontSize: 20 }}>{item.category}</MDBCardTitle>
                         </MDBCardBody>

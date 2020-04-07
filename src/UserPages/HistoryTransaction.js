@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavbarUser from '../Component/NavbarUser';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
-import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
+import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCol } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -100,6 +100,10 @@ class HistoryTransactionUser extends Component {
                         <td><div className="d-flex justify-content-center">Rp. {item.totalprice.toLocaleString()},-</div></td>
                     </tr >
                 )
+            } else {
+                return (
+                    <div></div>
+                )
             }
         })
     }
@@ -117,7 +121,7 @@ class HistoryTransactionUser extends Component {
                     <td>
                         <MDBContainer>
                             <div className="d-flex justify-content-center" onClick={() => this.setState({ detailcart: item.timescart })}>
-                                <MDBBtn color="primary" onClick={this.toggle(4)} size="sm" color="elegant" style={{ width: 120 }}>DETAIL CART</MDBBtn>
+                                <MDBBtn color="primary" onClick={this.toggle(4)} size="sm" style={{ width: 120 }}>DETAIL CART</MDBBtn>
                             </div>
                             <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
                                 <MDBModalHeader toggle={this.toggle(4)}></MDBModalHeader>
@@ -130,7 +134,7 @@ class HistoryTransactionUser extends Component {
                                     </div>
                                     <MDBContainer>
                                         <MDBTable bordered >
-                                            <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
+                                            <MDBTableHead style={{ backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
                                                 <tr style={{ fontSize: '10px', textAlign: 'center' }}>
                                                     <th>Product Name</th>
                                                     <th>Size</th>

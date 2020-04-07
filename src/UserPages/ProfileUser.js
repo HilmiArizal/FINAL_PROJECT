@@ -200,7 +200,7 @@ class ProfileUser extends Component {
                                     </div>
                                     :
                                     <div className='d-flex justify-content-center'>
-                                        <img className='EDP-Preview-Image' src={API_URL_1 + item.imagePath} style={{ height: 170, width: 170, borderRadius: 100 }} />
+                                        <img className='EDP-Preview-Image' src={API_URL_1 + item.imagePath} alt="profile" style={{ height: 170, width: 170, borderRadius: 100 }} />
                                     </div>
                             }
                             <div className='d-flex justify-content-center'>

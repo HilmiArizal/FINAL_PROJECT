@@ -9,7 +9,6 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import Logo from '../Image/Logo-SarenOne.png';
 import { Logout } from '../Redux/Action';
 import CartNotif from '../UserPages/CartNotif';
-import { Link } from "react-router-dom";
 import NavbarUnverified from "./NavbarUnverified";
 import '../CSSUser/HoverNavbar.css';
 
@@ -72,9 +71,9 @@ class NavbarUser extends Component {
                                                     <a href="https://mail.google.com" className="btn btn-primary btn-round">Go to Email</a>
                                                 </div>
                                                 :
-                                                <Link to="/cart">
+                                                <div>
                                                     <CartNotif />
-                                                </Link>
+                                                </div>
                                         }
                                     </MDBNavItem>
                                     <div className="dropdown show-on-hover" style={{ cursor: 'pointer' }}>

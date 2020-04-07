@@ -64,6 +64,10 @@ class SeeProduct extends Component {
                         <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
                     </tr>
                 )
+            }else{
+                return(
+                    <div></div>
+                )
             }
         })
     }

@@ -326,7 +326,7 @@ class EditProduct extends Component {
                                 ?
                                 <img className='EDP-Box-Edit-Img' src={this.state.previewImage} alt="img" width='30%' />
                                 :
-                                <img className='EDP-Box-Edit-Img' src={API_URL_1 + product.imagePath} alt="img" alt="img" width='30%' />
+                                <img className='EDP-Box-Edit-Img' src={API_URL_1 + product.imagePath} alt="img" width='30%' />
                         }
                         <br />
                         <input type="file" onChange={this.addImage} />

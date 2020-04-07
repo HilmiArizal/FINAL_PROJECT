@@ -22,7 +22,6 @@ import About from './UserPages/About';
 import ChangePass from './UserPages/ChangePass';
 import DeleteAccount from './UserPages/DeleteAccount';
 import UserTransaction from './UserPages/UserTransaction';
-import PageNotFound from './UserPages/PageNotFound';
 import HistoryTransactionUser from './UserPages/HistoryTransaction';
 import Unverified from './UserPages/UnverifiedPage';
 import LoginAdmin from './AdminPages/LoginAdmin';

@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import '../CSSUser/Footer.css';
-import { MDBInput } from "mdbreact";
-// import ovo from '../Image/ovo.png';
-// import linkaja from '../Image/linkaja.png';
-// import doku from '../Image/sakuku.png';
-// import dana from '../Image/dana.png';
 import bca from '../Image/bca.png';
 import mandiri from '../Image/mandiri.png'
 import bni from '../Image/bni.png';
 import bri from '../Image/bri.png'
 
 class Footer extends Component {
-    state = {}
+
     render() {
         return (
             <footer className="footer_area" style={{ backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>

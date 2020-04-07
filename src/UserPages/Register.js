@@ -69,7 +69,7 @@ class RegisterPage extends Component {
                     }
                 }
                 if (!stop) {
-                    if (char, num) {
+                    if (char & num) {
                         var data = { username, email, password }
                         this.props.Register(data)
                         Swal.fire({

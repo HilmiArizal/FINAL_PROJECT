@@ -11,9 +11,11 @@ class HisTransaction extends Component {
     state = {
         transaction: [],
         totaltransaction: [],
+        dateTransaction: [],
         users: [],
         newStatus: 0,
         getUser: 0,
+        getDateTransaction: 0,
 
         modal4: false,
         modal5: false
@@ -30,13 +32,14 @@ class HisTransaction extends Component {
         this.getTransaction()
         this.getUsers()
         this.getTotalTransaction()
+        this.getTransactionDate()
     }
 
     getTransaction = () => {
         Axios.get(API_URL_1 + `transaction/getAllTransactionPaid`)
             .then((res) => {
                 this.setState({ transaction: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => [
                 // console.log(err)
@@ -51,6 +54,17 @@ class HisTransaction extends Component {
             })
             .catch((err) => {
                 // console.log(err)
+            })
+    }
+
+    getTransactionDate = () => {
+        Axios.get(API_URL_1 + `transaction/getTransactionDate`)
+            .then((res) => {
+                this.setState({ dateTransaction: res.data })
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
             })
     }
 
@@ -74,7 +88,7 @@ class HisTransaction extends Component {
     onBtnSaveTransaction = async (idtransaction) => {
         try {
             let status = this.state.newStatus
-            const res = await Axios.put(API_URL_1 + `transaction/editStatus?id=${idtransaction}`, { status })
+            await Axios.put(API_URL_1 + `transaction/editStatus?id=${idtransaction}`, { status })
             // console.log(res.data)
         } catch (err) {
             // console.log(err)
@@ -96,8 +110,18 @@ class HisTransaction extends Component {
     renderGetAllUsername = () => {
         return this.state.users.map((item, index) => {
             return (
-                <option onChange={() => this.setState({ getUser: item.id })}>
+                <option>
                     {item.username}
+                </option>
+            )
+        })
+    }
+
+    renderGetDateTransaction = () => {
+        return this.state.dateTransaction.map((item, index) => {
+            return (
+                <option onChange={() => this.setState({ getDateTransaction: item.datetransaction })}>
+                    {moment(item.datetransaction).format('LL')}
                 </option>
             )
         })
@@ -135,7 +159,7 @@ class HisTransaction extends Component {
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
                         <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
-                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }}/>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div>
                         </td>
                         <td>
@@ -170,6 +194,32 @@ class HisTransaction extends Component {
                         </td>
                     </tr>
                 )
+            } else if (this.state.getDateTransaction === moment(item.datetransaction).format('LL')) {
+                return (
+                    <tr key={index} className="text-center">
+                        <td>{item.username}</td>
+                        <td style={{ width: 200 }}>{item.address}</td>
+                        <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
+                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
+                        <td><div style={{ cursor: 'pointer' }}>
+                            <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
+                        </div>
+                        </td>
+                        <td>
+                            <select defaultValue={item.status} className="form-control" onChange={(e) => this.onChangeSelectStatus(e, index)} style={{ fontSize: 13, width: 150 }}>
+                                <option>UNPAID</option>
+                                <option>ON PROCESS</option>
+                                <option>DELIVERY</option>
+                                <option>PAID</option>
+                            </select>
+                            <MDBBtn color="elegant" size="sm" onClick={() => this.onBtnSaveTransaction(item.idtransaction)}>Save</MDBBtn>
+                        </td>
+                    </tr>
+                )
+            } else {
+                return(
+                    <div></div>
+                )
             }
         })
     }
@@ -185,7 +235,11 @@ class HisTransaction extends Component {
                         <MDBContainer style={{ marginTop: 50 }}>
                             <div>LIHAT BERDASARKAN NAMA</div>
                             <div className="row">
-                                <div className="col-4"></div>
+                                <div className="col-4">
+                                    <select className="form-control" onChange={(e) => this.setState({ getDateTransaction: e.target[e.target.selectedIndex].text })} style={{ fontSize: 15 }}>
+                                        {this.renderGetDateTransaction()}
+                                    </select>
+                                </div>
                                 <div className="col-4">
                                     <select className="form-control" onChange={(e) => this.setState({ getUser: e.target.value })} style={{ fontSize: 15 }}>
                                         {this.renderGetAllUsername()}
@@ -222,7 +276,7 @@ class HisTransaction extends Component {
                                     <div style={{ fontSize: 20, margin: 20 }}>TOTAL HARIAN TRANSAKSI SEMUA KONSUMEN</div>
                                     <MDBContainer>
                                         <MDBTable bordered >
-                                            <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
+                                            <MDBTableHead style={{ backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
                                                 <tr style={{ fontSize: '10px', textAlign: 'center' }}>
                                                     <th>TANGGAL</th>
                                                     <th>TOTAL TRANSAKSI</th>

@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import '../CSSUser/Navbar.css';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse } from "mdbreact";
-import PersonIcon from '@material-ui/icons/Person';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import Logo from '../Image/Logo-SarenOne.png';
+import { MDBNavbar, MDBNavbarNav, MDBNavbarToggler, MDBCollapse } from "mdbreact";
 import { Logout } from '../Redux/Action';
-import CartNotif from '../UserPages/CartNotif';
-import { Link } from "react-router-dom";
 
 class NavbarUser extends Component {
+
     state = {
         isOpen: false
     };
@@ -27,7 +21,7 @@ class NavbarUser extends Component {
                 <MDBNavbarToggler onClick={this.toggleCollapse} style={{ backgroundColor: 'black' }} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
                     <MDBNavbarNav left>
-                        <div style={{fontFamily: 'Hammersmith One, sans-serif'}}>SORRY, AKUN ANDA BELUM TERVERIFIKASI. SILAHKAN MELAKUKAN VERIFIKASI TERLEBIH DAHULU MELALUI EMAIL ANDA.</div>
+                        <div style={{ fontFamily: 'Hammersmith One, sans-serif' }}>SORRY, AKUN ANDA BELUM TERVERIFIKASI. SILAHKAN MELAKUKAN VERIFIKASI TERLEBIH DAHULU MELALUI EMAIL ANDA.</div>
                     </MDBNavbarNav>
                 </MDBCollapse>
             </MDBNavbar>

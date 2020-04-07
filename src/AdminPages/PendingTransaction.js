@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../CSSAdmin/Homepage.css';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
-import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBCardImage } from 'mdbreact';
+import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody } from 'mdbreact';
 import moment from 'moment'
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -75,7 +75,7 @@ class PendingTransaction extends Component {
     onBtnSaveTransaction = async (idtransaction) => {
         try {
             let status = this.state.newStatus
-            const res = await Axios.put(API_URL_1 + `transaction/editStatus?id=${idtransaction}`, { status })
+            await Axios.put(API_URL_1 + `transaction/editStatus?id=${idtransaction}`, { status })
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -179,6 +179,10 @@ class PendingTransaction extends Component {
                         </td>
                     </tr>
                 )
+            } else {
+                return (
+                    <div></div>
+                )
             }
         })
     }
@@ -231,7 +235,7 @@ class PendingTransaction extends Component {
                                     <div style={{ fontSize: 20, margin: 20 }}>TOTAL HARIAN PENDING TRANSAKSI SEMUA KONSUMEN</div>
                                     <MDBContainer>
                                         <MDBTable bordered >
-                                            <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
+                                            <MDBTableHead style={{ backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
                                                 <tr style={{ fontSize: '10px', textAlign: 'center' }}>
                                                     <th>TANGGAL</th>
                                                     <th>TOTAL TRANSAKSI</th>

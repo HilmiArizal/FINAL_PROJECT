@@ -11,7 +11,6 @@ export const Login = (username, password) => {
             .then((res) => {
                 if (res.data.length !== 0) {
                     localStorage.setItem('token', res.data.token)
-                    // alert('LOGIN SUCCESS!')
                     Swal.fire({
                         position: 'center',
                         icon: 'success',

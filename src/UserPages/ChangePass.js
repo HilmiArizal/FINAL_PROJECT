@@ -41,7 +41,7 @@ class ChangePass extends Component {
             let newpassword = this.refs.neweditpass.value;
             let confirmpassword = this.refs.confirmpass.value;
             if (newpassword === confirmpassword) {
-                if (char, num) {
+                if (char & num) {
                     await Axios.patch(API_URL_1 + `users/editPassword/${this.props.id}`, {
                         newpassword, oldpassword
                     })

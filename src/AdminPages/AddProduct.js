@@ -253,7 +253,7 @@ class AddProduct extends Component {
                             </div>
                             :
                             <div className='d-flex justify-content-center'>
-                                <img className='EDP-Preview-Image' src={noproduct} style={{ height: 100, width: 150 }} />
+                                <img className='EDP-Preview-Image' src={noproduct} alt="profile" style={{ height: 100, width: 150 }} />
                             </div>
                     }
                     <div className='d-flex justify-content-center' style={{ margin: 20 }} >

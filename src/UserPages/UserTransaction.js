@@ -26,7 +26,6 @@ class UserTransaction extends Component {
         changeImage: false,
 
         methodId: 0
-
     }
 
     toggle = nr => () => {
@@ -392,7 +391,7 @@ class UserTransaction extends Component {
                                                                                 </div>
                                                                                 :
                                                                                 <div className='d-flex justify-content-center'>
-                                                                                    <img className='EDP-Preview-Image' src={transfer} style={{ height: 300, width: 400 }} />
+                                                                                    <img className='EDP-Preview-Image' src={transfer} alt="profile" style={{ height: 300, width: 400 }} />
                                                                                 </div>
                                                                         }
                                                                         <div className='d-flex justify-content-center' >
