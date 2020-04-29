@@ -26,6 +26,10 @@ import HistoryTransactionUser from './UserPages/HistoryTransaction';
 import Unverified from './UserPages/UnverifiedPage';
 import LoginAdmin from './AdminPages/LoginAdmin';
 import PendingTransaction from './AdminPages/PendingTransaction';
+import ManageProduct from './AdminPages/ManageProduct';
+import TransactionAdmin from './AdminPages/TransactionAdmin';
+import ListProduct from './AdminPages/ListProduct';
+import ManageUser from './AdminPages/ManageUser';
 
 class App extends Component {
 
@@ -41,13 +45,17 @@ class App extends Component {
       return (
         <div>
           <Sidebar />
-          <Route path='/profileadmin' component={Profile} exact />
+          <Route path='/' component={Profile} exact />
           <Route path='/addproduct' component={AddProduct} />
           <Route path='/editdelete' component={EditDelete} />
           <Route path='/editproduct' component={EditProduct} />
           <Route path='/seeproduct' component={SeeProduct} />
+          <Route path='/listproduct' component={ListProduct} />
           <Route path='/historytransactionadmin' component={HisTransaction} />
           <Route path='/pendingtransaction' component={PendingTransaction} />
+          <Route path='/manageproduct' component={ManageProduct} />
+          <Route path='/transaction' component={TransactionAdmin} />
+          <Route path='/manageuser' component={ManageUser} />
         </div>
       )
     } else if (this.props.role === 'user') {

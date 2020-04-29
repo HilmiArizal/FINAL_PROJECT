@@ -5,7 +5,6 @@ import LogoSarenOne from '../Image/LogoSarenOne.png';
 import { Logout } from '../Redux/Action';
 import { connect } from 'react-redux';
 import { MDBNavLink, MDBIcon } from 'mdbreact';
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
 class Sidebar extends Component {
     state = {
@@ -40,53 +39,49 @@ class Sidebar extends Component {
                                 <li >
                                     <i><em><img src={LogoSarenOne} alt='LogoSarenOne' style={{ width: '100px', borderRadius: '50px', marginBottom: '20px' }} /></em></i>
                                 </li>
-                                <li>
-                                    <MDBNavLink to="/profileadmin">
-                                        <div style={{ color: 'white' }}>
-                                            <MDBIcon icon="user" /> HOME
-                                    </div>
-                                    </MDBNavLink>
-                                </li>
-                                <li>
-                                    <MDBNavLink to="/pendingtransaction">
-                                        <div style={{ color: 'white' }}>
-                                            <MDBIcon icon="dollar-sign" /> PENDING TRANSACTION
-                                        </div>
-                                    </MDBNavLink>
-                                </li>
-                                <li>
-                                    <MDBNavLink to="/historytransactionadmin">
-                                        <div style={{ color: 'white' }}>
-                                            <MDBIcon icon="dollar-sign" /> HISTORY TRANSACTION
-                                        </div>
-                                    </MDBNavLink>
-                                </li>
-                                <li>
-                                    <MDBDropdown>
-                                        <MDBDropdownToggle caret color="white">
-                                            <MDBIcon icon="bars" /> Manage product
-                                        </MDBDropdownToggle>
-                                        <MDBDropdownMenu basic>
-                                            <MDBNavLink to="seeproduct">
-                                                <MDBDropdownItem>See product</MDBDropdownItem>
-                                            </MDBNavLink>
-                                            <MDBNavLink to="addproduct">
-                                                <MDBDropdownItem>Add product</MDBDropdownItem>
-                                            </MDBNavLink>
-                                            <MDBNavLink to="editdelete">
-                                                <MDBDropdownItem>Edit &amp; Delete</MDBDropdownItem>
-                                            </MDBNavLink>
-                                        </MDBDropdownMenu>
-                                    </MDBDropdown>
-                                </li>
-                                <li>
-                                    <MDBNavLink to="/">
-                                        <div onClick={this.onBtnLogout} style={{ color: 'white' }}>
-                                            <MDBIcon icon="sign-out-alt" /> LOGOUT
-                                        </div>
-                                    </MDBNavLink>
-                                </li>
                             </center>
+                            <li>
+                                <MDBNavLink to="/">
+                                    <div style={{ color: 'white', paddingTop: 30 }}>
+                                        <MDBIcon icon="home" /> HOME
+                                    </div>
+                                </MDBNavLink>
+                            </li>
+                            <li>
+                                <MDBNavLink to="/">
+                                    <div style={{ color: 'white', paddingTop: 10 }}>
+                                        <MDBIcon icon="user" /> PROFILE
+                                    </div>
+                                </MDBNavLink>
+                            </li>
+                            <li>
+                                <MDBNavLink to="/transaction">
+                                    <div style={{ color: 'white', paddingTop: 10 }}>
+                                        <MDBIcon icon="dollar-sign" /> TRANSACTION
+                                        </div>
+                                </MDBNavLink>
+                            </li>
+                            <li>
+                                <MDBNavLink to="/manageproduct">
+                                    <div style={{ color: 'white', paddingTop: 10 }}>
+                                        <MDBIcon icon="cog" /> MANAGE PRODUCT
+                                        </div>
+                                </MDBNavLink>
+                            </li>
+                            <li>
+                                <MDBNavLink to="manageuser">
+                                    <div style={{ color: 'white', paddingTop: 10 }}>
+                                        <MDBIcon icon="users" /> MANAGE USER
+                                    </div>
+                                </MDBNavLink>
+                            </li>
+                            <li>
+                                <MDBNavLink to="/">
+                                    <div onClick={this.onBtnLogout} style={{ color: 'white', paddingTop: 10 }}>
+                                        <MDBIcon icon="sign-out-alt" /> LOGOUT
+                                        </div>
+                                </MDBNavLink>
+                            </li>
                         </ul>
                     </nav>
                 </div>

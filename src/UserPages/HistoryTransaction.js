@@ -6,6 +6,7 @@ import { MDBContainer, MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBModal, M
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import '../CSSUser/Pagination.css'
 
 
 class HistoryTransactionUser extends Component {
@@ -16,7 +17,9 @@ class HistoryTransactionUser extends Component {
         productpopuler: [],
 
         modal4: false,
-        detailcart: null
+        detailcart: null,
+
+        offset: 0
     }
 
     toggle = nr => () => {
@@ -32,9 +35,10 @@ class HistoryTransactionUser extends Component {
         this.getProductPopuler()
     }
 
-    getTransaction = () => {
+    getTransaction = (ChoosenOffset) => {
+        const { offset } = this.state;
         const token = localStorage.getItem('token')
-        Axios.get(API_URL_1 + `transaction/getTransaction`, {
+        Axios.get(API_URL_1 + `transaction/getTransaction?limit=2&offset=${ChoosenOffset === undefined ? offset : ChoosenOffset}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -121,7 +125,7 @@ class HistoryTransactionUser extends Component {
                     <td>
                         <MDBContainer>
                             <div className="d-flex justify-content-center" onClick={() => this.setState({ detailcart: item.timescart })}>
-                                <MDBBtn color="primary" onClick={this.toggle(4)} size="sm" style={{ width: 120 }}>DETAIL CART</MDBBtn>
+                                <MDBBtn color="elegant" onClick={this.toggle(4)} size="sm" style={{ width: 120 }}>DETAIL CART</MDBBtn>
                             </div>
                             <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
                                 <MDBModalHeader toggle={this.toggle(4)}></MDBModalHeader>
@@ -157,7 +161,25 @@ class HistoryTransactionUser extends Component {
         })
     }
 
+    renderPaginationTransaction = () => {
+        let page = [];
+        for (var i = 0; i < 5; i++) {
+            page.push({ numb: i })
+        }
+        return page.map((item) => {
+            return (
+                <a href="#" style={{ marginTop: 5 }}
+                    onClick={() => {
+                        this.getTransaction(item.numb === 0 ? item.numb : item.numb * 2)
+                        this.setState({ offset: item.numb })
+                    }}
+                >{item.numb + 1}</a>
+            )
+        })
+    }
+
     render() {
+        const { offset } = this.state;
         return (
             <div>
                 <NavbarUser />
@@ -208,6 +230,23 @@ class HistoryTransactionUser extends Component {
                                         {this.renderGetHistoryTransaction()}
                                     </MDBTableBody>
                                 </MDBTable>
+                                <div className="pagination d-flex justify-content-center">
+                                    <div className="row">
+                                        <a href="#" onClick={() => {
+                                            this.getTransaction((offset - 1) * 2)
+                                            this.setState({ offset: offset === 0 ? offset : offset - 1 })
+                                        }
+                                        } style={{ fontSize: 20 }}>&laquo;
+                                        </a>
+                                        {this.renderPaginationTransaction()}
+                                        <a href="#" onClick={() => {
+                                            this.getTransaction((offset + 1) * 2)
+                                            this.setState({ offset: offset === 3 ? offset : offset + 1 })
+                                        }
+                                        } style={{ fontSize: 20 }}>&raquo;
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                             <div className="col-2">
                                 <center>

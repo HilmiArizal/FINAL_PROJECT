@@ -58,6 +58,7 @@ export const Logout = () => {
 export const keepLogin = () => {
     return (dispatch) => {
         const token = localStorage.getItem('token')
+        // console.log(token)
         if (token) {
             const headers = {
                 headers: {

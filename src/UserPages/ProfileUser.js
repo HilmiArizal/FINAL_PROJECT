@@ -134,52 +134,59 @@ class ProfileUser extends Component {
             return (
                 <MDBRow style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
                     <MDBCol size="6" >
-                        <center>First Name</center>
-                        <input type="text" className="form-control" ref="editfirstname" defaultValue={item.firstname} />
+                        <div className="row">
+                            <div className="col-4" style={{ marginTop: 5 }}>Nama Depan</div>
+                            <div className="col-8"><input type="text" className="form-control" ref="editfirstname" defaultValue={item.firstname} /></div>
+                        </div>
                         <br />
-                        <center>Last Name</center>
-                        <input type="text" className="form-control" ref="editlastname" defaultValue={item.lastname} />
+                        <div className="row">
+                            <div className="col-4" style={{ marginTop: 5 }}>Nama Belakang</div>
+                            <div className="col-8"><input type="text" className="form-control" ref="editlastname" defaultValue={item.lastname} /></div>
+                        </div>
                         <br />
-                        <MDBRow>
-                            <MDBCol size="6">
-                                <center>Phone Number</center>
-                                <input type="text" className="form-control" ref="editphonenumber" defaultValue={item.phonenumber} />
-                            </MDBCol>
-                            <MDBCol size="6">
-                                <center>Age</center>
-                                <input type="number" className="form-control" ref="editage" defaultValue={item.age} />
-                            </MDBCol>
-                        </MDBRow>
+                        <div className="row">
+                            <div className="col-4" style={{ marginTop: 5 }}>No. Handphone</div>
+                            <div className="col-8"> <input type="text" className="form-control" ref="editphonenumber" defaultValue={item.phonenumber} /></div>
+                        </div>
+                        <br />
+                        <div className="row">
+                            <div className="col-4" style={{ marginTop: 5 }}>Usia</div>
+                            <div className="col-8"> <input type="number" className="form-control" ref="editage" defaultValue={item.age} style={{ width: 100 }} /></div>
+                        </div>
                     </MDBCol>
                     <MDBCol size="6">
-                        <MDBRow>
-                            <MDBCol size="6">
-                                <center>Gender</center>
+                        <div className="row">
+                            <div className="col-4" style={{ marginTop: 5 }}>Jenis Kelamin</div>
+                            <div className="col-8">
                                 <select className="form-control" onChange={this.onChangeSelectGender} defaultValue={item.genderId}>
-                                    <option>Gender</option>
                                     {this.renderGender()}
                                 </select>
-                            </MDBCol>
-                            <MDBCol size="6">
-                                <center>Job</center>
-                                <select className="form-control" onChange={this.onChangeSelectJob} defaultValue={item.jobId}>
-                                    <option>Job</option>
-                                    {this.renderJob()}
-                                </select>
-                            </MDBCol>
-                        </MDBRow>
-                        <div style={{ marginTop: 30 }}>
-                            <center>Address</center>
-                            <div className="form-group">
-                                <textarea
-                                    className="form-control"
-                                    id="exampleFormControlTextarea1"
-                                    rows="4"
-                                    ref="editaddress"
-                                    defaultValue={item.address}
-                                />
                             </div>
                         </div>
+                        <br />
+                        <div className="row">
+                            <div className="col-4" style={{ marginTop: 5 }}>Pekerjaan</div>
+                            <div className="col-8">
+                                <select className="form-control" onChange={this.onChangeSelectJob} defaultValue={item.jobId}>
+                                    {this.renderJob()}
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div className="row">
+                            <div className="col-4" style={{ marginTop: 5 }}>Alamat</div>
+                            <div className="col-8">
+                                <div className="form-group">
+                                    <textarea
+                                        className="form-control"
+                                        id="exampleFormControlTextarea1"
+                                        rows="4"
+                                        ref="editaddress"
+                                        defaultValue={item.address}
+                                    />
+                                </div>
+                            </div>
+                        </div>  
                     </MDBCol>
                 </MDBRow>
             )
@@ -207,7 +214,7 @@ class ProfileUser extends Component {
                                 <div className="row">
                                     <div className="col-4"></div>
                                     <div className="col-4">
-                                        <input type='file' onChange={this.addImage} style={{fontSize:13}}/>
+                                        <input type='file' onChange={this.addImage} style={{ fontSize: 13 }} />
                                     </div>
                                     <div className="col-4"></div>
                                 </div>
@@ -218,12 +225,12 @@ class ProfileUser extends Component {
                         <div className="row">
                             <div className="col-4"> Email </div><div className="col-8">: {this.props.email}</div>
                             <div className="col-4"> Username </div><div className="col-8">: {this.props.username}</div>
-                            <div className="col-4"> FullName </div><div className="col-8">: {item.firstname} {item.lastname}</div>
-                            <div className="col-4"> Phone Number </div><div className="col-8">: {item.phonenumber}</div>
-                            <div className="col-4"> Age </div><div className="col-8">: {item.age}</div>
-                            <div className="col-4"> Gender </div><div className="col-8">: {item.gender}</div>
-                            <div className="col-4"> Job </div><div className="col-8">: {item.job}</div>
-                            <div className="col-4"> Address </div><div className="col-8">: {item.address}</div>
+                            <div className="col-4"> Nama Lengkap </div><div className="col-8">: {item.firstname} {item.lastname}</div>
+                            <div className="col-4"> Np. Hp </div><div className="col-8">: {item.phonenumber}</div>
+                            <div className="col-4"> Usia </div><div className="col-8">: {item.age}</div>
+                            <div className="col-4"> Jenis Kelamin </div><div className="col-8">: {item.gender}</div>
+                            <div className="col-4"> Pekerjaan </div><div className="col-8">: {item.job}</div>
+                            <div className="col-4"> Alamat </div><div className="col-8">: {item.address}</div>
                         </div>
                     </MDBCol>
                 </MDBRow>
@@ -267,10 +274,13 @@ class ProfileUser extends Component {
                             <div style={{ border: '2px solid black' }}> </div>
                             <br />
                             <MDBRow>
-
                                 {this.renderProfile()}
                             </MDBRow>
-                            <div style={{ border: '2px solid black', margin: '3% 0px 3% 0px' }}> </div>
+                        </MDBCol>
+                    </MDBRow>
+                    <div style={{ border: '2px solid black', margin: '3% 0px 3% 0px' }}> </div>
+                    <MDBRow>
+                        <MDBCol>
                             {this.renderInputProfile()}
                             <MDBRow>
                                 <MDBCol size="4">

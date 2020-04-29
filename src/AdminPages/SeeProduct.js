@@ -48,11 +48,11 @@ class SeeProduct extends Component {
                         <td>{item.size}gr</td>
                         <td><div style={{ width: 100 }}>Rp. {item.price}</div></td>
                         <td>{item.jumlahstock}</td>
-                        <td><div style={{width:400, fontSize: 12}}>{item.description}</div></td>
+                        <td><div style={{ width: 400, fontSize: 12 }}>{item.description}</div></td>
                         <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
                     </tr>
                 )
-            }else if (this.state.getCategory === 0) {
+            } else if (this.state.getCategory === 0) {
                 return (
                     <tr key={index} className="text-center">
                         <td>{item.productname}</td>
@@ -60,12 +60,12 @@ class SeeProduct extends Component {
                         <td>{item.size}gr</td>
                         <td><div style={{ width: 100 }}>Rp. {item.price}</div></td>
                         <td>{item.jumlahstock}</td>
-                        <td><div style={{width:400, fontSize:12}}>{item.description}</div></td>
+                        <td><div style={{ width: 400, fontSize: 12 }}>{item.description}</div></td>
                         <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
                     </tr>
                 )
-            }else{
-                return(
+            } else {
+                return (
                     <div></div>
                 )
             }
@@ -86,13 +86,7 @@ class SeeProduct extends Component {
         return (
             <div>
                 <main className="s-layout__content">
-                    <center>
-                        <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            ALL PRODUCT SARENONE
-                        </div>
-                    </center>
-                </main>
-                <main className="s-layout__content">
+
                     <center>
                         <MDBContainer>
                             <div>LIHAT BERDASARKAN CATEGORY</div>
@@ -106,18 +100,18 @@ class SeeProduct extends Component {
                                 <div className="col-4"></div>
                             </div>
                             <MDBTable bordered style={{ marginTop: 50 }}>
-                                <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
+                                <MDBTableHead style={{ backgroundColor: '#192b3c', color: 'white' }}>
                                     <tr style={{ fontSize: '10px', textAlign: 'center' }}>
-                                        <th>PRODUCT</th>
-                                        <th>CATEGORY</th>
-                                        <th>WEIGHT</th>
-                                        <th>PRICE</th>
+                                        <th>NAMA PRODUK</th>
+                                        <th>KATEGORI</th>
+                                        <th>BERAT</th>
+                                        <th>HARGA</th>
                                         <th>STOCK</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>IMAGE</th>
+                                        <th>DESKRIPSI</th>
+                                        <th>GAMBAR  </th>
                                     </tr>
                                 </MDBTableHead>
-                                <MDBTableBody style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
+                                <MDBTableBody>
                                     {this.renderGetProduct()}
                                 </MDBTableBody>
                             </MDBTable>

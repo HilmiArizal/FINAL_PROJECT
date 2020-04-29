@@ -5,7 +5,7 @@ import form2 from '../Image/FORM-2.png';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBIcon, MDBNavLink, MDBBtn } from "mdbreact";
 import { Register, Login } from '../Redux/Action';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
@@ -13,6 +13,8 @@ import { API_URL_1 } from '../Helpers/API_URL';
 class RegisterPage extends Component {
     state = {
         dataUser: [],
+
+        redirectLogin: false,
         char: false,
         num: false,
         show: false,
@@ -72,6 +74,7 @@ class RegisterPage extends Component {
                     if (char & num) {
                         var data = { username, email, password }
                         this.props.Register(data)
+                        this.setState({ redirectLogin: true })
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
@@ -111,9 +114,9 @@ class RegisterPage extends Component {
 
     render() {
         let { char, num, show, border } = this.state
-        if (this.props.role !== '') {
+        if (this.state.redirectLogin) {
             return (
-                <Redirect to='/unverified'>
+                <Redirect to='/login'>
 
                 </Redirect>
             )
@@ -126,31 +129,62 @@ class RegisterPage extends Component {
                             <MDBNavLink to="/" style={{ color: 'black' }}>
                                 <MDBIcon icon="times" />
                             </MDBNavLink>
-                            <h2 className="text-center" style={{ marginBottom: '20px' }}>Join with us!</h2>
-                            <form className="login-form">
+                            <h2 className="text-center" style={{ marginBottom: 20 }}>Join with us!</h2>
+                            <form className="login-form" style={{marginTop:40}}>
                                 <div className="form-group">
-                                    <label className="text-uppercase">Username</label>
-                                    <input type="text" className="form-control" ref='username' />
+                                    <div className="row">
+                                        <div className="col-3"> <label className="text-uppercase">Username</label></div>
+                                        <div className="col-9"> <input type="text" className="form-control" ref='username' /></div>
+                                    </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="text-uppercase">Email</label>
-                                    <input type="text" className="form-control" ref='email' defaultValue='hilmi.arizal36@gmail.com' />
+                                    <div className="row">
+                                        <div className="col-3"> <label className="text-uppercase">Email</label></div>
+                                        <div className="col-9"> <input type="text" className="form-control" ref='email' defaultValue='hilmi.arizal36@gmail.com' /></div>
+                                    </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="text-uppercase">Password</label>
-                                    <input type="password" className="form-control" ref='password' onChange={this.handleChange} onFocus={this.showReq} />
+                                    <div className="row">
+                                        <div className="col-3"> <label className="text-uppercase">Password</label></div>
+                                        <div className="col-9"> <input type="password" className="form-control" ref='password' onChange={this.handleChange} onFocus={this.showReq} /></div>
+                                    </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="text-uppercase">Confirm Password</label>
-                                    <input type="password" className="form-control" ref='confirmPassword' style={{ borderColor: border ? 'green' : 'red' }} />
+                                    <div className="row">
+                                        <div className="col-3"> <label className="text-uppercase">confirm Password</label></div>
+                                        <div className="col-9"> <input type="password" className="form-control" ref='confirmPassword' style={{ borderColor: border ? 'green' : 'red' }} /></div>
+                                    </div>
                                 </div>
                                 <div>
                                     <MDBBtn color="elegant" className="float-right" style={{ padding: '13px 30px 13px 30px', borderRadius: '5px', fontSize: ' 13px' }} onClick={this.RegisterUser}>SUBMIT</MDBBtn>
                                 </div>
                             </form>
-                            <div style={{ fontSize: '15px' }}>Are you Member? <MDBNavLink to="/login">Login here!</MDBNavLink></div>
+                            <div style={{ fontSize: 15, marginTop:35 }}>Sudah punya akun? <Link to="/login">Sign In</Link></div>
+                            <div className="text-center" style={{ marginTop: 50, fontSize: 14 }}>
+                                {
+                                    show
+                                        ?
+                                        <div>
+                                            {
+                                                char
+                                                    ?
+                                                    <div style={{ color: 'green' }}>Password length must be 8 or more Characters</div>
+                                                    :
+                                                    <div style={{ color: 'red' }}>Password length must be 8 or more Characters</div>
+                                            }
+                                            {
+                                                num
+                                                    ?
+                                                    <div style={{ color: 'green' }}>Password must include number</div>
+                                                    :
+                                                    <div style={{ color: 'red' }}>Password must include number</div>
+                                            }
+                                        </div>
+                                        :
+                                        null
+                                }
+                            </div>
                         </div>
-
                         <div className="col-md-8 banner-sec" >
                             <MDBCarousel
                                 activeItem={1}
@@ -183,36 +217,7 @@ class RegisterPage extends Component {
                         </div>
                     </div>
                 </div>
-                {
-                    show
-                        ?
-                        <div>
-                            {
-                                char
-                                    ?
-                                    <div style={{ color: 'green' }}>
-                                        Password length must be 8 or more Characters
-                            </div>
-                                    :
-                                    <div style={{ color: 'red' }}>
-                                        Password length must be 8 or more Characters
-                            </div>
-                            }
-                            {
-                                num
-                                    ?
-                                    <div style={{ color: 'green' }}>
-                                        Password must include number
-                            </div>
-                                    :
-                                    <div style={{ color: 'red' }}>
-                                        Password must include number
-                            </div>
-                            }
-                        </div>
-                        :
-                        null
-                }
+
             </section>
         );
     }

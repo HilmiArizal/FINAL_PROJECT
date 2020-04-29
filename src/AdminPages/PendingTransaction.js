@@ -189,68 +189,68 @@ class PendingTransaction extends Component {
 
     render() {
         return (
-            <div>
-                <main className="s-layout__content">
+            <div style={{ marginTop: 50 }}>
+                <MDBContainer>
                     <center>
-                        <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            PENDING TRANSACTION CUSTOMER
-                        </div>
-                        <MDBContainer style={{ marginTop: 50 }}>
-                            <div>LIHAT BERDASARKAN NAMA</div>
-                            <div className="row">
-                                <div className="col-4"></div>
-                                <div className="col-4">
-                                    <select className="form-control" onChange={(e) => this.setState({ getUser: e.target.value })} style={{ fontSize: 15 }}>
-                                        {this.renderGetAllUsername()}
-                                    </select>
+                        <div className="row">
+                            <div className="col-2"></div>
+                            <div className="col-10">
+                                <div>LIHAT BERDASARKAN NAMA</div>
+                                <div className="row">
+                                    <div className="col-4"></div>
+                                    <div className="col-4">
+                                        <select className="form-control" onChange={(e) => this.setState({ getUser: e.target.value })} style={{ fontSize: 15 }}>
+                                            {this.renderGetAllUsername()}
+                                        </select>
+                                    </div>
+                                    <div className="col-4"></div>
                                 </div>
-                                <div className="col-4"></div>
-                            </div>
-                            <div style={{ fontSize: 10 }}>*ADMIN DAPAT MELIHAT SEMUA KONSUMEN</div>
-                            {
-                                this.state.transaction.length > 0
-                                    ?
-                                    <MDBTable bordered style={{ marginTop: 50 }} >
-                                        <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
-                                            <tr style={{ fontSize: '10px', textAlign: 'center' }}>
-                                                <th>USERNAME</th>
-                                                <th>ADDRESS</th>
-                                                <th>TOTAL TRANSACTION</th>
-                                                <th>DATE TRANSACTION</th>
-                                                <th>TRANSACTION UPLOAD</th>
-                                                <th>STATUS</th>
-                                            </tr>
-                                        </MDBTableHead>
-                                        <MDBTableBody style={{ fontFamily: 'Hammersmith One, sans-serif' }} >
-                                            {this.renderGetTransaction()}
-                                        </MDBTableBody>
-                                    </MDBTable>
-                                    :
-                                    ''
-                            }
-                            <MDBBtn onClick={this.toggle(4)} color="elegant" size="sm">TOTAL PENDING TRANSAKSI KESELURUHAN</MDBBtn>
-                            <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
-                                <MDBModalHeader toggle={this.toggle(4)}></MDBModalHeader>
-                                <MDBModalBody>
-                                    <div style={{ fontSize: 20, margin: 20 }}>TOTAL HARIAN PENDING TRANSAKSI SEMUA KONSUMEN</div>
-                                    <MDBContainer>
+                                <div style={{ fontSize: 10 }}>*ADMIN DAPAT MELIHAT SEMUA KONSUMEN</div>
+                                <MDBBtn onClick={this.toggle(4)} color="elegant" size="sm" style={{ marginTop: 30 }}>TOTAL PENDING TRANSAKSI KESELURUHAN</MDBBtn>
+                                <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
+                                    <MDBModalHeader toggle={this.toggle(4)}></MDBModalHeader>
+                                    <MDBModalBody>
+                                        <div style={{ fontSize: 20, margin: 20 }}>TOTAL HARIAN PENDING TRANSAKSI SEMUA KONSUMEN</div>
+                                        <MDBContainer>
+                                            <MDBTable bordered >
+                                                <MDBTableHead style={{ backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
+                                                    <tr style={{ fontSize: '10px', textAlign: 'center' }}>
+                                                        <th>TANGGAL</th>
+                                                        <th>TOTAL TRANSAKSI</th>
+                                                    </tr>
+                                                </MDBTableHead>
+                                                <MDBTableBody >
+                                                    {this.renderGetTotalTransaction()}
+                                                </MDBTableBody>
+                                            </MDBTable>
+                                        </MDBContainer>
+                                    </MDBModalBody>
+                                </MDBModal>
+                                {
+                                    this.state.transaction.length > 0
+                                        ?
                                         <MDBTable bordered >
-                                            <MDBTableHead style={{ backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
+                                            <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
                                                 <tr style={{ fontSize: '10px', textAlign: 'center' }}>
-                                                    <th>TANGGAL</th>
-                                                    <th>TOTAL TRANSAKSI</th>
+                                                    <th>USERNAME</th>
+                                                    <th>ADDRESS</th>
+                                                    <th>TOTAL TRANSACTION</th>
+                                                    <th>DATE TRANSACTION</th>
+                                                    <th>TRANSACTION UPLOAD</th>
+                                                    <th>STATUS</th>
                                                 </tr>
                                             </MDBTableHead>
-                                            <MDBTableBody >
-                                                {this.renderGetTotalTransaction()}
+                                            <MDBTableBody style={{ fontFamily: 'Hammersmith One, sans-serif' }} >
+                                                {this.renderGetTransaction()}
                                             </MDBTableBody>
                                         </MDBTable>
-                                    </MDBContainer>
-                                </MDBModalBody>
-                            </MDBModal>
-                        </MDBContainer>
+                                        :
+                                        ''
+                                }
+                            </div>
+                        </div>
                     </center>
-                </main>
+                </MDBContainer>
             </div>
         );
     }

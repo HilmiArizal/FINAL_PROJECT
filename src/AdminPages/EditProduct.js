@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import { API_URL_1 } from '../Helpers/API_URL';
-import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead, MDBTableFoot } from 'mdbreact';
+import { MDBBtn, MDBTable, MDBTableBody, MDBTableHead, MDBTableFoot, MDBContainer } from 'mdbreact';
 
 class EditProduct extends Component {
     state = {
@@ -179,7 +179,7 @@ class EditProduct extends Component {
             console.log(formData)
             if (window.confirm(`Anda yakin ingin mengubah produk?`)) {
                 let res = await Axios.patch(API_URL_1 + `products/EditProducts/${productId}`, formData)
-                console.log(res.data)
+                // console.log(res.data)
                 alert('Produk sudah diganti silahkan cek')
                 window.location.reload()
             }
@@ -227,13 +227,13 @@ class EditProduct extends Component {
                     <tr key={index}>
                         <td>
                             <select defaultValue={item.sizeId} className="form-control" onChange={(e) => this.onChangeSelectSize(e, index)} >
-                                <option>EDIT WEIGHT</option>
+                                <option value="none" selected disabled hidden>EDIT WEIGHT</option>
                                 {this.renderListSize()}
                             </select>
                         </td>
                         <td>
                             <select defaultValue={item.priceId} className="form-control" onChange={(e) => this.onChangeSelectPrice(e, index)} >
-                                <option>EDIT PRICE</option>
+                                <option value="none" selected disabled hidden>EDIT PRICE</option>
                                 {this.renderListPrice()}
                             </select>
                         </td>
@@ -245,7 +245,9 @@ class EditProduct extends Component {
                             />
                         </td>
                         <td>
-                            <button onClick={() => this.setState({ editInput: null })}>OK</button>
+                            <center>
+                                <button className="form-control" style={{ width: 60, fontSize: 10, backgroundColor: "#404040", color: "white" }} onClick={() => this.setState({ editInput: null })}>OK</button>
+                            </center>
                         </td>
                     </tr>
                 )
@@ -263,8 +265,14 @@ class EditProduct extends Component {
                     </td>
                     <td>
                         <center>
-                            <button onClick={() => this.setState({ editInput: index })}>Edit</button>
-                            <button onClick={() => this.btnDeleteStock(item.id)}>Delete</button>
+                            <div className="row">
+                                <div className="col-6">
+                                    <button className="form-control" style={{ width: 60, fontSize: 10, backgroundColor: "#404040", color: "white" }} onClick={() => this.setState({ editInput: index })}>UBAH</button>
+                                </div>
+                                <div className="col-6">
+                                    <button className="form-control" style={{ width: 60, fontSize: 10, backgroundColor: "#404040", color: "white" }} onClick={() => this.btnDeleteStock(item.id)}>HAPUS</button>
+                                </div>
+                            </div>
                         </center>
                     </td>
                 </tr>
@@ -275,20 +283,24 @@ class EditProduct extends Component {
     renderGetProduct = () => {
         const { product } = this.state
         return (
-            <div style={{ fontFamily: 'Hammersmith One, sans-serif'}}>
-                <div><input type='text' className='form-control' defaultValue={product.productname} ref="productName" /></div>
-                <br />
-                <select className="form-control" onChange={this.onChangeSelectCategory} >
-                    <option value={product.productname}>EDIT CATEGORY</option>
-                    {this.renderListCategory()}
-                </select>
+            <div>
+                <div className="row">
+                    <div className="col-6">UBAH NAMA PRODUK <input type='text' className='form-control' defaultValue={product.productname} ref="productName" /></div>
+                    <div className="col-6">
+                        UBAH KATEGORI PRODUK
+                        <select className="form-control" onChange={this.onChangeSelectCategory} >
+                            <option value="none" selected disabled hidden>PILIH KATEGORI</option>
+                            {this.renderListCategory()}
+                        </select>
+                    </div>
+                </div>
                 <br />
                 <MDBTable bordered className="text-center">
-                    <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
+                    <MDBTableHead style={{ backgroundColor: '#192b3c', color: 'white' }}>
                         <tr>
-                            <th className='EDP-Table-Head-Txt'>SIZE</th>
-                            <th className='EDP-Table-Head-Txt'>PRODUCT</th>
-                            <th className='EDP-Table-Head-Txt'>STOCK</th>
+                            <th className='EDP-Table-Head-Txt'>BERAT PRODUK</th>
+                            <th className='EDP-Table-Head-Txt'>HARGA PRODUK</th>
+                            <th className='EDP-Table-Head-Txt'>STOCK PRODUK</th>
                             <th className='EDP-Table-Head-Txt'>ACTION</th>
                         </tr>
                     </MDBTableHead>
@@ -298,27 +310,29 @@ class EditProduct extends Component {
                     <MDBTableFoot>
                         <tr>
                             <td>
-                                <select defaultValue={this.state.newSizeId} className="form-control" onChange={(e) => this.setState({ newSizeId: e.target.value, newSize: e.target[e.target.selectedIndex].text })}>
-                                    <option >NEW SIZE</option>
+                                <select defaultValue={this.state.newSizeId} className="form-control" onChange={(e) => this.setState({ newSizeId: e.target.value, newSize: e.target[e.target.selectedIndex].text })} style={{ fontSize: 12 }}>
+                                    <option value="none" selected disabled hidden> BERAT PRODUK BARU</option>
                                     {this.renderListSize()}
                                 </select>
                             </td>
                             <td>
-                                <select defaultValue={this.state.newPriceId} className="form-control" onChange={(e) => this.setState({ newPriceId: e.target.value, newPrice: e.target[e.target.selectedIndex].text })}>
-                                    <option >NEW PRICE</option>
+                                <select defaultValue={this.state.newPriceId} className="form-control" onChange={(e) => this.setState({ newPriceId: e.target.value, newPrice: e.target[e.target.selectedIndex].text })} style={{ fontSize: 12 }}>
+                                    <option value="none" selected disabled hidden>HARGA PRODUK BARU</option>
                                     {this.renderListPrice()}
                                 </select>
                             </td>
                             <td>
-                                <input onChange={(e) => this.setState({ newStock: e.target.value })} className='form-control' type='number' placeholder='NEW STOCK' />
+                                <input onChange={(e) => this.setState({ newStock: e.target.value })} className='form-control' type='number' placeholder='STOCK PRODUK BARU' style={{fontSize:12, height:40}} />
                             </td>
                             <td>
-                                <input type="button" value="Add Stock" onClick={this.newStock} />
+                                <center>
+                                    <input className="form-control" style={{ width: 110, fontSize: 10, backgroundColor: "#404040", color: "white" }} type="button" value="TAMBAH STOCK" onClick={this.newStock} />
+                                </center>
                             </td>
                         </tr>
                     </MDBTableFoot>
                 </MDBTable>
-                <div className='EDP-Box-Edit-Img'> EDIT IMAGE
+                <div className='EDP-Box-Edit-Img'> EDIT GAMBAR PRODUK
                 <br />
                     <label className='EDP-Input-File'>
                         {
@@ -329,18 +343,29 @@ class EditProduct extends Component {
                                 <img className='EDP-Box-Edit-Img' src={API_URL_1 + product.imagePath} alt="img" width='30%' />
                         }
                         <br />
-                        <input type="file" onChange={this.addImage} />
+                        <MDBContainer>
+                            <div className="row">
+                                <div className="col-4"></div>
+                                <div className="col-4">
+                                    <center>
+                                        <input type="file" onChange={this.addImage} />
+                                    </center>
+                                </div>
+                                <div className="col-4"></div>
+                            </div>
+                        </MDBContainer>
                     </label>
                 </div>
                 <br />
                 <div className="form-group">
-                    <em>EDIT DESCRIPTION</em>
+                    <em>UBAH DESKRIPSI PRODUK</em>
                     <textarea
                         className="form-control"
                         id="exampleFormControlTextarea1"
-                        rows="5"
+                        rows="3"
                         ref="productDescription"
                         defaultValue={product.description}
+                        style={{ fontSize: 13 }}
                     />
                 </div>
             </div>
@@ -349,20 +374,18 @@ class EditProduct extends Component {
 
     render() {
         return (
-            <div>
-                <main className="s-layout__content">
-                    <center>
-                        <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            EDIT PRODUCT SARENONE
+            <div style={{ marginTop: 50 }}>
+                <MDBContainer>
+                    <div className="row">
+                        <div className="col-2"></div>
+                        <div className="col-10">
+                            <center>
+                                {this.renderGetProduct()}
+                                <MDBBtn color="elegant" size="md" onClick={this.btnConfirmEdit}>SAVE</MDBBtn>
+                            </center>
+                        </div>
                     </div>
-                    </center>
-                </main>
-                <main className="s-layout__content">
-                    <center>
-                        {this.renderGetProduct()}
-                        <MDBBtn color="elegant" size="md" onClick={this.btnConfirmEdit}>SAVE</MDBBtn>
-                    </center>
-                </main>
+                </MDBContainer>
             </div>
         );
     }

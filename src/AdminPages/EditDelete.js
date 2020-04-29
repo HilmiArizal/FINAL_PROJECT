@@ -152,9 +152,9 @@ class EditDelete extends Component {
                     <td><img src={API_URL_1 + item.imagePath} alt='ImgProduct' width='100px' /></td>
                     <td>{item.productname}</td>
                     <td><div>
-                        <MDBBtn size="sm" color="elegant" onClick={() => this.btnDeleteProduct(item.id, item.imagePath)}>DELETE</MDBBtn>
+                        <MDBBtn size="sm" color="elegant" onClick={() => this.btnDeleteProduct(item.id, item.imagePath)}>HAPUS PRODUK</MDBBtn>
                         <Link to={`/editproduct?id=${item.id}`}>
-                            <MDBBtn size="sm" color="elegant">EDIT</MDBBtn>
+                            <MDBBtn size="sm" color="elegant">UBAH PRODUK</MDBBtn>
                         </Link>
                     </div>
                     </td>
@@ -195,30 +195,30 @@ class EditDelete extends Component {
 
     render() {
         return (
-            <div>
-                <main className="s-layout__content">
-                    <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                        EDIT / DELETE PRODUCT SARENONE
+            <div style={{ marginTop: 50 }}>
+                <MDBContainer>
+                    <div className="row">
+                        <div className="col-2"></div>
+                        <div className="col-10">
+                            <center>
+                                <MDBContainer>
+                                    <MDBTable bordered >
+                                        <MDBTableHead style={{ backgroundColor: '#192b3c', color: 'white' }}>
+                                            <tr style={{ fontSize: '10px', textAlign: 'center' }}>
+                                                <th>GAMBAR PRODUK</th>
+                                                <th>NAMA PRODUK</th>
+                                                <th>ACTION</th>
+                                            </tr>
+                                        </MDBTableHead>
+                                        <MDBTableBody >
+                                            {this.renderGetProduct()}
+                                        </MDBTableBody>
+                                    </MDBTable>
+                                </MDBContainer>
+                            </center>
+                        </div>
                     </div>
-                </main>
-                <main className="s-layout__content">
-                    <center>
-                        <MDBContainer>
-                            <MDBTable bordered >
-                                <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
-                                    <tr style={{ fontSize: '10px', textAlign: 'center' }}>
-                                        <th>IMAGE</th>
-                                        <th>PRODUCT</th>
-                                        <th>ACTION</th>
-                                    </tr>
-                                </MDBTableHead>
-                                <MDBTableBody style={{ fontFamily: 'Hammersmith One, sans-serif'}} >
-                                    {this.renderGetProduct()}
-                                </MDBTableBody>
-                            </MDBTable>
-                        </MDBContainer>
-                    </center>
-                </main>
+                </MDBContainer>
             </div>
         );
     }

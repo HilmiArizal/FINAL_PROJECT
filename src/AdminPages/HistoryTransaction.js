@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 
 class HisTransaction extends Component {
+
     state = {
         transaction: [],
         totaltransaction: [],
@@ -18,7 +19,9 @@ class HisTransaction extends Component {
         getDateTransaction: 0,
 
         modal4: false,
-        modal5: false
+        modal5: false,
+
+        offset: 0
     }
 
     toggle = nr => () => {
@@ -35,8 +38,9 @@ class HisTransaction extends Component {
         this.getTransactionDate()
     }
 
-    getTransaction = () => {
-        Axios.get(API_URL_1 + `transaction/getAllTransactionPaid`)
+    getTransaction = (ChoosenOffset) => {
+        const { offset } = this.state;
+        Axios.get(API_URL_1 + `transaction/getAllTransactionPaid?limit=3&offset=${ChoosenOffset === undefined ? offset : ChoosenOffset}`)
             .then((res) => {
                 this.setState({ transaction: res.data })
                 // console.log(res.data)
@@ -132,10 +136,10 @@ class HisTransaction extends Component {
             if (this.state.getUser === item.username) {
                 return (
                     <tr key={index} className="text-center">
+                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td>{item.username}</td>
                         <td style={{ width: 200 }}>{item.address}</td>
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
-                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
                             <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div>
@@ -154,10 +158,10 @@ class HisTransaction extends Component {
             } else if (this.state.getUser === "admin") {
                 return (
                     <tr key={index} className="text-center">
+                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td>{item.username}</td>
                         <td style={{ width: 200 }}>{item.address}</td>
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
-                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
                             <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div>
@@ -176,10 +180,10 @@ class HisTransaction extends Component {
             } else if (this.state.getUser === 0) {
                 return (
                     <tr key={index} className="text-center">
+                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td>{item.username}</td>
                         <td style={{ width: 200 }}>{item.address}</td>
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
-                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
                             <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div></td>
@@ -197,10 +201,10 @@ class HisTransaction extends Component {
             } else if (this.state.getDateTransaction === moment(item.datetransaction).format('LL')) {
                 return (
                     <tr key={index} className="text-center">
+                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td>{item.username}</td>
                         <td style={{ width: 200 }}>{item.address}</td>
                         <td>Rp. {item.totaltransaction.toLocaleString()},-</td>
-                        <td><div className="d-flex justify-content-center">{moment(item.datetransaction).format('LL')}</div></td>
                         <td><div style={{ cursor: 'pointer' }}>
                             <img src={API_URL_1 + item.buktitransaksi} alt="BuktiPembayaran" style={{ width: 100 }} />
                         </div>
@@ -217,48 +221,80 @@ class HisTransaction extends Component {
                     </tr>
                 )
             } else {
-                return(
+                return (
                     <div></div>
                 )
             }
         })
     }
 
+    renderPaginationTransaction = () => {
+        let page = [];
+        for (var i = 0; i < 5; i++) {
+            page.push({ numb: i })
+        }
+        return page.map((item) => {
+            return (
+                <a href="#" style={{ marginTop: 5 }}
+                    onClick={() => {
+                        this.getTransaction(item.numb === 0 ? item.numb : item.numb * 2)
+                        this.setState({ offset: item.numb })
+                    }}
+                >{item.numb + 1}</a>
+            )
+        })
+    }
+
     render() {
+        const { offset } = this.state;
         return (
-            <div>
-                <main className="s-layout__content">
+            <div style={{ marginTop: 50 }}>
+                <MDBContainer>
                     <center>
-                        <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            HISTORY TRANSACTION CUSTOMER
-                        </div>
-                        <MDBContainer style={{ marginTop: 50 }}>
-                            <div>LIHAT BERDASARKAN NAMA</div>
-                            <div className="row">
-                                <div className="col-4">
-                                    <select className="form-control" onChange={(e) => this.setState({ getDateTransaction: e.target[e.target.selectedIndex].text })} style={{ fontSize: 15 }}>
-                                        {this.renderGetDateTransaction()}
-                                    </select>
+                        <div className="row">
+                            <div className="col-2"></div>
+                            <div className="col-10">
+                                <div>LIHAT BERDASARKAN NAMA</div>
+                                <div className="row">
+                                    <div className="col-4"></div>
+                                    <div className="col-4">
+                                        <select className="form-control" onChange={(e) => this.setState({ getUser: e.target.value })} style={{ fontSize: 15 }}>
+                                            {this.renderGetAllUsername()}
+                                        </select>
+                                    </div>
+                                    <div className="col-4"></div>
                                 </div>
-                                <div className="col-4">
-                                    <select className="form-control" onChange={(e) => this.setState({ getUser: e.target.value })} style={{ fontSize: 15 }}>
-                                        {this.renderGetAllUsername()}
-                                    </select>
-                                </div>
-                                <div className="col-4"></div>
-                            </div>
-                            <div style={{ fontSize: 10 }}>*ADMIN DAPAT MELIHAT SEMUA KONSUMEN</div>
-                            {
-                                this.state.transaction.length > 0
-                                    ?
+                                <div style={{ fontSize: 10 }}>*ADMIN DAPAT MELIHAT SEMUA KONSUMEN</div>
+                                <MDBBtn onClick={this.toggle(4)} color="elegant" size="sm">TOTAL TRANSAKSI PERTANGGAL</MDBBtn>
+                                <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
+                                    <MDBModalHeader toggle={this.toggle(4)}></MDBModalHeader>
+                                    <MDBModalBody>
+                                        <div style={{ fontSize: 20, margin: 20 }}>TOTAL HARIAN TRANSAKSI SEMUA KONSUMEN</div>
+                                        <MDBContainer>
+                                            <MDBTable bordered >
+                                                <MDBTableHead style={{ backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
+                                                    <tr style={{ fontSize: '10px', textAlign: 'center' }}>
+                                                        <th>TANGGAL</th>
+                                                        <th>TOTAL TRANSAKSI</th>
+                                                    </tr>
+                                                </MDBTableHead>
+                                                <MDBTableBody >
+                                                    {this.renderGetTotalTransaction()}
+                                                </MDBTableBody>
+                                            </MDBTable>
+                                        </MDBContainer>
+                                    </MDBModalBody>
+                                </MDBModal>
+
+                                <div>
                                     <MDBTable bordered style={{ marginTop: 50 }} >
                                         <MDBTableHead style={{ fontFamily: 'Hammersmith One, sans-serif', backgroundColor: '#192b3c', color: 'white' }}>
-                                            <tr style={{ fontSize: '10px', textAlign: 'center' }}>
+                                            <tr style={{ fontSize: '10px', textAlign: 'center' }} className="text-center">
+                                                <th>TANGGAL</th>
                                                 <th>USERNAME</th>
-                                                <th>ADDRESS</th>
-                                                <th>TOTAL TRANSACTION</th>
-                                                <th>DATE TRANSACTION</th>
-                                                <th>TRANSACTION UPLOAD</th>
+                                                <th>ALAMAT</th>
+                                                <th>TOTAL</th>
+                                                <th>UPLOAD</th>
                                                 <th>STATUS</th>
                                             </tr>
                                         </MDBTableHead>
@@ -266,33 +302,29 @@ class HisTransaction extends Component {
                                             {this.renderGetTransaction()}
                                         </MDBTableBody>
                                     </MDBTable>
-                                    :
-                                    ''
-                            }
-                            <MDBBtn onClick={this.toggle(4)} color="elegant" size="sm">TOTAL TRANSAKSI KESELURUHAN</MDBBtn>
-                            <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
-                                <MDBModalHeader toggle={this.toggle(4)}></MDBModalHeader>
-                                <MDBModalBody>
-                                    <div style={{ fontSize: 20, margin: 20 }}>TOTAL HARIAN TRANSAKSI SEMUA KONSUMEN</div>
-                                    <MDBContainer>
-                                        <MDBTable bordered >
-                                            <MDBTableHead style={{ backgroundColor: '#404040', color: 'white', fontFamily: 'Hammersmith One, sans-serif' }}>
-                                                <tr style={{ fontSize: '10px', textAlign: 'center' }}>
-                                                    <th>TANGGAL</th>
-                                                    <th>TOTAL TRANSAKSI</th>
-                                                </tr>
-                                            </MDBTableHead>
-                                            <MDBTableBody >
-                                                {this.renderGetTotalTransaction()}
-                                            </MDBTableBody>
-                                        </MDBTable>
-                                    </MDBContainer>
-                                </MDBModalBody>
-                            </MDBModal>
-                        </MDBContainer>
+                                    <div className="pagination d-flex justify-content-center">
+                                        <div className="row">
+                                            <a href="#" onClick={() => {
+                                                this.getTransaction((offset - 1) * 2)
+                                                this.setState({ offset: offset === 0 ? offset : offset - 1 })
+                                            }
+                                            } style={{ fontSize: 20 }}>&laquo;
+                                              </a>
+                                            {this.renderPaginationTransaction()}
+                                            <a href="#" onClick={() => {
+                                                this.getTransaction((offset + 1) * 2)
+                                                this.setState({ offset: offset === 3 ? offset : offset + 1 })
+                                            }
+                                            } style={{ fontSize: 20 }}>&raquo;
+                                              </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </center>
-                </main>
-            </div>
+                </MDBContainer>
+            </div >
         );
     }
 }

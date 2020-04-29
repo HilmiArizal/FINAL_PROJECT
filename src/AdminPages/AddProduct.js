@@ -5,6 +5,7 @@ import { API_URL_1 } from '../Helpers/API_URL';
 import { MDBInput, MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBCol, MDBRow, MDBJumbotron } from 'mdbreact';
 import '../CSSAdmin/InputNumber.css';
 import noproduct from '../Image/noproduct.png';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -25,6 +26,7 @@ class AddProduct extends Component {
 
         modal14: false,
         value: 0,
+        redirectProduct: false,
 
         addImageFile: undefined,
         previewImage: undefined,
@@ -36,14 +38,6 @@ class AddProduct extends Component {
         this.setState({
             [modalNumber]: !this.state[modalNumber]
         });
-    }
-
-    decrease = () => {
-        this.setState({ value: this.state.value - 1 });
-    }
-
-    increase = () => {
-        this.setState({ value: this.state.value + 1 });
     }
 
     componentDidMount() {
@@ -68,7 +62,7 @@ class AddProduct extends Component {
         Axios.get(API_URL_1 + `products/getCategory`)
             .then((res) => {
                 this.setState({ category: res.data })
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch((err) => {
                 // console.log(err)
@@ -115,19 +109,16 @@ class AddProduct extends Component {
     btnSaveAddStock = () => {
         var size = this.state.addSize
         var price = this.state.addPrice;
-        var jumlahstock = this.state.value
+        var jumlahstock = this.refs.quantity.value;
         var sizeName = this.state.addSizeName;
         var priceName = this.state.addPriceName;
         if (size && price && jumlahstock) {
-            this.state.stock.push([parseInt(size), parseInt(price), jumlahstock])
-            this.state.stockName.push([sizeName, priceName, jumlahstock])
+            this.state.stock.push([parseInt(size), parseInt(price), parseInt(jumlahstock)])
+            this.state.stockName.push([`size: ${sizeName}, price: ${priceName}, stock: ${jumlahstock}`])
             alert('Stock ditambahkan')
         } else {
             alert('Isi dgn benar!')
-            this.setState({ modal14: !this.state.modal14 })
-
         }
-        // console.log(this.state.stock)
         // window.location.reload()
     }
 
@@ -165,10 +156,10 @@ class AddProduct extends Component {
                     formData.append('image', addImageFile)
                     console.log(formData)
                     if (window.confirm(`Anda yakin ingin menambahkan produk?`)) {
-                        let res = await Axios.post(API_URL_1 + `products/AddProducts`, formData)
-                        console.log(res.data)
+                        await Axios.post(API_URL_1 + `products/AddProducts`, formData)
+                        // console.log(res.data)
                         alert('Produk sudah ditambahkan silahkan cek')
-                        window.location.reload()
+                        this.setState({ redirectProduct: true })
                     }
                 } else {
                     alert('Please, isi dengan lengkap!')
@@ -183,93 +174,97 @@ class AddProduct extends Component {
 
     renderInputProduct = () => {
         return (
-            <MDBContainer>
-                <MDBJumbotron>
-                    <div className="row">
-                        <div className="col-6">
-                            <MDBInput label="Product Name" inputRef={(productName) => this.productName = productName} />
-                        </div>
-                        <div className="col-6" style={{ marginTop: 27 }}>
-                            <select className="form-control" onChange={this.onChangeSelectCategory}>
-                                <option value={this.state.addCategory}>Pilih Category</option>
-                                {this.renderListCategory()}
-                            </select>
-                        </div>
+            <MDBJumbotron>
+                <div className="row">
+                    <div className="col-6">
+                        <MDBInput label="Nama Produk" inputRef={(productName) => this.productName = productName} />
                     </div>
-                    <div style={{ fontFamily: 'arial' }}>
-                        {this.state.stockName.join(' || ')}
+                    <div className="col-6" style={{ marginTop: 27 }}>
+                        <select className="form-control" onChange={this.onChangeSelectCategory}>
+                            <option value={this.state.addCategory} value="none" selected disabled hidden>Pilih Kategori</option>
+                            {this.renderListCategory()}
+                        </select>
                     </div>
-                    <MDBContainer>
-                        <MDBBtn color="elegant" size="sm" onClick={this.toggle(14)}>ADD STOCK</MDBBtn>
-                        <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
-                            <MDBModalHeader toggle={this.toggle(14)}></MDBModalHeader>
-                            <MDBModalBody>
-                                <MDBRow>
-                                    <MDBCol md="6">
-                                        <select className="form-control" onChange={this.onChangeSelectSize}>
-                                            <option value={this.state.addSize}>Pilih Size</option>
-                                            {this.renderListSize()}
-                                        </select>
-                                    </MDBCol>
-                                    <MDBCol md="6">
-                                        <select className="form-control" onChange={this.onChangeSelectPrice}>
-                                            <option value={this.state.addPrice}>Pilih Price</option>
-                                            {this.renderListPrice()}
-                                        </select>
-                                    </MDBCol>
-                                </MDBRow>
-                                <br />
-                                <br />
+                </div>
+                <div style={{ fontFamily: 'arial', textAlign: "center" }}>
+                    {this.state.stockName.join(' || ')}
+                </div>
+                <MDBContainer>
+                    <center>
+                        <MDBBtn color="elegant" size="sm" onClick={this.toggle(14)}>TAMBAH STOCK</MDBBtn>
+                    </center>
+                    <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
+                        <MDBModalHeader toggle={this.toggle(14)}></MDBModalHeader>
+                        <MDBModalBody>
+                            <MDBRow>
+                                <MDBCol md="6">
+                                    <select className="form-control" onChange={this.onChangeSelectSize}>
+                                        <option value={this.state.addSize} value="none" selected disabled hidden>Pilih Berat</option>
+                                        {this.renderListSize()}
+                                    </select>
+                                </MDBCol>
+                                <MDBCol md="6">
+                                    <select className="form-control" onChange={this.onChangeSelectPrice}>
+                                        <option value={this.state.addPrice} value="none" selected disabled hidden>Pilih Harga</option>
+                                        {this.renderListPrice()}
+                                    </select>
+                                </MDBCol>
+                            </MDBRow>
+                            <br />
+                            <center>
                                 <h4>JUMLAH STOCK</h4>
-                                <div className="def-number-input number-input">
-                                    <center>
-                                        <button onClick={this.decrease} className="minus"></button>
-                                        <input className="quantity" name="quantity" value={this.state.value} onChange={() => console.log('change')}
-                                            type="number" />
-                                        <button onClick={this.increase} className="plus"></button>
-                                    </center>
-                                </div>
-                                <button onClick={this.btnSaveAddStock}>Keep in stock</button>
-                            </MDBModalBody>
-                        </MDBModal>
-                    </MDBContainer>
-                    <br />
-                    <div className="form-group">
-                        <label htmlFor="exampleFormControlTextarea1">
-                            Description
-                    </label>
-                        <textarea
-                            className="form-control"
-                            id="exampleFormControlTextarea1"
-                            rows="5"
-                            ref="productDescription"
-                        />
-                    </div>
-                    {
-                        this.state.previewImage
-                            ?
-                            <div className='d-flex justify-content-center'>
-                                <img className='EDP-Preview-Image' src={this.state.previewImage} alt="profile" style={{ height: 100, width: 150 }} />
-                            </div>
-                            :
-                            <div className='d-flex justify-content-center'>
-                                <img className='EDP-Preview-Image' src={noproduct} alt="profile" style={{ height: 100, width: 150 }} />
-                            </div>
-                    }
+                                <center>
+                                    <input className="form-control" ref="quantity" type="number" style={{ width: 100 }} />
+                                </center>
+                                <br />
+                                <button className="form-control" onClick={this.btnSaveAddStock} style={{ width: 200, backgroundColor: '#404040', color: "white" }}>Simpan Stock</button>
+                            </center>
+                        </MDBModalBody>
+                    </MDBModal>
+                </MDBContainer>
+                <br />
+                {
+                    this.state.previewImage
+                        ?
+                        <div className='d-flex justify-content-center'>
+                            <img className='EDP-Preview-Image' src={this.state.previewImage} alt="profile" width='30%' />
+                        </div>
+                        :
+                        <div className='d-flex justify-content-center'>
+                            <img className='EDP-Preview-Image' src={noproduct} alt="profile" width='30%' />
+                        </div>
+                }
+                <MDBContainer>
                     <div className='d-flex justify-content-center' style={{ margin: 20 }} >
                         <div className="row">
                             <div className="col-4"></div>
                             <div className="col-4">
-                                <input type='file' onChange={this.addImage} />
+                                <center>
+                                    <input type='file' onChange={this.addImage} />
+                                </center>
                             </div>
                             <div className="col-4"></div>
                         </div>
                     </div>
+                </MDBContainer>
+                <div className="form-group">
                     <center>
-                        <div> <MDBBtn size="md" color="elegant" onClick={this.uploadProduct}>Save changes</MDBBtn></div>
+                        <label htmlFor="exampleFormControlTextarea1">
+                            Deskripsi Produk
+                        </label>
                     </center>
-                </MDBJumbotron>
-            </MDBContainer>
+                    <textarea
+                        className="form-control"
+                        id="exampleFormControlTextarea1"
+                        rows="3"
+                        ref="productDescription"
+                        style={{ fontSize: 13 }}
+                    />
+                </div>
+                <center>
+                    <div> <MDBBtn size="md" color="elegant" onClick={this.uploadProduct}>save</MDBBtn></div>
+                </center>
+            </MDBJumbotron>
         )
     }
 
@@ -304,20 +299,23 @@ class AddProduct extends Component {
     }
 
     render() {
+        if (this.state.redirectProduct) {
+            return (
+                <Redirect to="/seeproduct">
+
+                </Redirect>
+            )
+        }
         return (
-            <div>
-                <main className="s-layout__content">
-                    <center>
-                        <div style={{ fontSize: '250%', fontFamily: 'Hammersmith One, sans-serif' }}>
-                            ADD PRODUCT SARENONE
+            <div style={{ marginTop: 50 }}>
+                <MDBContainer>
+                    <div className="row">
+                        <div className="col-2"></div>
+                        <div className="col-10">
+                            {this.renderInputProduct()}
                         </div>
-                    </center>
-                </main>
-                <main className="s-layout__content" style={{ fontFamily: 'Hammersmith One, sans-serif' }}>
-                    <center>
-                        {this.renderInputProduct()}
-                    </center>
-                </main>
+                    </div>
+                </MDBContainer>
             </div>
         );
     }

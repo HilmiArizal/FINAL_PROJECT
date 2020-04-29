@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import '../CSSUser/Login.css';
 import form1 from '../Image/FORM-1.png'
 import form2 from '../Image/FORM-2.png';
@@ -54,7 +54,7 @@ class LoginPage extends Component {
                                     </div>
                                 </form>
                             </div>
-                            <div style={{ fontSize: '15px' }}>Are you Not a Member? <MDBNavLink to="/register">Create account!</MDBNavLink></div>
+                            <div style={{ fontSize:15, marginTop:35 }}>Belum punya akun? <Link to="/register">Sign Up</Link></div>
                         </div>
                         <div className="col-md-8 banner-sec" >
                             <MDBCarousel
